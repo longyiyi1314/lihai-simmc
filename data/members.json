@@ -26,7 +26,17 @@
       "contacts": {},
       "featured": true,
       "order": 10,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "root",
+        "finance-committee",
+        "gov",
+        "culture",
+        "judiciary",
+        "mil",
+        "red-army-hq",
+        "red-guard-corps"
+      ]
     },
     {
       "id": "foreverzzz",
@@ -46,7 +56,14 @@
       "contacts": {},
       "featured": true,
       "order": 20,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "judiciary",
+        "mil",
+        "defense-dept",
+        "red-army-hq",
+        "falcon-corps"
+      ]
     },
     {
       "id": "lnactifseven",
@@ -68,7 +85,19 @@
       "contacts": {},
       "featured": true,
       "order": 21,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "plan",
+        "liquor-bureau",
+        "trade-bureau",
+        "finance-committee",
+        "supervision",
+        "culture",
+        "judiciary",
+        "mil",
+        "red-army-hq",
+        "arcane-corps"
+      ]
     },
     {
       "id": "yangguagua",
@@ -89,7 +118,11 @@
       "contacts": {},
       "featured": true,
       "order": 30,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "foreign-recruit",
+        "culture"
+      ]
     },
     {
       "id": "akiyamatwt",
@@ -109,7 +142,10 @@
       "contacts": {},
       "featured": true,
       "order": 31,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "housing-dept"
+      ]
     },
     {
       "id": "heinrich4084",
@@ -132,7 +168,13 @@
       "contacts": {},
       "featured": true,
       "order": 32,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "warehouse",
+        "urban-facilities",
+        "supervision",
+        "capital-garrison"
+      ]
     },
     {
       "id": "hh-xmh",
@@ -153,7 +195,11 @@
       "contacts": {},
       "featured": false,
       "order": 33,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "supervision",
+        "culture"
+      ]
     },
     {
       "id": "haaamburger",
@@ -173,7 +219,10 @@
       "contacts": {},
       "featured": false,
       "order": 34,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-dept"
+      ]
     },
     {
       "id": "xiaofeiying",
@@ -193,7 +242,10 @@
       "contacts": {},
       "featured": false,
       "order": 41,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "liquor-bureau"
+      ]
     },
     {
       "id": "tyfm1324",
@@ -211,7 +263,8 @@
       "contacts": {},
       "featured": false,
       "order": 74,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "darkwings-lok",
@@ -232,7 +285,12 @@
       "contacts": {},
       "featured": false,
       "order": 40,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-dept",
+        "labor-bureau",
+        "capital-garrison"
+      ]
     },
     {
       "id": "ssuzu3",
@@ -250,7 +308,8 @@
       "contacts": {},
       "featured": false,
       "order": 75,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "yizz34",
@@ -270,7 +329,11 @@
       "contacts": {},
       "featured": false,
       "order": 53,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-bureau",
+        "workers-committee"
+      ]
     },
     {
       "id": "ssds-x",
@@ -291,7 +354,13 @@
       "contacts": {},
       "featured": false,
       "order": 50,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "agri-bureau",
+        "commerce-dept",
+        "finance-committee",
+        "menghai-cmd"
+      ]
     },
     {
       "id": "wd-zzt",
@@ -311,7 +380,13 @@
       "contacts": {},
       "featured": false,
       "order": 51,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-dept",
+        "agri-bureau",
+        "farm-products",
+        "food-bureau"
+      ]
     },
     {
       "id": "yue-smile",
@@ -331,7 +406,10 @@
       "contacts": {},
       "featured": false,
       "order": 52,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "housing-dept"
+      ]
     },
     {
       "id": "wumengze",
@@ -349,7 +427,8 @@
       "contacts": {},
       "featured": false,
       "order": 76,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "longyiyi1314",
@@ -369,7 +448,11 @@
       "contacts": {},
       "featured": false,
       "order": 54,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "industry-bureau",
+        "science-tech"
+      ]
     },
     {
       "id": "endanuz0728",
@@ -389,7 +472,8 @@
       "contacts": {},
       "featured": false,
       "order": 60,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "wondertion",
@@ -407,7 +491,8 @@
       "contacts": {},
       "featured": false,
       "order": 70,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "miao-tao",
@@ -425,7 +510,8 @@
       "contacts": {},
       "featured": false,
       "order": 71,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "mcfangkuaireng",
@@ -443,7 +529,8 @@
       "contacts": {},
       "featured": false,
       "order": 72,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "abanice",
@@ -461,7 +548,8 @@
       "contacts": {},
       "featured": false,
       "order": 73,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
     },
     {
       "id": "xmohe",
@@ -481,7 +569,11 @@
       "contacts": {},
       "featured": false,
       "order": 80,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "food-bureau",
+        "qichuan-cmd"
+      ]
     },
     {
       "id": "chu-mengg",
@@ -501,7 +593,10 @@
       "contacts": {},
       "featured": false,
       "order": 77,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "culture"
+      ]
     },
     {
       "id": "xindexinde",
@@ -521,7 +616,10 @@
       "contacts": {},
       "featured": false,
       "order": 81,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "qichuan-cmd"
+      ]
     }
   ]
 }
