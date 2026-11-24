@@ -9,7 +9,9 @@
       "rankId": "chief",
       "roleIds": [
         "foreign",
-        "secretariat"
+        "secretariat",
+        "finance",
+        "military"
       ],
       "status": "active",
       "joinedAt": "",
@@ -32,7 +34,9 @@
       "displayName": "ForeverZzz",
       "title": "",
       "rankId": "deputy-chief",
-      "roleIds": [],
+      "roleIds": [
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -50,7 +54,11 @@
       "displayName": "Lnactifseven",
       "title": "",
       "rankId": "deputy-chief",
-      "roleIds": [],
+      "roleIds": [
+        "finance",
+        "labor",
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -68,7 +76,10 @@
       "displayName": "Yangguagua",
       "title": "",
       "rankId": "executive",
-      "roleIds": [],
+      "roleIds": [
+        "foreign",
+        "propaganda"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -86,7 +97,9 @@
       "displayName": "AkiyamaTwT",
       "title": "",
       "rankId": "executive",
-      "roleIds": [],
+      "roleIds": [
+        "regional"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -104,7 +117,10 @@
       "displayName": "Heinrich4084",
       "title": "",
       "rankId": "executive",
-      "roleIds": [],
+      "roleIds": [
+        "secretariat",
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -124,7 +140,10 @@
       "displayName": "HH_XMH",
       "title": "",
       "rankId": "executive",
-      "roleIds": [],
+      "roleIds": [
+        "secretariat",
+        "propaganda"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -142,7 +161,9 @@
       "displayName": "haaamburger",
       "title": "",
       "rankId": "executive",
-      "roleIds": [],
+      "roleIds": [
+        "labor"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -160,25 +181,9 @@
       "displayName": "xiaofeiying",
       "title": "",
       "rankId": "standing",
-      "roleIds": [],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 40,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "tyfm1324",
-      "gameId": "tyfm1324",
-      "displayName": "tyfm1324",
-      "title": "",
-      "rankId": "standing",
-      "roleIds": [],
+      "roleIds": [
+        "finance"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -191,11 +196,11 @@
       "updatedAt": "2026-11-24"
     },
     {
-      "id": "darkwings-lok",
-      "gameId": "Darkwings_Lok",
-      "displayName": "Darkwings_Lok",
+      "id": "tyfm1324",
+      "gameId": "tyfm1324",
+      "displayName": "tyfm1324",
       "title": "",
-      "rankId": "standing",
+      "rankId": "specialist",
       "roleIds": [],
       "status": "active",
       "joinedAt": "",
@@ -205,7 +210,28 @@
       "tags": [],
       "contacts": {},
       "featured": false,
-      "order": 42,
+      "order": 74,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "darkwings-lok",
+      "gameId": "Darkwings_Lok",
+      "displayName": "Darkwings_Lok",
+      "title": "",
+      "rankId": "standing",
+      "roleIds": [
+        "labor",
+        "military"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 40,
       "updatedAt": "2026-11-24"
     },
     {
@@ -213,7 +239,7 @@
       "gameId": "SSuzu3",
       "displayName": "SSuzu3",
       "title": "",
-      "rankId": "standing",
+      "rankId": "specialist",
       "roleIds": [],
       "status": "active",
       "joinedAt": "",
@@ -223,7 +249,7 @@
       "tags": [],
       "contacts": {},
       "featured": false,
-      "order": 43,
+      "order": 75,
       "updatedAt": "2026-11-24"
     },
     {
@@ -232,61 +258,9 @@
       "displayName": "yizz34",
       "title": "",
       "rankId": "commissar",
-      "roleIds": [],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 50,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "ssds-x",
-      "gameId": "SSDS_x",
-      "displayName": "SSDS_x",
-      "title": "",
-      "rankId": "commissar",
-      "roleIds": [],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 51,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "wd-zzt",
-      "gameId": "WD_ZZT",
-      "displayName": "WD_ZZT",
-      "title": "",
-      "rankId": "commissar",
-      "roleIds": [],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 52,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "yue-smile",
-      "gameId": "Yue_Smile",
-      "displayName": "Yue_Smile",
-      "title": "",
-      "rankId": "commissar",
-      "roleIds": [],
+      "roleIds": [
+        "labor"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -299,12 +273,93 @@
       "updatedAt": "2026-11-24"
     },
     {
+      "id": "ssds-x",
+      "gameId": "SSDS_x",
+      "displayName": "SSDS_x",
+      "title": "",
+      "rankId": "commissar",
+      "roleIds": [
+        "finance",
+        "military"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 50,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "wd-zzt",
+      "gameId": "WD_ZZT",
+      "displayName": "WD_ZZT",
+      "title": "",
+      "rankId": "commissar",
+      "roleIds": [
+        "labor"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 51,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "yue-smile",
+      "gameId": "Yue_Smile",
+      "displayName": "Yue_Smile",
+      "title": "",
+      "rankId": "commissar",
+      "roleIds": [
+        "regional"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 52,
+      "updatedAt": "2026-11-24"
+    },
+    {
       "id": "wumengze",
       "gameId": "Wumengze",
       "displayName": "Wumengze",
       "title": "",
-      "rankId": "commissar",
+      "rankId": "specialist",
       "roleIds": [],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 76,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "longyiyi1314",
+      "gameId": "longyiyi1314",
+      "displayName": "longyiyi1314",
+      "title": "",
+      "rankId": "commissar",
+      "roleIds": [
+        "labor"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -314,24 +369,6 @@
       "contacts": {},
       "featured": false,
       "order": 54,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "longyiyi1314",
-      "gameId": "longyiyi1314",
-      "displayName": "longyiyi1314",
-      "title": "",
-      "rankId": "commissar",
-      "roleIds": [],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 55,
       "updatedAt": "2026-11-24"
     },
     {
@@ -444,6 +481,46 @@
       "contacts": {},
       "featured": false,
       "order": 80,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "chu-mengg",
+      "gameId": "chu_mengg",
+      "displayName": "chu_mengg",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [
+        "propaganda"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 77,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "xindexinde",
+      "gameId": "xindexinde",
+      "displayName": "xindexinde",
+      "title": "",
+      "rankId": "red-army",
+      "roleIds": [
+        "military"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 81,
       "updatedAt": "2026-11-24"
     }
   ]
