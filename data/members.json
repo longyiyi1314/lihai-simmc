@@ -52,9 +52,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海的技术派和战争机器，富可敌国的同时充满顽强与个性。",
-      "tags": [ "经济派",
+      "tags": [
+        "经济派",
         "军事",
-        "技术"],
+        "技术"
+      ],
       "contacts": {},
       "featured": true,
       "order": 20,
@@ -83,9 +85,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "从基层晋升到最高层的魅力领袖，负责管理国家的经贸中枢。",
-      "tags": [ "经贸",
+      "tags": [
+        "经贸",
         "演艺",
-        "行政管理"],
+        "行政管理"
+      ],
       "contacts": {},
       "featured": true,
       "order": 21,
@@ -118,9 +122,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "九亿璃海人的女神",
-      "tags": [ "招新",
+      "tags": [
+        "招新",
         "表演",
-        "外交"],
+        "外交"
+      ],
       "contacts": {},
       "featured": true,
       "order": 30,
@@ -144,9 +150,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "少年奇才，文史哲艺术多开花，负责社团理论以及璃海的总体建设规划。",
-      "tags": [ "革命理论",
+      "tags": [
+        "革命理论",
         "文化宣传",
-        "创意"],
+        "创意"
+      ],
       "contacts": {},
       "featured": true,
       "order": 31,
@@ -170,9 +178,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海最早期的元老，和祁钰师一同建立了早期的璃海，目前负责璃海的基层与后勤事务。",
-      "tags":  ["元老",
+      "tags": [
+        "元老",
         "后勤",
-        "基层管理"],
+        "基层管理"
+      ],
       "contacts": {},
       "featured": true,
       "order": 32,
@@ -199,7 +209,9 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海的政治监察人员",
-      "tags":  ["政治监察"],
+      "tags": [
+        "政治监察"
+      ],
       "contacts": {},
       "featured": false,
       "order": 33,
@@ -223,9 +235,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海社团的二号人物，凛海局的早期建立者之一，负责岐川地区的事务与劳动生产。",
-      "tags":  ["劳动生产",
+      "tags": [
+        "劳动生产",
         "元帅",
-        "军事"],
+        "军事"
+      ],
       "contacts": {},
       "featured": false,
       "order": 34,
@@ -248,7 +262,9 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海的从基层晋升上来的中层管理，是个性格沉稳的女酿酒师。",
-      "tags":  ["酿酒"],
+      "tags": [
+        "酿酒"
+      ],
       "contacts": {},
       "featured": false,
       "order": 41,
@@ -291,9 +307,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海的工人代表，负责管理劳动局，挖掉了大量的山体并完成了多个工程项目。",
-      "tags": ["工人代表",
+      "tags": [
+        "工人代表",
         "建设",
-        "劳模"],
+        "劳模"
+      ],
       "contacts": {},
       "featured": false,
       "order": 40,
@@ -316,7 +334,9 @@
       "leftAt": null,
       "avatar": "",
       "intro": "曾担任过老农、大厨和仓管，目前已离休啦。",
-      "tags": ["离休"],
+      "tags": [
+        "离休"
+      ],
       "contacts": {},
       "featured": false,
       "order": 75,
@@ -337,8 +357,10 @@
       "leftAt": null,
       "avatar": "",
       "intro": "担任工人、农业人员和士兵的基层干部，还是个苦出身！",
-      "tags":  ["劳动者",
-        "士兵"],
+      "tags": [
+        "劳动者",
+        "士兵"
+      ],
       "contacts": {},
       "featured": false,
       "order": 53,
@@ -363,8 +385,10 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海的农业负责人，同时也是璃海的战斗人员，集耕战于一体。",
-      "tags":  ["农耕",
-        "战斗"],
+      "tags": [
+        "农耕",
+        "战斗"
+      ],
       "contacts": {},
       "featured": false,
       "order": 50,
@@ -390,11 +414,14 @@
       "leftAt": null,
       "avatar": "",
       "intro": "耕战人员，而且能战斗爽。",
-      "tags": ["耕战","烹饪"],
+      "tags": [
+        "耕战",
+        "烹饪"
+      ],
       "contacts": {},
       "featured": false,
       "order": 51,
-      "updatedAt":「2026-11-24」,
+      "updatedAt": "2026-11-24",
       "orgIds": [
         "labor-dept",
         "agri-bureau",
@@ -416,7 +443,9 @@
       "leftAt": null,
       "avatar": "",
       "intro": "擅长建设哥特式风格建筑。",
-      "tags": ["建筑师"],
+      "tags": [
+        "建筑师"
+      ],
       "contacts": {},
       "featured": false,
       "order": 52,
@@ -437,7 +466,9 @@
       "leftAt": null,
       "avatar": "",
       "intro": "曾经负责渔业和牧业生产，目前已离休。",
-      "tags": ["离休"],
+      "tags": [
+        "离休"
+      ],
       "contacts": {},
       "featured": false,
       "order": 76,
@@ -458,9 +489,11 @@
       "leftAt": null,
       "avatar": "",
       "intro": "本网站的主要负责人之一，是璃海的科学工业负责人，专家型人才。",
-      "tags":  ["科工人员",
+      "tags": [
+        "科工人员",
         "专家",
-        "技术派"],
+        "技术派"
+      ],
       "contacts": {},
       "featured": false,
       "order": 54,
@@ -484,7 +517,10 @@
       "leftAt": null,
       "avatar": "",
       "intro": "璃海早期的战斗人员，目前负责千叶市的治理。",
-      "tags": ["治理","行政管理"],
+      "tags": [
+        "治理",
+        "行政管理"
+      ],
       "contacts": {},
       "featured": false,
       "order": 60,
