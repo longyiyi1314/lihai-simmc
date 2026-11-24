@@ -10,6 +10,9 @@ import {
   activeMembers,
   featuredMembers,
   membersOfRank,
+  territoryList,
+  territoryTiers,
+  territoriesOfTier,
   isPlaceholder,
   placeholderNotice,
 } from '../lib/loadData';
@@ -17,15 +20,16 @@ import { url } from '../lib/url';
 import { pct, roleHueOf } from '../lib/theme';
 import type { Role } from '../lib/types';
 
-const founded = site.foundedAt ? site.foundedAt.replace('-', '.') : '—';
+const foundedYear = site.foundedAt ? site.foundedAt.slice(0, 4) : '—';
+const foundedFull = site.foundedAt ? site.foundedAt.replaceAll('-', '.') : '—';
 const announcements = site.announcements.slice(0, 3);
 const maxRankCount = Math.max(1, ...rankList.map((r) => membersOfRank(r.id).length));
 
 const stats = [
-  { num: String(memberList.length), unit: '人', label: '在册成员' },
-  { num: String(activeMembers.length), unit: '人', label: '现役同伴' },
-  { num: String(rankList.length), unit: '级', label: '职位序列' },
-  { num: founded, unit: '', label: '建站时间' },
+  { num: String(site.memberTotal || memberList.length), unit: '人', label: '全社在册' },
+  { num: String(memberList.length), unit: '人', label: '名录收录' },
+  { num: String(territoryList.length), unit: '处', label: '已下发领地' },
+  { num: String(rankList.length), unit: '级', label: '职级序列' },
 ];
 
 function fmtDate(d: string) {
@@ -33,7 +37,7 @@ function fmtDate(d: string) {
 }
 ---
 
-<Base description={`${site.nationName} · ${site.server} 国家成员站：成员名单、职位层级、职务分工与国家沿革。`}>
+<Base description={`${site.fullName || site.nationName} · ${site.server} 国家成员站：成员名单、职级体系、疆域与联盟沿革。`}>
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
       <span class="hero-orb hero-orb--a"></span>
@@ -51,7 +55,7 @@ function fmtDate(d: string) {
             <span class="sep"></span>
             <span>{site.server}{site.version ? ` ${site.version}` : ''}</span>
             <span class="sep"></span>
-            <span>EST. {founded}</span>
+            <span>EST. {foundedFull}</span>
           </p>
 
           <h1 class="hero-word" data-word={site.nationName}>
@@ -59,14 +63,15 @@ function fmtDate(d: string) {
             <span class="hero-word-en">{site.nationNameEn || 'Lihai'}</span>
           </h1>
 
-          {site.motto && <p class="hero-motto">{site.motto}</p>}
+          {site.fullName && <p class="hero-fullname">{site.fullName}</p>}
+          {site.motto && <p class="hero-motto">「{site.motto}」</p>}
           <p class="hero-desc">{site.summary}</p>
 
           <div class="hero-actions">
             <a class="btn btn--primary" href={url('/members/')}>
-              查看成员名单<span class="btn-arrow" aria-hidden="true">→</span>
+              查看成员名录<span class="btn-arrow" aria-hidden="true">→</span>
             </a>
-            <a class="btn btn--ghost" href={url('/about/')}>关于璃海</a>
+            <a class="btn btn--ghost" href={url('/territory/')}>看看疆域</a>
           </div>
         </div>
 
@@ -78,9 +83,9 @@ function fmtDate(d: string) {
             <span class="crest-ring crest-ring--3"></span>
             <span class="crest-tick"></span>
             <span class="crest-core">
-              <span class="crest-glyph">璃</span>
+              <span class="crest-glyph">凛</span>
             </span>
-            <span class="crest-caption">Glass · Sea · Light</span>
+            <span class="crest-caption">Soviet · Commune · Union</span>
           </div>
         </div>
       </div>
@@ -105,8 +110,8 @@ function fmtDate(d: string) {
     <div class="wrap">
       <SectionHead
         no="01"
-        title="海上的面孔"
-        desc="常驻与休假中的同伴，按职位高低与入会顺序排列。"
+        title="名录上的人"
+        desc={`凛海城中央公社前 ${memberList.length} 位成员，按职级由高到低排列。全社在册 ${site.memberTotal || memberList.length} 人。`}
         moreHref={url('/members/')}
         moreLabel="全部成员"
       />
@@ -117,14 +122,57 @@ function fmtDate(d: string) {
     </div>
   </section>
 
-  <section class="section" id="ranks">
+  <section class="section" id="territory">
     <div class="wrap">
       <SectionHead
         no="02"
-        title="五级职守"
-        desc="从见习到国主，每一级都有明确的职责与晋升条件。"
+        title="从凛冬半岛到云大陆"
+        desc={`已下发 ${territoryList.length} 处领地，另有 ${site.territoryTotal - site.territoryGranted} 处待下发，合计 ${site.territoryTotal} 处。`}
+        moreHref={url('/territory/')}
+        moreLabel="疆域全图"
+      />
+
+      <div class="terr-band">
+        {
+          territoryTiers.map((tier) => {
+            const list = territoriesOfTier(tier.id);
+            if (list.length === 0) return null;
+            return (
+              <div class="terr-row">
+                <span class="terr-tier">
+                  <b>{tier.name}</b>
+                  <span class="terr-n mono">{list.length}</span>
+                </span>
+                <div class="terr-names">
+                  {list.map((t) => (
+                    <span class={`terr-chip terr-chip--${t.tier}`}>{t.name}</span>
+                  ))}
+                </div>
+              </div>
+            );
+          })
+        }
+        <div class="terr-row terr-row--pending">
+          <span class="terr-tier">
+            <b>待下发</b>
+            <span class="terr-n mono">{site.territoryTotal - site.territoryGranted}</span>
+          </span>
+          <div class="terr-names">
+            <span class="terr-chip terr-chip--pending">已规划，尚未下发</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ranks">
+    <div class="wrap">
+      <SectionHead
+        no="03"
+        title={`${rankList.length} 级职守`}
+        desc="党务行政、苏维埃代表与武装力量三条线并行，级别越高，能拍板的事越多。"
         moreHref={url('/ranks/')}
-        moreLabel="职位体系"
+        moreLabel="职级体系"
       />
 
       <div class="home-split">
@@ -139,7 +187,7 @@ function fmtDate(d: string) {
                     <div class="rlist-main">
                       <div class="rlist-top">
                         <span class="rlist-name">{r.name}</span>
-                        <span class="rlist-lv">LV.{r.level}</span>
+                        <span class="rlist-lv">{r.grade || `LV.${r.level}`}</span>
                       </div>
                       <div class="rlist-bar" aria-hidden="true">
                         <span class="rlist-fill" style={`width:${Math.max(6, pct(n, maxRankCount))}%`} />
@@ -156,6 +204,28 @@ function fmtDate(d: string) {
         </div>
 
         <div class="home-side">
+          <div class="panel panel--pad">
+            <div class="panel-title">建国</div>
+            <div class="meta-list">
+              <div class="meta-row">
+                <span class="meta-k">全称</span>
+                <span class="meta-v">{site.fullName}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-k">创建</span>
+                <span class="meta-v mono">{foundedFull}{site.foundedTime ? ` ${site.foundedTime}` : ''}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-k">首府</span>
+                <span class="meta-v">{site.capital}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-k">政体</span>
+                <span class="meta-v">{site.government}</span>
+              </div>
+            </div>
+          </div>
+
           {
             announcements.length > 0 && (
               <div class="panel panel--pad">
@@ -171,12 +241,6 @@ function fmtDate(d: string) {
               </div>
             )
           }
-
-          <div class="panel panel--pad home-quote">
-            <div class="panel-title">格言</div>
-            <p class="serif home-quote-text">{site.motto}</p>
-            <p class="home-quote-sub">{site.server} · {site.version} · {site.game}</p>
-          </div>
 
           {
             isPlaceholder && (
@@ -194,9 +258,9 @@ function fmtDate(d: string) {
   <section class="section" id="roles">
     <div class="wrap">
       <SectionHead
-        no="03"
-        title="六类职务"
-        desc="职位决定话语权，职务决定你每天在做什么。"
+        no="04"
+        title={`${roleList.length} 类职务`}
+        desc="职级决定话语权，职务决定你每天在做什么。"
         moreHref={url('/ranks/#roles')}
         moreLabel="职务详情"
       />
@@ -225,18 +289,18 @@ function fmtDate(d: string) {
     <div class="wrap">
       <div class="cta-band">
         <div>
-          <h2>海面还留着一个位置</h2>
+          <h2>凛冬号还在港里</h2>
           <p>
             {site.recruiting
-              ? '璃海长期招募愿意一起搬砖、一起熬夜看日出的同伴。带上你的擅长与耐心，从见习开始。'
-              : '璃海当前暂停招募，但欢迎来岛上看看。'}
+              ? `璃海苏维埃公社联盟在 ${site.server} 持续招募。带上你愿意长期做的那件事，从劳动开始。`
+              : '璃海当前暂停招募，但欢迎来凛海城看看。'}
           </p>
         </div>
         <div class="hero-actions" style="margin-top:0">
           <a class="btn btn--primary" href={url(site.recruiting ? '/about/#join' : '/members/')}>
             {site.recruiting ? '了解加入方式' : '看看大家'}<span class="btn-arrow" aria-hidden="true">→</span>
           </a>
-          <a class="btn btn--ghost" href={url('/members/')}>成员名单</a>
+          <a class="btn btn--ghost" href={url('/members/')}>成员名录</a>
         </div>
       </div>
     </div>

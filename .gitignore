@@ -29,8 +29,15 @@ Thumbs.db
 
 # 本地截图 / 无头浏览器调试产物
 .shots/
-.chrome-tmp*/
+.chrome-*/
 
 # 无头浏览器调试
-.chrome-profile*/
 .shot-*.mjs
+.shots*.mjs
+.shot2.mjs
+.zoom*.mjs
+.probe*.mjs
+.slice*.mjs
+.closeup.mjs
+.palette*.cjs
+.chk.mjs

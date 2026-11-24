@@ -51,16 +51,17 @@ const contactLabel: Record<string, string> = {
 
 const metaRows: Array<{ k: string; v: string; mono?: boolean }> = [
   { k: '游戏 ID', v: member.gameId, mono: true },
-  { k: '职位', v: rank?.name ?? member.rankId },
-  { k: '加入时间', v: formatMonth(member.joinedAt), mono: true },
+  { k: '职级', v: rank?.name ?? member.rankId },
 ];
+if (rank?.grade) metaRows.push({ k: '级别', v: rank.grade });
+metaRows.push({ k: '加入时间', v: member.joinedAt ? formatMonth(member.joinedAt) : '未记录', mono: true });
 if (member.leftAt) metaRows.push({ k: '离会时间', v: formatMonth(member.leftAt), mono: true });
 if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mono: true });
 ---
 
 <Base
   title={member.displayName}
-  description={`${member.displayName}（${member.gameId}）· ${rank?.name ?? ''} · ${site.nationName}${site.server}成员。${member.intro.slice(0, 60)}`}
+  description={`${member.displayName}（${member.gameId}）· ${rank?.name ?? ''} · ${site.nationName}${site.server}成员。${member.intro ? member.intro.slice(0, 60) : `${site.fullName || site.nationName}成员名录中的一页。`}`}
 >
   <article class="profile" style={`--h:${hue}`}>
     <div class="wrap">
@@ -83,9 +84,9 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
             </div>
             <h1 class="profile-name">
               {member.displayName}
-              {member.title && <span class="profile-title">{member.title}</span>}
+              {member.title && member.title !== rank?.name && <span class="profile-title">{member.title}</span>}
             </h1>
-            <p class="profile-gid">{member.gameId}</p>
+            <p class="profile-gid">{member.gameId}{rank?.grade ? ` · ${rank.grade}` : ''}</p>
             {
               roles.length > 0 && (
                 <div class="profile-tags">
@@ -99,7 +100,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
         <div class="profile-side">
           <div class="pstat">
             <div class="pstat-k">Joined</div>
-            <div class="pstat-v">{member.joinedAt.replace('-', '.')}</div>
+            <div class="pstat-v">{member.joinedAt ? member.joinedAt.replace('-', '.') : '—'}</div>
           </div>
           <div class="pstat">
             <div class="pstat-k">{isAlumni ? 'Status' : 'Rank'}</div>
@@ -110,9 +111,20 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
 
       <div class="profile-body">
         <div>
-          <div class="prose">
-            <p class="dropcap">{member.intro}</p>
-          </div>
+          {
+            member.intro ? (
+              <div class="prose">
+                <p class="dropcap">{member.intro}</p>
+              </div>
+            ) : (
+              <div class="prose">
+                <p class="prose-plain">
+                  {member.displayName} 目前是{rank?.name ?? '成员'}。个人简介尚未录入——这份名录只保证游戏 ID 与职级准确，
+                  不编造个人经历；等本人或管理层补充后，这里会补上。
+                </p>
+              </div>
+            )
+          }
 
           {
             member.tags.length > 0 && (
@@ -201,7 +213,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
           <p class="aside-note">
             {isAlumni
               ? '这位同伴已经离开了日常名单，但档案与贡献仍保留在这里。'
-              : '资料由本人或管理层维护。如有出入，请在群内联系管理层更正。'}
+              : '资料由本人或管理层维护。这份名录只保证游戏 ID 与职级准确，简介留白处不做补写；有补充请在群内联系管理层。'}
           </p>
 
           <a class="aside-back" href={url('/members/')}>

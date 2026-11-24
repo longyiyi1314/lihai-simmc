@@ -15,28 +15,33 @@ import { url } from '../lib/url';
 import { roleHueOf } from '../lib/theme';
 
 const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
+const tracks = [
+  { id: 'party', name: '党务与行政', desc: '凛海局中央执行委员会与国家各部门的职级序列。' },
+  { id: 'soviet', name: '苏维埃代表', desc: '由各地区选举产生，参与地方立法与执行。' },
+  { id: 'army', name: '武装力量', desc: '红军序列，承担军事防卫与开边垦荒。' },
+];
 ---
 
 <Base
-  title="职位与职务"
-  description={`${site.nationName}的 ${rankList.length} 级职位序列与 ${roleList.length} 类职务分工：从见习到国主，每一级都写明了职责与晋升条件。`}
+  title="职级与职务"
+  description={`${site.fullName}的 ${rankList.length} 级职级序列与 ${roleList.length} 类职务分工：从执行专员到首席执行委员，每一级都写明了职责与晋升方式。`}
 >
   <PageHead
-    title="职位与职务"
-    crumb="职位"
-    desc="职位决定你能承担多少，职务决定你在哪一件事上被需要。两条线并行，才拼得出一个完整的璃海。"
+    title="职级与职务"
+    crumb="职级"
+    desc="职级决定你能承担多少，职务决定你在哪一件事上被需要。党务行政、苏维埃代表与武装力量三条线并行，才拼得出一个完整的璃海。"
   >
     <div class="page-meta">
-      <span>职位 <b>{rankList.length}</b> 级</span>
+      <span>职级 <b>{rankList.length}</b> 级</span>
       <span>职务 <b>{roleList.length}</b> 类</span>
-      <span>在册 <b>{total}</b> 人</span>
-      <span>晋升 <b>由管理层评议</b></span>
+      <span>名录收录 <b>{total}</b> 人</span>
+      <span>晋升 <b>评议与考核</b></span>
     </div>
 
     <nav class="roster-bar" aria-label="页面章节">
-      <a class="chip" href="#ladder">职位阶梯</a>
+      <a class="chip" href="#ladder">职级阶梯</a>
       <a class="chip" href="#roles">职务分工</a>
-      <a class="chip" href={url('/members/')}>成员名单</a>
+      <a class="chip" href={url('/members/')}>成员名录</a>
     </nav>
   </PageHead>
 
@@ -44,8 +49,8 @@ const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
     <div class="sec-head">
       <span class="sec-no">01</span>
       <div class="sec-title">
-        <h2>五级职守</h2>
-        <p>从见习到国主。级别越高，能拍板的事越多，需要让出去的东西也越多。</p>
+        <h2>{rankList.length} 级职守</h2>
+        <p>级别越高，能拍板的事越多，需要让出去的东西也越多。</p>
       </div>
       <span />
     </div>
@@ -61,7 +66,7 @@ const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
               </div>
               <div class="rung-card">
                 <div class="rung-head">
-                  <span class="rung-lv">LV.{rank.level}</span>
+                  {rank.grade && <span class="rung-lv">{rank.grade}</span>}
                   <h2 class="rung-name">{rank.name}</h2>
                   <span class="rung-count">
                     <b>{holders.length}</b> 人
@@ -93,7 +98,7 @@ const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
                         ))}
                       </div>
                     ) : (
-                      <p class="rung-empty">暂无人在此职位</p>
+                      <p class="rung-empty">暂无人在此职级</p>
                     )}
                   </div>
                 </div>
@@ -118,7 +123,7 @@ const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
     <div class="sec-head">
       <span class="sec-no">02</span>
       <div class="sec-title">
-        <h2>六类职务</h2>
+        <h2>{roleList.length} 类职务</h2>
         <p>职务是横向的：一个人可以同时挂着两三个头衔，也可以一个都不挂，只安静地盖房子。</p>
       </div>
       <span class="sec-more">
@@ -159,7 +164,7 @@ const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
     <div class="cta-band">
       <div>
         <h2>想清楚要做哪一种人了？</h2>
-        <p>职位可以慢慢升，职务可以随时换。先进来，再谈想去哪个方向。</p>
+        <p>职级可以慢慢升，职务可以随时换。先进来，再谈想去哪个方向。</p>
       </div>
       <a class="btn btn--primary" href={url('/about/#join')}>
         了解加入方式<span class="btn-arrow" aria-hidden="true">→</span>

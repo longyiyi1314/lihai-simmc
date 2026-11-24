@@ -1,0 +1,108 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import {
+  site,
+  territoryList,
+  territoryTiers,
+  territoriesOfTier,
+  isPlaceholder,
+  placeholderNotice,
+  formatDateFull,
+} from '../lib/loadData';
+import { url } from '../lib/url';
+
+const pending = Math.max(0, site.territoryTotal - territoryList.length);
+const tierWithItems = territoryTiers
+  .map((t) => ({ ...t, list: territoriesOfTier(t.id) }))
+  .filter((t) => t.list.length > 0)
+  .map((t, i) => ({ ...t, no: String(i + 1).padStart(2, '0') }));
+---
+
+<Base
+  title="疆域"
+  description={`${site.fullName}的 ${site.territoryTotal} 处领地：已下发 ${territoryList.length} 处，另有 ${pending} 处待下发。首府 ${site.capital}。`}
+>
+  <PageHead
+    title="疆域"
+    crumb="疆域"
+    desc="从凛冬半岛的雪原，到南大陆东方的丘陵，再到隔海相望的雨岛与蒙海。一个公社联盟，是这些地名连起来的样子。"
+  >
+    <div class="page-meta">
+      <span>已下发 <b>{territoryList.length}</b> 处</span>
+      <span>待下发 <b>{pending}</b> 处</span>
+      <span>合计 <b>{site.territoryTotal}</b> 处</span>
+      <span>首府 <b>{site.capital}</b></span>
+    </div>
+
+    <nav class="roster-bar" aria-label="按层级跳转">
+      {
+        tierWithItems.map((t) => (
+          <a class="chip" href={`#tier-${t.id}`}>
+            {t.name}
+            <b>{t.list.length}</b>
+          </a>
+        ))
+      }
+      {pending > 0 && <a class="chip" href="#pending">待下发<b>{pending}</b></a>}
+    </nav>
+  </PageHead>
+
+  <div class="wrap">
+    {
+      tierWithItems.map((tier) => (
+        <section class="terr-section" id={`tier-${tier.id}`}>
+          <div class="terr-head">
+            <span class="terr-badge mono">{tier.no}</span>
+            <h2>{tier.name}</h2>
+            <span class="terr-line" aria-hidden="true" />
+            <span class="terr-total mono">{tier.list.length} 处</span>
+          </div>
+          <div class="terr-cards">
+            {tier.list.map((t) => (
+              <article class="terr-card">
+                <div class="terr-card-top">
+                  <span class="terr-glyph" aria-hidden="true">◈</span>
+                  <h3>{t.name}</h3>
+                </div>
+                {t.note && <p class="terr-note">{t.note}</p>}
+              </article>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    {
+      pending > 0 && (
+        <section class="terr-section" id="pending">
+          <div class="terr-head">
+            <span class="terr-badge mono">待下发</span>
+            <h2>已规划，尚未下发</h2>
+            <span class="terr-line" aria-hidden="true" />
+            <span class="terr-total mono">{pending} 处</span>
+          </div>
+          <p class="aside-note">
+            这些地点的位置与建制已经在册，但要等下发给公社之后才会出现在上面的清单里。
+          </p>
+        </section>
+      )
+    }
+
+    {
+      isPlaceholder && (
+        <p class="flag-note" style="margin-top:36px">
+          <span aria-hidden="true">◆</span>
+          {placeholderNotice}
+        </p>
+      )
+    }
+
+    <div class="roster-foot">
+      <a class="btn btn--ghost" href={url('/about/')}>
+        联盟是怎么来的<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn--quiet" href={url('/ranks/')}>职级与职务</a>
+    </div>
+  </div>
+</Base>

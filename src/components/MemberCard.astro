@@ -19,6 +19,16 @@ const rank = rankMap.get(member.rankId);
 const roles = member.roleIds.map((id) => roleMap.get(id)).filter((r): r is NonNullable<typeof r> => Boolean(r));
 const hue = roles.length ? roleHueOf(roles[0].id) : 196;
 const isAlumni = member.status === 'honorary' || member.status === 'left';
+
+/**
+ * 副标题：称号 → 级别 → 游戏 ID。
+ * 称号若与职级名相同（多数成员如此），显示级别，避免与右侧徽章重复。
+ */
+const subTitle = (() => {
+  if (member.title && member.title !== rank?.name) return member.title;
+  if (rank?.grade) return rank.grade;
+  return member.gameId;
+})();
 ---
 
 <article class="mcard" style={`--h:${hue}`}>
@@ -27,23 +37,21 @@ const isAlumni = member.status === 'honorary' || member.status === 'left';
       <Avatar seed={member.id} name={member.displayName} src={member.avatar} size="md" />
       <div class="mcard-id">
         <span class="mcard-name">{member.displayName}</span>
-        {member.title
-          ? <span class="mcard-title">{member.title}</span>
-          : <span class="mcard-title mcard-gid">{member.gameId}</span>}
+        <span class={subTitle === member.gameId ? 'mcard-title mcard-gid' : 'mcard-title'}>{subTitle}</span>
       </div>
       {rank && <RankBadge rank={rank} size="sm" />}
     </div>
 
-    {showIntro && <p class="mcard-intro">{member.intro}</p>}
+    {showIntro && member.intro && <p class="mcard-intro">{member.intro}</p>}
 
     <div class="mcard-foot">
       <div class="mcard-roles">
         {roles.length
           ? roles.map((r) => <RoleTag role={r} />)
-          : <span class="mcard-since">未分配职务</span>}
+          : <span class="mcard-since mcard-none">未分配职务</span>}
       </div>
       <span class="mcard-since">
-        {isAlumni ? statusLabel[member.status] : `加入 ${formatMonth(member.joinedAt)}`}
+        {isAlumni ? statusLabel[member.status] : member.joinedAt ? `加入 ${formatMonth(member.joinedAt)}` : member.gameId}
       </span>
     </div>
   </a>

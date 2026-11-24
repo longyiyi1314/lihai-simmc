@@ -1,21 +1,59 @@
 {
   "nationName": "璃海",
+  "fullName": "璃海苏维埃公社联盟",
   "nationNameEn": "Lihai",
+  "fullNameEn": "Riherie Soviete Commune Unien",
+  "clubName": "璃海社团",
+  "studioName": "Ultroveritas Studio",
   "game": "Minecraft",
   "server": "SimMC",
   "version": "1.21.11",
-  "foundedAt": "2024-03",
-  "motto": "海纳百川，璃光不灭",
-  "summary": "璃海，建立于 SimMC 的一片群岛之上。以「璃」为名，取琉璃澄澈、历久不蚀之意。我们以营造为骨、以协作为魂，在这片海域上建起属于自己的城邦。",
+  "foundedAt": "2025-12-27",
+  "foundedTime": "09:26",
+  "motto": "捍卫璃海革命，保卫胜利果实",
+  "summary": "璃海苏维埃公社联盟，是承载着璃海人民的理想和革命热情的新家园。自 Ultroveritas 远洋而来的璃海凛冬号于 Yun 历 28 年在云大陆南端靠岸抛锚，先锋者们以这艘轮船为核心，建起了新的港湾与都市。",
+  "capital": "凛海城中央公社",
+  "government": "苏维埃代表制度的公社联盟国家",
+  "ideology": "璃海革命先锋主义",
+  "pact": "凛海合作组织",
+  "peoples": "璃海人 / 云大陆人",
+  "languages": ["汉语", "英语", "卡斯特语"],
+  "holidays": [
+    { "name": "全璃海国庆日", "date": "05-08" },
+    { "name": "璃海独立日", "date": "08-06" }
+  ],
+  "memberTotal": 277,
+  "chunkTotal": 12800,
+  "territoryTotal": 32,
+  "territoryGranted": 24,
   "emblem": "",
-  "banner": "",
-  "links": [],
+  "banner": "flag.png",
+  "links": [
+    {
+      "label": "SimMC Wiki · 璃海苏维埃公社联盟",
+      "url": "https://simmc.huijiwiki.com/index.php?curid=8022"
+    },
+    {
+      "label": "璃海社团 · Ultroveritas Studio",
+      "url": "https://qiyushishuji.github.io/Ultroveritas.github.io/"
+    }
+  ],
+  "contacts": {
+    "clubGroup": "784045130",
+    "serviceGroup": "897041429",
+    "email": "44608834@qq.com"
+  },
+  "slogan": "追求真理，创造奇迹",
   "recruiting": true,
-  "isPlaceholder": true,
+  "isPlaceholder": false,
   "announcements": [
     {
       "date": "2026-11-24",
-      "text": "璃海成员站已上线，成员资料正在陆续录入中。"
+      "text": "成员站接入璃海苏维埃公社联盟正式资料：凛海城中央公社名录 24 人已录入，全社在册 277 人。"
+    },
+    {
+      "date": "2026-11-24",
+      "text": "疆域页上线：已下发领地 24 处，另有 8 处待下发，合计 32 处。"
     }
   ]
 }

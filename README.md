@@ -1,8 +1,8 @@
-# 璃海 · SimMC 国家成员站
+# 璃海苏维埃公社联盟 · SimMC 国家成员站
 
-> 海纳百川，璃光不灭
+> 追求真理，创造奇迹
 
-一个用于展示 Minecraft 服务器 **SimMC** 中国家「**璃海**」成员信息的静态网站：成员名单、国家职位、职务分工、各人简介。
+展示 Minecraft 服务器 **SimMC** 中国家「**璃海苏维埃公社联盟**」（Riherie Soviete Commune Unien）的公开档案：国家概况、成员名录、职级与职务、疆域、旗帜与编年。
 
 **线上地址：<https://longyiyi1314.github.io/lihai-simmc/>**
 
@@ -11,75 +11,114 @@
 ## 这是什么
 
 - 纯静态站点，由 [Astro](https://astro.build) 构建，**默认零 JavaScript**，加载快、可直接托管在 GitHub Pages。
-- 全部内容来自 `data/` 下的 4 个 JSON 文件，**改数据即改站**，无需触碰任何页面代码。
-- 部署方式：推送到 `main` 分支后，GitHub Actions 自动构建并发布（见 `.github/workflows/deploy.yml`）。
+- 全部内容来自 `data/` 下的 5 个 JSON 文件，**改数据即改站**，无需触碰页面代码。
+- 推送到 `main` 分支后由 GitHub Actions 自动构建并发布（见 `.github/workflows/deploy.yml`）。
+
+## 页面
+
+| 路径 | 内容 |
+| --- | --- |
+| `/` | 首页：国家形象、统计、名录摘要、疆域带、职级与职务概览、公告 |
+| `/members/` | 成员名录：按职级分组，含职级说明与筛选锚点 |
+| `/members/<id>/` | 成员详情：头像、游戏 ID、职级、职务、简介、上下一位翻页 |
+| `/ranks/` | 职级阶梯（8 级）与职务分工（7 类），含职责、晋升、在任名单 |
+| `/territory/` | 疆域：24 处已下发领地按层级分组，另标注 8 处待下发 |
+| `/about/` | 联盟档案：来历、地理四区、制度、经济、Yun 历编年、旗帜与节日、加入方式 |
+| `/404.html` | 未找到页面 |
 
 ## 目录结构
 
 ```
 data/                 ← 你只需要改这里
-  site.json           国家信息：名称、格言、版本、建站时间、公告
-  ranks.json          职位层级：国主 / 副国主 / 长老 / 国民 / 见习
-  roles.json          职务分工：外交 / 军事 / 营造 / 后勤 / 宣传 / 招募
-  members.json        成员名单：每人一条记录
+  site.json           国家信息：全称、口号、建站时间、首府、政体、节庆、联系方式、公告
+  ranks.json          职级层级：8 级（含 track 序列与 grade 级别）
+  roles.json          职务分工：7 类
+  members.json        成员名录：每人一条记录
+  territories.json    疆域：24 处领地 + 待下发数量
 src/
-  lib/                数据读取、Zod 校验、跨文件校验、路径拼接
-  components/         头像、职位徽章、职务标签、成员卡片等
-  pages/              首页、成员列表、成员详情、职位、关于、404
-  styles/global.css   全站设计系统（深蓝 + 玉青 + 琉金）
+  lib/                数据读取、Zod 校验、跨文件校验、路径拼接、主题色工具
+  components/         头像、职级徽章、职务标签、成员卡片、页头页脚等
+  pages/              首页、成员列表、成员详情、职级、疆域、关于、404
+  styles/global.css   全站设计系统（酒红夜色 + 旗红 / 星金 / 旗蓝，取自国旗配色）
+public/
+  flag.png            国旗（1890×1417）
+  favicon.svg         站点图标
 录入模板/             ← 用 Excel 收集真实数据时用这里的 CSV
 准备方案.md           最初的设计方案（站点地图、数据模型、校验规则）
 ```
 
-## 更新成员数据
+## 更新数据
 
-### 方式一：直接改 JSON（熟悉的话最快）
+### 成员（`data/members.json`）
 
-编辑 `data/members.json`，每个成员一条：
+每个成员一条记录：
 
 ```json
 {
-  "id": "hai-ling",
-  "name": "海铃",
-  "romanizedName": "HaiLing",
-  "title": "慈海之人",
-  "rank": "leader",
-  "roles": ["diplomacy", "military"],
-  "joinedAt": "2024-03",
+  "id": "qiyushi",
+  "gameId": "Qiyushi",
+  "displayName": "祁钰师",
+  "title": "书记",
+  "rankId": "chief",
+  "roleIds": ["foreign", "secretariat"],
   "status": "active",
+  "joinedAt": "",
+  "leftAt": null,
+  "avatar": "",
+  "intro": "……",
+  "tags": ["统筹", "外交", "建制"],
+  "contacts": {},
   "featured": true,
-  "intro": "璃海的发起人之一……"
+  "order": 10,
+  "updatedAt": "2026-11-24"
 }
 ```
 
-字段说明：
-
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
-| `id` | 是 | 唯一标识，同时用作网址：`/members/<id>/`，建议用拼音短横线 |
-| `name` | 是 | 游戏内 ID / 显示名 |
-| `romanizedName` | 否 | 英文名，用于排版点缀 |
-| `title` | 否 | 称号，如「慈海之人」 |
-| `rank` | 是 | 必须是 `data/ranks.json` 里定义的 `id` |
-| `roles` | 否 | 数组，元素必须是 `data/roles.json` 里定义的 `id`，可多选 |
-| `joinedAt` | 是 | 加入月份，格式 `YYYY-MM` |
-| `status` | 是 | `active` 现役 / `reserve` 休假 / `left` 已离开 / `honorary` 荣誉 |
-| `featured` | 否 | `true` 会出现在首页「海上的面孔」 |
-| `intro` | 是 | 个人简介，一两句话 |
-| `leftAt` | 否 | 仅 `status` 为 `left` 时需要，格式 `YYYY-MM` |
+| `id` | 是 | 唯一标识，同时是网址 `/members/<id>/`，建议拼音或游戏 ID 小写 |
+| `gameId` | 是 | 游戏内 ID，必须与游戏内一致 |
+| `displayName` | 是 | 站点显示名（昵称或中文名） |
+| `title` | 否 | 称号/职务短名，如「书记」；与职级名相同时不必重复填 |
+| `rankId` | 是 | 必须是 `data/ranks.json` 里的 `id` |
+| `roleIds` | 否 | 数组，元素必须是 `data/roles.json` 里的 `id`，可多选 |
+| `status` | 是 | `active` 在任 / `reserve` 休假 / `honorary` 荣誉 / `left` 已离会 |
+| `joinedAt` | 否 | 加入月份 `YYYY-MM`；**查不到就留空**，页面显示「未记录」而不是编造 |
+| `leftAt` | 否 | 仅 `status` 为 `left` 时必填 |
+| `avatar` | 否 | 头像路径（放 `public/` 下）；留空则用姓名首字生成占位头像 |
+| `intro` | 否 | 个人简介。**留空会显示「简介尚未录入」占位文案**，不编造经历 |
+| `tags` | 否 | 擅长标签，最多 5 个 |
+| `contacts` | 否 | `bilibili` / `discord` / `qq`，可留空 |
+| `featured` | 否 | `true` 出现在首页「名录上的人」（建议 6 人） |
+| `order` | 否 | 同职级内的排序，小的在前 |
 
-> ⚠️ 构建时会做 9 项校验：`rank`/`roles` 是否存在、`id` 是否重复、职位人数是否超出上限、日期格式是否合法等。**写错会直接构建失败并提示具体是哪个成员哪个字段**，不会静默上线错误数据。
+### 职级（`data/ranks.json`）与职务（`data/roles.json`）
 
-### 方式二：用 Excel 收集再转换（人多时推荐）
+职级 8 级，`track` 分三条线：`party`（党务行政，6 级）、`soviet`（苏维埃代表）、`army`（武装力量）。
+每级含 `grade`（行政级别，如「部级」）、`summary`、`duties[]`、`promotion`、`limit`（人数上限，`null` 为不限）。
 
-`录入模板/` 里有 4 份模板：
+职务 7 类：财政 / 秘书处 / 文宣 / 外交 / 劳动 / 军事 / 地区行政，`leadMemberId` 指向牵头人。
 
-- `01-组织信息.md` —— 国家名称、格言、建站时间等
-- `02-成员名单.csv` —— 16 列，一行一个成员
-- `03-职位层级.csv` —— 8 列，职位与人数上限
-- `04-职务分工.csv` —— 5 列，职务说明
+### 疆域（`data/territories.json`）
 
-填好后按 `00-先看我-怎么用.md` 的说明转成 `data/` 下的 JSON（字段一一对应）。
+```json
+{
+  "pendingCount": 8,
+  "territories": [
+    { "id": "linhai-capital", "name": "凛海城中央公社", "tier": "capital", "note": "首府，几乎涵盖整个凛冬半岛" }
+  ]
+}
+```
+
+`tier` 取 `capital` / `metro` / `city` / `territory` / `province` / `town` / `village` / `settlement`。
+
+### 构建期校验
+
+构建时会做 12 项跨文件校验：`rankId`/`roleIds` 外键、`id` 唯一、职级人数上限、日期格式、`status` 与 `leftAt` 一致、领地层级合法、`territoryTotal = 已下发 + 待下发`、`memberTotal ≥ 名录人数` 等。**写错会直接构建失败并指出具体是哪个文件哪一条**，不会静默上线错误数据。
+
+### Excel 收集
+
+`录入模板/` 里有 4 份模板（组织信息、成员名单 CSV、职位层级 CSV、职务分工 CSV，CSV 为 UTF-8 with BOM，Excel 打开不乱码）。填好后按 `00-先看我-怎么用.md` 转成 `data/` 下的 JSON。
 
 ## 本地开发
 
@@ -103,9 +142,10 @@ npm run preview # 预览构建结果
 2. 提交并推送到 `main` 分支；
 3. GitHub Actions 自动构建并发布，约 1 分钟后线上生效。
 
-首次部署前需在仓库 **Settings → Pages** 中把 Source 设为 **GitHub Actions**（本项目已配置好）。
+仓库 **Settings → Pages** 的 Source 需为 **GitHub Actions**（本项目已配置好）。
 
 ## 说明
 
-- 站点当前仍是**示例数据**（`data/site.json` 中 `isPlaceholder: true`），页面顶部会显示提示条。换成真实数据后请把该字段改为 `false`，提示条会自动消失。
-- GitHub Pages 是公开托管，**不要**在成员简介里填写任何真实姓名、联系方式等隐私信息。
+- 成员名录只收录**凛海城中央公社前 24 位成员**，全社在册 277 人；页面已注明这一范围，不做夸大。
+- 简介、加入时间等无法考证的信息一律留白，不用示例文字填充。
+- GitHub Pages 是公开托管，**不要**在简介或联系方式里填写真实姓名、住址、手机号等隐私信息。

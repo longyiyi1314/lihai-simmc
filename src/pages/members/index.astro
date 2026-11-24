@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import MemberCard from '../../components/MemberCard.astro';
-import RankBadge from '../../components/RankBadge.astro';
 import {
   site,
   rankList,
@@ -25,22 +24,22 @@ const alumni = alumniMembers;
 ---
 
 <Base
-  title="成员名单"
-  description={`${site.nationName}（${site.server}）成员名单：共 ${memberList.length} 位在册成员，按职位与职务排列。`}
+  title="成员名录"
+  description={`${site.fullName}（${site.server}）成员名录：全社在册 ${site.memberTotal} 人，本站逐人收录凛海城中央公社 ${memberList.length} 位成员，按职级排列。`}
 >
   <PageHead
-    title="成员名单"
+    title="成员名录"
     crumb="成员"
-    desc="每一个名字背后都有一段在海上待过的日子。按职位由高到低排列，休假与荣誉成员单列在后。"
+    desc="凛海城中央公社的前列成员。按职级由高到低排列，同职级内按名录顺序。荣誉与历史成员单列在后。"
   >
     <div class="page-meta">
-      <span>在册 <b>{memberList.length}</b> 人</span>
-      <span>现役 <b>{activeMembers.length}</b> 人</span>
-      <span>荣誉与历史 <b>{alumni.length}</b> 人</span>
-      <span>职位 <b>{rankList.length}</b> 级</span>
+      <span>全社在册 <b>{site.memberTotal}</b> 人</span>
+      <span>名录收录 <b>{memberList.length}</b> 人</span>
+      <span>职级 <b>{rankList.length}</b> 级</span>
+      <span>职务 <b>{roleList.length}</b> 类</span>
     </div>
 
-    <nav class="roster-bar" aria-label="按职位跳转">
+    <nav class="roster-bar" aria-label="按职级跳转">
       {
         rankGroups.map((g) => (
           <a class="chip" href={`#rank-${g.rank.id}`}>
@@ -61,6 +60,11 @@ const alumni = alumniMembers;
   </PageHead>
 
   <div class="wrap">
+    <p class="aside-note" style="margin-top:6px">
+      这份名录收录的是凛海城中央公社的前列成员（{memberList.length} / {site.memberTotal}）。
+      全社其余成员按公社与部门分散在各地区，不逐一列在此页。
+    </p>
+
     {
       rankGroups.map((g) => (
         <section class="roster-group" id={`rank-${g.rank.id}`}>
@@ -104,7 +108,7 @@ const alumni = alumniMembers;
           <p class="aside-note">
             名单中有 {reserved.length} 位同伴正在休假（
             {reserved.map((m) => m.displayName).join('、')}
-            ），他们仍保留职位与职务，随时可以回到海上。
+            ），他们仍保留职级与职务，随时可以回到海上。
           </p>
         </section>
       )
@@ -121,7 +125,7 @@ const alumni = alumniMembers;
 
     <div class="roster-foot">
       <a class="btn btn--ghost" href={url('/ranks/')}>
-        看看职位是怎么升的<span class="btn-arrow" aria-hidden="true">→</span>
+        看看职级是怎么升的<span class="btn-arrow" aria-hidden="true">→</span>
       </a>
       <a class="btn btn--quiet" href={url('/about/')}>关于璃海</a>
     </div>

@@ -6,68 +6,102 @@ import {
   memberList,
   rankList,
   roleList,
+  territoryList,
   isPlaceholder,
   placeholderNotice,
-  formatMonth,
+  formatDateFull,
 } from '../lib/loadData';
-import { url } from '../lib/url';
+import { asset, url } from '../lib/url';
 
-const values = [
+const pillars = [
   {
     no: '01',
-    title: '澄澈',
-    text: '规则写在明处，名单挂在墙上。谁负责什么、东西放在哪里、事情办到哪一步，都可以直接问，也都能查得到。',
+    title: '苏维埃代表制度',
+    text: '最高权力机关是璃海苏维埃公社联盟最高苏维埃代表大会，常设机关为璃海苏维埃凛海局中央执行委员会。每两个月进行一次苏维埃代表选举，每个地区选出两名代表参与地方的立法、执行与日常管理；代表若升任委员，席位随即空缺。',
   },
   {
     no: '02',
-    title: '历久',
-    text: '我们不追求一个周末起一座城。宁可慢一点，把材料配比、道路走向、灯塔的角度都算清楚，让它在两年后依然站得住。',
+    title: '璃海革命先锋主义',
+    text: '在 SimMC 的动荡局势与环境恶化中形成的革命理论：为保卫社会主义在云大陆各大洲的存在、保卫革命火种，建立起现代化的红色国家与革命先锋队伍，并让先锋艺术突破旧有的桎梏。',
   },
   {
     no: '03',
-    title: '共治',
-    text: '国主拍板，但议案从下面来。营造、防务、外交、后勤各有一条线，谁在那条线上，谁就有发言权。',
+    title: '璃海模式',
+    text: '集体主义、劳动者治理、科学发展与中央计划统筹、地方苏维埃自治，共同构成的国家制度框架。璃海社团在其中承担监督与完善制度落实的角色，让劳动者与干部、专业人员形成集体协作、共同管理与互助的意识。',
+  },
+];
+
+const economy = [
+  {
+    title: '全民所有制',
+    items: ['国营企业', '国家经济部门', '国营商店'],
+    note: '国家工人与国企职工在此序列，享有劳动局或凛海集团发放的工资及社会保障。',
+  },
+  {
+    title: '集体所有制',
+    items: ['地区产业', '公社产业', '社区产业'],
+    note: '地区职工由地区自主招聘并负责收入；集体工人一般自负盈亏，产出的一部分上缴国家，其余包产到社。',
+  },
+  {
+    title: '合作经营',
+    items: ['合作社', '店铺'],
+    note: '个体工商人员需缴纳租金与税收，受当地行政公署与国家劳动局监督。',
+  },
+  {
+    title: '武装与枢机',
+    items: ['红军', '国家枢机人员'],
+    note: '红军承担军事防卫与开边垦荒，享有社会保障与津贴；枢机人员一般没有额外工资，除非另有一项职业。',
   },
 ];
 
 const timeline = [
-  { date: '2024 · 03', title: '群岛落锚', text: '第一批人在 SimMC 的东南群岛选址，立下第一根界桩。璃海这个名字，是从一块琉璃色的海面来的。' },
-  { date: '2024 · 04', title: '营造开工', text: '主城规划定稿，临渊带着营造组开始铺第一段主干道与码头。' },
-  { date: '2024 · 06', title: '防务成军', text: '深舟接管防务，第一次团战守住了北岸的工事，也定下了「先看地形，再谈装备」的规矩。' },
-  { date: '2025 · 08', title: '开海之人离会', text: '远舟把规划图交出来，转为荣誉成员。后来主城的每一次扩建，都还在用他那版路网。' },
-  { date: '2026 · 10', title: '新一批见习入海', text: '池鱼通过申请，成为新一轮考察期的第一位成员。' },
-  { date: '2026 · 11', title: '成员站上线', text: '职位、职务、名单第一次被完整地整理成一页可以查的东西。', now: true },
+  { yun: 'Yun 26', title: '璃海苏维埃建立', text: '第一批先锋者在南大陆南端落脚，苏维埃的雏形初现。' },
+  { yun: 'Yun 28', title: '第一次政治危机', text: 'Qiyushi 与 haaamburger 缺位，由 Heinrich4084 代理政务。也是在这一年，璃海凛冬号自 Ultroveritas 远洋而来，在云大陆靠岸抛锚。' },
+  { yun: 'Yun 29', title: '改名为凛海城中央公社', text: '璃海苏维埃更名为凛海城中央公社，首府的建制从此确立。' },
+  { yun: 'Yun 31', title: '联盟成立', text: '璃海苏维埃公社联盟成立，公社联盟的国家形态定型。' },
+  { yun: 'Yun 35', title: '两大地区组建', text: '北凛海公社、军区与首都凛海城组建凛海地区；岐川公社、岐川北桦谷建立岐川地区。' },
+  { yun: 'Yun 39', title: '反垄断革命行动', text: '与云大陆其他国家、地区联合行动，收效甚微，璃海随后转变发展重心。' },
+  { yun: 'Yun 45', title: '第二期招募', text: '第二期人员开始招募，月度计划启动，首都在此期间实现扩张。' },
+  { yun: 'Yun 56', title: '凛海宫奠基', text: '凛海宫项目开工。同期璃海处于低迷的瓶颈期，开始对外寻求帮助。' },
+  { yun: 'Yun 58', title: '第三期与雨岛', text: '第三期招募启动，人口开始增长，国家职业制度与全国架构完成重构；在雨大陆建立雨岛地区（雨海湾开发区、北雨岛公社、雨岛湖公社），北凛海公社改名为延凛公社。' },
+  { yun: 'Yun 62', title: '第四期与岐川改造', text: '第四期招募启动，各部门开始正常运作；岐川完成宜居性改造，突破发展前期的桎梏。' },
+  { yun: 'Yun 68', title: '凛海宫竣工', text: '第五期招募启动。凛海宫竣工，三个地区都有了港口，大部分领地实现扩大，并在蒙镀大陆建立新地区。' },
+  { yun: 'Yun 74', title: '第一届独立日', text: '第六期招募启动，璃海第一次国家独立日庆典举办；首都圈几乎完整覆盖凛冬半岛，凛海城中央公社市中心成功申请为群体性地标。' },
+  { yun: 'Yun 80', title: '人口与财政', text: '账面总人口达到 300 人，国家财政盈余突破千万。', now: true },
 ];
 
-const steps = [
-  { no: 'STEP 01', title: '递交申请', text: '在服务器内或社区群里找到管理层，说明你想玩的方向：营造、防务、外交、后勤、宣传或招募。' },
-  { no: 'STEP 02', title: '见习考察', text: '以见习身份入海，通常两到四周。这段时间不派硬任务，主要是熟悉地形、规矩和人。' },
-  { no: 'STEP 03', title: '分工试岗', text: '挑一个职务跟着做一轮实际的事——跟一次工程、站一次岗、写一篇记录。合不合适，做完就知道了。' },
-  { no: 'STEP 04', title: '转为国民', text: '双方都点头，转正为国民，进入正式名单，可以参与议事。之后的路，按职位序列慢慢走。' },
+const flagColors = [
+  { name: '旗红', hex: '#960000', note: '旗面主色，占上部' },
+  { name: '旗白', hex: '#ffffff', note: '中部横条' },
+  { name: '旗蓝', hex: '#0003a7', note: '下部横条' },
+  { name: '星金', hex: '#ffff00', note: '左上角多角星' },
 ];
 ---
 
 <Base
   title="关于璃海"
-  description={`${site.nationName} · ${site.server}：建立于 ${site.foundedAt}，${site.motto}。这里是我们的来历、做事方式与加入方式。`}
+  description={`${site.fullName} · ${site.server}：建立于 ${formatDateFull(site.foundedAt)}，${site.motto}。这里是我们的来历、制度、经济与加入方式。`}
 >
   <PageHead
     title="关于璃海"
     crumb="关于"
-    desc={`${site.summary}`}
+    desc={site.summary}
   >
     <div class="page-meta">
-      <span>建立 <b>{formatMonth(site.foundedAt)}</b></span>
-      <span>成员 <b>{memberList.length}</b> 人</span>
-      <span>职位 <b>{rankList.length}</b> 级</span>
-      <span>职务 <b>{roleList.length}</b> 类</span>
+      <span>建立 <b>{formatDateFull(site.foundedAt)}</b></span>
+      <span>全社 <b>{site.memberTotal}</b> 人</span>
+      <span>领地 <b>{territoryList.length}</b> 处</span>
+      <span>职级 <b>{rankList.length}</b> 级</span>
     </div>
 
     <nav class="roster-bar" aria-label="页面章节">
       <a class="chip" href="#story">来历</a>
-      <a class="chip" href="#values">信条</a>
-      <a class="chip" href="#timeline">时间线</a>
-      {site.recruiting && <a class="chip" href="#join">加入方式</a>}
+      <a class="chip" href="#geography">地理</a>
+      <a class="chip" href="#system">制度</a>
+      <a class="chip" href="#economy">经济</a>
+      <a class="chip" href="#timeline">年表</a>
+      <a class="chip" href="#flag">旗帜与节日</a>
+      <a class="chip" href="#join">加入</a>
     </nav>
   </PageHead>
 
@@ -75,8 +109,8 @@ const steps = [
     <div class="sec-head">
       <span class="sec-no">01</span>
       <div class="sec-title">
-        <h2>一片群岛，一块琉璃</h2>
-        <p>「璃」是琉璃澄澈、历久不蚀。这两个词，后来成了我们做事的标准。</p>
+        <h2>从一艘船开始</h2>
+        <p>「璃海」这个名字，是从一块琉璃色的海面上来的。</p>
       </div>
       <span />
     </div>
@@ -84,40 +118,78 @@ const steps = [
     <div class="story">
       <div class="prose">
         <p class="dropcap">
-          璃海起于 SimMC 东南的一片群岛。最初只有几个人、一张手绘的选址图，和一堆没处放的石材。第一年我们没急着盖房子，先把海岸线走了一遍，把潮汐、视距、航道都记下来，再决定主城落在哪一道湾里。
+          璃海苏维埃公社联盟位于南大陆的南端极南部，地处雪原群系。从 Ultroveritas 远洋而来的璃海凛冬号，于 Yun 历 28 年在神秘的南方大陆靠岸抛锚。先锋者们以这艘轮船为核心，建起了新的港湾与都市——码头的工人、农民与身先士卒的执委们，让凛海城拔地而起。
         </p>
         <p>
-          这个顺序后来一直没变：先看清楚，再动手。营造组至今保留着当年的材料配比表；防务组的地形工事图改了七版，每一版都留着；连灯塔的高度，都是按能见距离反推出来的。我们不觉得这是磨蹭——海上的东西，塌一次就没人再信第二次。
+          远在大陆另一端的岐川地区，则由同胞与各界朋友共同建设，成了一座充满生活气息的新城市。此后雨岛在雨大陆西北角的大岛上生长，蒙海在蒙镀大陆南部的沿海落地。四个地区之间隔着海峡与山脉，也靠港口与航线连在一起。
         </p>
         <p>
-          璃海也不只是建筑。有人负责对外谈盟约，有人负责深夜巡海，有人专门把城建过程剪成延时视频。这些事看起来不产生一块砖，但它们决定了这片地方到底是不是一个「国」。
+          璃海要证明的是劳动者与智慧能做出什么：以璃海革命先锋主义与璃海模式为指导，让集体走向更先进的社会形态与人文精神。这不是一句口号——它落在劳动资质评定、月度计划、地区苏维埃与国营商店这些具体的东西上。
         </p>
         <p>
-          到今天，璃海有 {memberList.length} 位在册成员、{rankList.length} 级职位、{roleList.length} 类职务。人数不算多，但每一个名字后面都有具体在做的
-          事。
+          到今天，联盟有 {site.memberTotal} 人在册、{territoryList.length} 处已下发领地、{rankList.length} 级职级与 {roleList.length} 类职务。本站逐人收录了凛海城中央公社的前 {memberList.length} 位成员。
         </p>
       </div>
 
       <figure class="story-quote">
-        <blockquote>{site.motto}</blockquote>
-        <figcaption>Lihai · {site.server} · EST. {site.foundedAt.replace('-', '.')}</figcaption>
+        <blockquote>{site.motto}，将被颠倒的世界再颠覆回来！</blockquote>
+        <figcaption>祁钰师 · 首席执行委员</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="wrap section" id="values">
+  <section class="wrap section" id="geography">
     <div class="sec-head">
       <span class="sec-no">02</span>
       <div class="sec-title">
-        <h2>我们相信的三件事</h2>
-        <p>写在公约第一条之前的东西。规矩可以改，这三条不改。</p>
+        <h2>四个地区，一片雪原</h2>
+        <p>首都圈几乎完整覆盖了整个凛冬半岛。</p>
+      </div>
+      <span class="sec-more"><a href={url('/territory/')}>完整疆域 →</a></span>
+    </div>
+
+    <div class="values">
+      <article class="value-card">
+        <div class="value-no">01</div>
+        <h3>凛海地区</h3>
+        <p>首都凛海城中央公社所在，几乎包含整个凛冬半岛，约 5000 个区块。地处雪原群系。</p>
+      </article>
+      <article class="value-card">
+        <div class="value-no">02</div>
+        <h3>岐川地区</h3>
+        <p>南大陆东方，丘陵与高山地貌，约 3200 个区块。第二大地区，以宜居性改造见长。</p>
+      </article>
+      <article class="value-card">
+        <div class="value-no">03</div>
+        <h3>雨岛地区</h3>
+        <p>雨大陆西北角的大岛，与首都隔一个海峡相望，约 2600 个区块。</p>
+      </article>
+      <article class="value-card">
+        <div class="value-no">04</div>
+        <h3>蒙海地区</h3>
+        <p>蒙镀大陆南部的沿海，与雨岛同为热带气候，约 2000 个区块。</p>
+      </article>
+    </div>
+
+    <p class="aside-note" style="margin-top:22px">
+      四区合计约 12800 个区块。目前已下发领地 {territoryList.length} 处，另有
+      {site.territoryTotal - territoryList.length} 处已规划未下发。
+    </p>
+  </section>
+
+  <section class="wrap section" id="system">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <div class="sec-title">
+        <h2>国家怎么运转</h2>
+        <p>规矩可以改，这三条是底座。</p>
       </div>
       <span />
     </div>
 
-    <div class="values">
+    <div class="values values--3">
       {
-        values.map((v) => (
+        pillars.map((v) => (
           <article class="value-card">
             <div class="value-no">{v.no}</div>
             <h3>{v.title}</h3>
@@ -126,14 +198,62 @@ const steps = [
         ))
       }
     </div>
+
+    <div class="home-split" style="margin-top:26px">
+      <div class="panel panel--pad">
+        <div class="panel-title">权力机关</div>
+        <p class="prose-plain">
+          最高苏维埃代表大会为最高权力机关，闭会期间由凛海局中央执行委员会行使常设职权。
+          各地区苏维埃由地区行政公署与地区苏维埃代表两套班子共同管理，最终决定权在行政公署——
+          它代表凛海局中央执行委员会的执行权。此外还有海外属地和各界人士代表参与大会讨论。
+        </p>
+      </div>
+      <div class="panel panel--pad">
+        <div class="panel-title">职级序列</div>
+        <p class="prose-plain">
+          国家按架构分为委员会级、部级、司局级、处级、科级，对应
+          {rankList.slice(0, 6).map((r) => r.name).join('、')} 几个等级。
+          各部门的普通职员为专员，普通工人为专职工作者，除此之外是群众。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="economy">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <div class="sec-title">
+        <h2>公有制为主体</h2>
+        <p>生产资料公有，个人可以拥有一定程度的生产资料，但不能用于破坏公有制经济或长期雇佣国家工人及国企职工。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="values values--4">
+      {
+        economy.map((e) => (
+          <article class="value-card">
+            <h3>{e.title}</h3>
+            <ul class="econ-list">
+              {e.items.map((i) => <li>{i}</li>)}
+            </ul>
+            <p>{e.note}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="aside-note" style="margin-top:22px">
+      璃海禁止一切程度的公共部门私营承包化，也禁止国家内部产生过度市场化；为保障劳动者基本保障，实施职业工资制度。
+    </p>
   </section>
 
   <section class="wrap section" id="timeline">
     <div class="sec-head">
-      <span class="sec-no">03</span>
+      <span class="sec-no">05</span>
       <div class="sec-title">
-        <h2>一路过来</h2>
-        <p>只记节点，不记日常。日常都在岛上的砖缝里。</p>
+        <h2>璃海事件年表</h2>
+        <p>游戏内纪年为 Yun 历，与国家建立时间并行记录。</p>
       </div>
       <span />
     </div>
@@ -142,7 +262,7 @@ const steps = [
       {
         timeline.map((t) => (
           <div class={`tl-item${t.now ? ' tl-item--now' : ''}`}>
-            <div class="tl-date">{t.date}</div>
+            <div class="tl-date mono">{t.yun}</div>
             <h3>{t.title}</h3>
             <p>{t.text}</p>
           </div>
@@ -151,16 +271,72 @@ const steps = [
     </div>
   </section>
 
+  <section class="wrap section" id="flag">
+    <div class="sec-head">
+      <span class="sec-no">06</span>
+      <div class="sec-title">
+        <h2>旗帜与节日</h2>
+        <p>旗面自上而下红、白、蓝三色横条，左上角一枚金色多角星。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="flag-block">
+      <figure class="flag-figure">
+        <img src={asset('flag.png')} alt={`${site.fullName}国旗：红、白、蓝三色横条，左上角金色多角星`} width="1890" height="1417" loading="lazy" />
+        <figcaption class="mono">{site.fullNameEn || 'Riherie Soviete Commune Unien'}</figcaption>
+      </figure>
+
+      <div class="flag-side">
+        <div class="panel panel--pad">
+          <div class="panel-title">旗色</div>
+          <div class="swatches">
+            {
+              flagColors.map((c) => (
+                <div class="swatch">
+                  <span class="swatch-chip" style={`background:${c.hex}`} aria-hidden="true" />
+                  <span class="swatch-main">
+                    <b>{c.name}</b>
+                    <span class="mono">{c.hex.toUpperCase()}</span>
+                  </span>
+                  <span class="swatch-note">{c.note}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="panel panel--pad">
+          <div class="panel-title">节日</div>
+          <div class="meta-list">
+            {
+              site.holidays.map((h) => (
+                <div class="meta-row">
+                  <span class="meta-k">{h.name}</span>
+                  <span class="meta-v mono">{h.date.replace('-', ' 月 ')} 日</span>
+                </div>
+              ))
+            }
+            <div class="meta-row">
+              <span class="meta-k">建立</span>
+              <span class="meta-v mono">{formatDateFull(site.foundedAt, site.foundedTime)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="wrap section" id="join">
     <div class="sec-head">
-      <span class="sec-no">04</span>
+      <span class="sec-no">07</span>
       <div class="sec-title">
         <h2>{site.recruiting ? '怎么加入我们' : '关于加入'}</h2>
         <p>
           {
             site.recruiting
               ? '不设笔试，也不看装备。我们只想知道你愿意长期做哪一件事。'
-              : '当前暂停招新。等到重新开放时，这里会更新具体流程。'
+              : '当前暂停招新。等到重新开放时，这里会更新具体信息。'
           }
         </p>
       </div>
@@ -170,26 +346,39 @@ const steps = [
     {
       site.recruiting ? (
         <div class="steps">
-          {steps.map((s) => (
-            <div class="step">
-              <div class="step-no">{s.no}</div>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-            </div>
-          ))}
+          <div class="step">
+            <div class="step-no mono">STEP 01</div>
+            <h3>先找到我们</h3>
+            <p>在 SimMC 服务器内或璃海社团的社区渠道联系管理层，说明你想玩的方向。</p>
+          </div>
+          <div class="step">
+            <div class="step-no mono">STEP 02</div>
+            <h3>以劳动者身份进来</h3>
+            <p>从国家工人、地区职工或集体工人起步，参与一次实际的生产或建设。</p>
+          </div>
+          <div class="step">
+            <div class="step-no mono">STEP 03</div>
+            <h3>走劳动资质评定</h3>
+            <p>通过劳动资质评定与管理业务考核，可以晋升为国家管理人员，进入职级序列。</p>
+          </div>
+          <div class="step">
+            <div class="step-no mono">STEP 04</div>
+            <h3>成为委员</h3>
+            <p>委员及以上才可加入璃海社团，参与中央执行委员会的日常管理。</p>
+          </div>
         </div>
       ) : (
-        <p class="aside-note">招新暂停中。仍可通过游戏内或社区群联系管理层咨询。</p>
+        <p class="aside-note">招新暂停中。仍可通过游戏内或社区渠道联系管理层咨询。</p>
       )
     }
 
     <div class="cta-band" style="margin-top:34px">
       <div>
-        <h2>{site.recruiting ? '下一次涨潮，一起出海。' : '潮水会再涨一次。'}</h2>
+        <h2>{site.recruiting ? '凛冬号还在港里。' : '潮水会再涨一次。'}</h2>
         <p>
           {
             site.recruiting
-              ? `璃海在 ${site.server} ${site.version}，随时可以来看看。先聊聊你想做什么，再决定要不要留下。`
+              ? `璃海在 ${site.server} ${site.version}。先聊聊你想做什么，再决定要不要留下。`
               : '关注社区公告，招新开放时会在第一时间公布。'
           }
         </p>
@@ -201,7 +390,7 @@ const steps = [
           </a>
         ) : (
           <a class="btn btn--ghost" href={url('/members/')}>
-            成员名单<span class="btn-arrow" aria-hidden="true">→</span>
+            成员名录<span class="btn-arrow" aria-hidden="true">→</span>
           </a>
         )
       }
@@ -210,7 +399,7 @@ const steps = [
 
   <section class="wrap section">
     <div class="sec-head">
-      <span class="sec-no">05</span>
+      <span class="sec-no">08</span>
       <div class="sec-title">
         <h2>公告</h2>
         <p>站内与国境内的大小事，都记在这里。</p>
@@ -235,6 +424,18 @@ const steps = [
         }
       </div>
     </div>
+
+    {
+      site.links.length > 0 && (
+        <div class="ext-links">
+          {site.links.map((l) => (
+            <a class="ext-link" href={l.url} target="_blank" rel="noopener noreferrer">
+              {l.label}<span class="btn-arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
 
     {
       isPlaceholder && (

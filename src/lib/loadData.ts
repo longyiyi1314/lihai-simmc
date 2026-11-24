@@ -6,6 +6,7 @@ import {
   RankFileSchema,
   RolesFileSchema,
   MembersFileSchema,
+  TerritoryFileSchema,
 } from './schema';
 
 const DATA_DIR = join(process.cwd(), 'data');
@@ -47,9 +48,10 @@ function crossValidate(data: {
   ranks: z.infer<typeof RankFileSchema>;
   roles: z.infer<typeof RolesFileSchema>;
   members: z.infer<typeof MembersFileSchema>;
+  territories: z.infer<typeof TerritoryFileSchema>;
 }) {
   const errors: string[] = [];
-  const { ranks, roles, members } = data;
+  const { ranks, roles, members, territories, site } = data;
 
   // 1. 职位 id 唯一
   const rankIds = new Set<string>();
@@ -143,6 +145,39 @@ function crossValidate(data: {
     }
   }
 
+  // 10. 领地 id 唯一
+  const territoryIds = new Set<string>();
+  for (const t of territories.territories) {
+    if (territoryIds.has(t.id)) {
+      errors.push(`territories.json：「${t.id}」领地 id 重复`);
+    }
+    territoryIds.add(t.id);
+  }
+
+  // 11. 领地数量与 site.json 的总数口径一致
+  const granted = territories.territories.length;
+  if (site.territoryGranted && site.territoryGranted !== granted) {
+    errors.push(
+      `territories.json：实际列出 ${granted} 处已下发领地，但 site.json 的 territoryGranted 写的是 ${site.territoryGranted}`
+    );
+  }
+  if (
+    site.territoryTotal &&
+    site.territoryGranted &&
+    site.territoryTotal !== site.territoryGranted + territories.pendingCount
+  ) {
+    errors.push(
+      `site.json：territoryTotal（${site.territoryTotal}）应等于 territoryGranted（${site.territoryGranted}）+ territories.json 的 pendingCount（${territories.pendingCount}）`
+    );
+  }
+
+  // 12. 全社人数不得小于名录里的人数
+  if (site.memberTotal && site.memberTotal < members.members.length) {
+    errors.push(
+      `site.json：memberTotal（${site.memberTotal}）小于 members.json 收录的 ${members.members.length} 人`
+    );
+  }
+
   if (errors.length) {
     throw new DataError(
       `数据一致性校验失败（共 ${errors.length} 处）：\n` +
@@ -155,8 +190,9 @@ const site = readJson('site.json', SiteSchema);
 const ranks = readJson('ranks.json', RankFileSchema);
 const roles = readJson('roles.json', RolesFileSchema);
 const members = readJson('members.json', MembersFileSchema);
+const territories = readJson('territories.json', TerritoryFileSchema);
 
-crossValidate({ site, ranks, roles, members });
+crossValidate({ site, ranks, roles, members, territories });
 
 /** 职位按 level 从高到低 */
 export const rankList = [...ranks.ranks].sort((a, b) => b.level - a.level);
@@ -171,7 +207,32 @@ export const memberList = [...members.members].sort((a, b) => {
 export const rankMap = new Map(rankList.map((r) => [r.id, r]));
 export const roleMap = new Map(roleList.map((r) => [r.id, r]));
 
-export { site, ranks, roles, members };
+export { site, ranks, roles, members, territories };
+
+/** 领地层级：显示名与权重（用于分组排序） */
+export const territoryTiers = [
+  { id: 'capital', name: '首都', weight: 80 },
+  { id: 'metro', name: '都市圈', weight: 70 },
+  { id: 'city', name: '城市', weight: 60 },
+  { id: 'territory', name: '领地', weight: 50 },
+  { id: 'province', name: '省份', weight: 40 },
+  { id: 'town', name: '城镇', weight: 30 },
+  { id: 'village', name: '村庄', weight: 20 },
+  { id: 'settlement', name: '定居点', weight: 10 },
+] as const;
+
+export const territoryTierMap = new Map(territoryTiers.map((t) => [t.id, t]));
+
+/** 领地按层级权重排序 */
+export const territoryList = [...territories.territories].sort(
+  (a, b) =>
+    (territoryTierMap.get(b.tier)?.weight ?? 0) -
+    (territoryTierMap.get(a.tier)?.weight ?? 0)
+);
+
+export function territoriesOfTier(tier: string) {
+  return territoryList.filter((t) => t.tier === tier);
+}
 
 /** 在任 + 休假 = 现役名单；荣誉/已离会单独分区 */
 export const activeMembers = memberList.filter(
@@ -217,6 +278,15 @@ export function formatMonth(m: string) {
   if (!m) return '';
   const [y, mo] = m.split('-');
   return mo ? `${y} 年 ${Number(mo)} 月` : `${y} 年`;
+}
+
+/** 2025-12-27 + 09:26 → 2025 年 12 月 27 日 09:26 */
+export function formatDateFull(d: string, t = '') {
+  if (!d) return '';
+  const [y, mo, day] = d.split('-');
+  if (!day) return formatMonth(d);
+  const base = `${y} 年 ${Number(mo)} 月 ${Number(day)} 日`;
+  return t ? `${base} ${t}` : base;
 }
 
 export const statusLabel: Record<string, string> = {

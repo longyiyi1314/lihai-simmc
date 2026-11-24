@@ -3,7 +3,7 @@ import { site } from '../lib/loadData';
 import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
-const founded = site.foundedAt ? site.foundedAt.replace('-', '.') : '';
+const founded = site.foundedAt ? site.foundedAt.slice(0, 4) : '';
 ---
 
 <footer class="site-footer">
@@ -15,11 +15,14 @@ const founded = site.foundedAt ? site.foundedAt.replace('-', '.') : '';
           <span class="brand-mark" aria-hidden="true"></span>
           <span class="brand-text">
             <span class="brand-name">{site.nationName}</span>
+            <span class="brand-en">{site.nationNameEn}</span>
           </span>
         </div>
-        {site.motto && <p class="foot-motto">{site.motto}</p>}
+        {site.fullName && <p class="foot-fullname">{site.fullName}</p>}
+        {site.motto && <p class="foot-motto">「{site.motto}」</p>}
         <p class="foot-note">
-          {site.server}{site.version ? ` ${site.version}` : ''} 国家成员站 · 收录成员、职位与沿革。
+          {site.server}{site.version ? ` ${site.version}` : ''} · {site.clubName || site.nationName}
+          {site.studioName ? ` / ${site.studioName}` : ''}
         </p>
       </div>
 
@@ -27,34 +30,34 @@ const founded = site.foundedAt ? site.foundedAt.replace('-', '.') : '';
         <h3>浏览</h3>
         <ul>
           <li><a href={url('/')}>首页</a></li>
-          <li><a href={url('/members/')}>成员名单</a></li>
-          <li><a href={url('/ranks/')}>职位体系</a></li>
+          <li><a href={url('/members/')}>成员名录</a></li>
+          <li><a href={url('/territory/')}>疆域</a></li>
         </ul>
       </div>
 
       <div class="foot-col">
         <h3>了解</h3>
         <ul>
+          <li><a href={url('/ranks/')}>职级与职务</a></li>
           <li><a href={url('/about/')}>关于璃海</a></li>
-          <li><a href={url('/about/#story')}>建城沿革</a></li>
-          <li><a href={url('/about/#join')}>加入方式</a></li>
+          <li><a href={url('/about/#timeline')}>事件年表</a></li>
         </ul>
       </div>
 
       <div class="foot-col foot-col--wide">
         <h3>档案</h3>
         <ul>
-          <li><span>{site.game}</span></li>
-          <li><span>{site.server}</span></li>
-          <li><span class="mono">{founded || '—'}</span></li>
+          <li><span>{site.government}</span></li>
+          <li><span>首府 {site.capital}</span></li>
+          <li><span class="mono">EST. {founded}</span></li>
         </ul>
       </div>
     </div>
 
     <div class="foot-bottom">
-      <span>© {year} {site.nationName} · {site.server}</span>
+      <span>© {year} {site.fullName || site.nationName} · {site.server}</span>
       <span class="mono">
-        琉璃澄澈<span class="foot-dot">/</span>历久不蚀
+        {site.slogan || '追求真理，创造奇迹'}
       </span>
     </div>
   </div>
