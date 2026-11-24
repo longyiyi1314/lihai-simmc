@@ -2,12 +2,13 @@
 import { url } from '../lib/url';
 import { site } from '../lib/loadData';
 
-const path = (Astro.url.pathname || '/').replace(/\/+$/, '') || '/';
+const path = (Astro.url.pathname || '').replace(/\/+$/, '') || '/';
 
 const nav = [
   { href: url('/'), label: '首页', match: '/' },
   { href: url('/members/'), label: '成员', match: '/members' },
   { href: url('/ranks/'), label: '职级', match: '/ranks' },
+  { href: url('/organization/'), label: '机构', match: '/organization' },
   { href: url('/territory/'), label: '疆域', match: '/territory' },
   { href: url('/about/'), label: '关于', match: '/about' },
 ];
