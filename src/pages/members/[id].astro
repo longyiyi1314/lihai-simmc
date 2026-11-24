@@ -10,6 +10,8 @@ import {
   rankMap,
   roleMap,
   membersOfRole,
+  orgsOfMember,
+  orgTierMap,
   formatMonth,
   statusLabel,
 } from '../../lib/loadData';
@@ -41,6 +43,8 @@ const teammates = member.roleIds.length
       .filter((m) => m.id !== member.id && m.roleIds.some((r) => member.roleIds.includes(r)))
       .slice(0, 3)
   : [];
+
+const memberOrgs = orgsOfMember(member.id);
 
 const contacts = Object.entries(member.contacts || {}).filter(([, v]) => Boolean(v));
 const contactLabel: Record<string, string> = {
@@ -153,6 +157,25 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
                       </div>
                       <p class="role-desc">{r.description}</p>
                     </div>
+                  ))}
+                </div>
+              </div>
+            )
+          }
+
+          {
+            memberOrgs.length > 0 && (
+              <div class="profile-section">
+                <h2 class="panel-title">任职机构</h2>
+                <div class="org-link-list">
+                  {memberOrgs.map((o) => (
+                    <a class="org-link" href={url('/organization/')}>
+                      <span class="org-link-tier">{orgTierMap.get(o.tier)?.name ?? ''}</span>
+                      <span class="org-link-name">{o.name}</span>
+                      {o.headMemberIds.includes(member.id) && (
+                        <span class="org-link-role">负责人</span>
+                      )}
+                    </a>
                   ))}
                 </div>
               </div>
