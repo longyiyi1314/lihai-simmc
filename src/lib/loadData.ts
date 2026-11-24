@@ -17,7 +17,7 @@ class DataError extends Error {}
 /** 逐条格式化 zod 报错，输出「哪个文件第几条哪个字段错了」 */
 function formatIssues(zodError: z.ZodError, label: string): string[] {
   return zodError.issues.map((i) => {
-    const path = i.path.length ? i.path.join('.') : '(本根)';
+    const path = i.path.length ? i.path.join('.') : '(根)';
     return `  ${label} → ${path}：${i.message}`;
   });
 }
@@ -43,7 +43,7 @@ function readJson<T>(file: string, schema: z.ZodType<T>): T {
   return parsed.data;
 }
 
-/** 跨文件一致性校验：外键、唯一性、名额 */
+/** 跨文件一致性校验：外键、唯一性、头像文件、名额 */
 function crossValidate(data: {
   site: z.infer<typeof SiteSchema>;
   ranks: z.infer<typeof RankFileSchema>;
@@ -398,16 +398,16 @@ export function hueOf(id: string) {
 export function formatMonth(m: string) {
   if (!m) return '';
   const [y, mo] = m.split('-');
-  return mo ? `${y} 年 ${Number(mo)}` : '';
+  return mo ? `${y} 年 ${Number(mo)} 月` : `${y} 年`;
 }
 
 /** 2025-12-27 + 09:26 → 2025 年 12 月 27 日 09:26 */
 export function formatDateFull(d: string, t = '') {
   if (!d) return '';
   const [y, mo, day] = d.split('-');
-  if (!day) return '';
+  if (!day) return formatMonth(d);
   const base = `${y} 年 ${Number(mo)} 月 ${Number(day)} 日`;
-  return t ? `${base} : ${t}` : '';
+  return t ? `${base} ${t}` : base;
 }
 
 export const statusLabel: Record<string, string> = {
