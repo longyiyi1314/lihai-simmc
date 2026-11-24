@@ -1,0 +1,58 @@
+---
+import OrgNode from './OrgNode.astro';
+import { url } from '../lib/url';
+import {
+  childrenOf,
+  organizationMap,
+  memberList,
+  orgTierMap,
+} from '../lib/loadData';
+
+interface Props {
+  orgId: string;
+  depth: number;
+}
+
+const { orgId, depth } = Astro.props;
+const org = organizationMap.get(orgId);
+const kids = org ? childrenOf(orgId) : [];
+const tier = org ? orgTierMap.get(org.tier) : null;
+const resolve = (id: string) => memberList.find((m) => m.id === id);
+---
+
+{
+  org && (
+    <div class="org-node" style={`--od:${depth}`}>
+      <article class={`org-card org-card--${org.tier}`}>
+        <div class="org-card-head">
+          <span class="org-tier-tag">{tier?.name ?? ''}</span>
+          <h3 class="org-name">{org.name}</h3>
+        </div>
+        <div class="org-people">
+          {org.memberIds.length === 0 ? (
+            <span class="org-vacant">岗位暂缺</span>
+          ) : (
+            org.memberIds.map((id) => {
+              const m = resolve(id);
+              const isHead = org.headMemberIds.includes(id);
+              return (
+                <a class="org-person" href={url(`/members/${id}`)}>
+                  <span class="org-person-name">{m?.displayName ?? id}</span>
+                  {isHead && <span class="org-person-role">负责</span>}
+                </a>
+              );
+            })
+          )}
+        </div>
+      </article>
+
+      {kids.length > 0 && (
+        <div class="org-children">
+          {kids.map((k) => (
+            <OrgNode orgId={k.id} depth={depth + 1} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}

@@ -32,14 +32,12 @@ Thumbs.db
 .chrome-*/
 
 # 无头浏览器调试
-.shot*.mjs
+.shot-*.mjs
+.shots*.mjs
+.shot2.mjs
 .zoom*.mjs
 .probe*.mjs
 .slice*.mjs
-.closeup*.mjs
-.hdr*.mjs
-.mk*.mjs
+.closeup.mjs
 .palette*.cjs
-.chk*.mjs
-.orgimg/
-.zz.py
+.chk.mjs

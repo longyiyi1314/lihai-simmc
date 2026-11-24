@@ -1,6 +1,6 @@
 /**
- * 视觉层的小工具：颜色运算 + 机构色相。
- * 职位自带 #RRGGBB，机构只有 id/kind，所以分别用两条路径取色。
+ * 视觉层的小工具：颜色运算 + 职务色相。
+ * 数据里 rank 自带 #RRGGBB，role 只有名称，所以分别用两条路径取色。
  */
 
 export interface Rgb {
@@ -31,7 +31,6 @@ export function alpha(hex: string, a: number): string {
 /** 向白色混合，用于把过暗的职位色提亮到可读 */
 export function lighten(hex: string, amount: number): string {
   const { r, g, b } = hexToRgb(hex);
-  const k = Math.max(0, Math.min(1, amount));
   const mix = (c: number) => Math.round(c + (255 - c) * k);
   return `rgb(${mix(r)}, ${mix(g)}, ${mix(b)})`;
 }
@@ -44,45 +43,31 @@ export function darken(hex: string, amount: number): string {
   return `rgb(${mix(r)}, ${mix(g)}, ${mix(b)})`;
 }
 
-/** 稳定色相：同一个 id 永远得到同一个 0–359 的数 */
-export function hueOf(id: string, span = 300, base = 30): number {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 360;
-  return base + (h % span);
-}
-
 /**
- * 机构色相：按层级分色，让「委员会 / 部 / 兵团 / 局 / 处 / 军区」在树里一眼分得开。
- * 同一层级内再用 id 散列微调，避免同级的卡片全长一个样。
+ * 职务色调表。
+ * 让「外交 / 军事 / 营造 / 后勤 / 宣传 / 招募」在标签、卡片、图表里保持同一套色彩语言。
+ * 未登记的新职务用稳定散列兜底，加数据不会突然变成灰色。
  */
-const KIND_HUE: Record<string, [number, number]> = {
-  root: [42, 8],
-  commission: [356, 10],
-  bureau: [22, 14],
-  corps: [352, 12],
-  division: [188, 16],
-  office: [204, 18],
-  district: [268, 16],
+const ROLE_HUE: Record<string, number> = {
+  diplomacy: 38, // 琥珀
+  military: 352, // 珊瑚
+  build: 168, // 琉璃青
+  logistics: 205, // 海蓝
+  media: 268, // 紫晶
+  recruit: 128, // 苔绿
 };
 
-export function orgHueOf(id: string, kind: string): number {
-  const [base, spread] = KIND_HUE[kind] ?? [30, 300];
-  return hueOf(`${kind}:${id}`, spread, base);
+export function roleHueOf(id: string): number {
+  const fixed = ROLE_HUE[id];
+  if (fixed !== undefined) return fixed;
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 360;
+  return 30 + (h % 300);
 }
 
-/** 供 style 属性使用：style={orgStyle(id, kind)} */
-export function orgStyle(id: string, kind: string): string {
-  return `--oh:${orgHueOf(id, kind)}`;
-}
-
-/**
- * 三个大委员会各用一个旗色：政务枢机 = 旗红，革命军事 = 星金，计划经济 = 旗蓝。
- * 首页与职级页的委员会卡片沿用这套对应关系，和国旗配色呼应。
- */
-export const BRANCH_HUES = [356, 42, 208];
-
-export function branchHue(i: number): number {
-  return BRANCH_HUES[i % BRANCH_HUES.length];
+/** 供 style 属性使用：style={roleStyle(id)} */
+export function roleStyle(id: string): string {
+  return `--rh:${roleHueOf(id)}`;
 }
 
 /** 序号：1 → 001 */

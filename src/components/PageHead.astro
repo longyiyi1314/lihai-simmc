@@ -9,27 +9,10 @@ interface Props {
 }
 
 const { title, desc = '', crumb = '' } = Astro.props;
-
-/* HUD 读数：把当前路径压成一段「节点编号」，纯装饰（aria-hidden） */
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const seg = Astro.url.pathname
-  .replace(base, '')
-  .replace(/^\/+|\/+$/g, '');
-const node = seg
-  ? seg.toUpperCase().replace(/[^A-Z0-9]+/g, '-')
-  : 'ROOT';
 ---
 
 <header class="page-head">
   <div class="wrap">
-    <div class="page-hud" aria-hidden="true">
-      <span class="page-hud-dot"></span>
-      <span class="page-hud-k">NODE</span>
-      <span class="page-hud-v">{node}</span>
-      <span class="page-hud-sep"></span>
-      <span class="page-hud-k">SEC</span>
-      <span class="page-hud-v">{crumb || title}</span>
-    </div>
     <nav class="crumb" aria-label="面包屑">
       <a href={url('/')}>璃海</a>
       <span class="sep" aria-hidden="true">/</span>

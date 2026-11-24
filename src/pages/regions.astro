@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import RegionNode from '../components/RegionNode.astro';
+import {
+  site,
+  regionList,
+  rootRegions,
+  regionTiers,
+} from '../lib/loadData';
+
+const total = regionList.length;
+const countByTier = (t: string) => regionList.filter((r) => r.tier === t).length;
+const tierChips = regionTiers
+  .map((t) => ({ ...t, n: countByTier(t.id) }))
+  .filter((t) => t.n > 0);
+const communeCount = countByTier('commune');
+---
+
+<Base
+  title="行政区划"
+  description={`${site.fullName}行政区划：最高苏维埃、凛海局与中央执行委员会统辖四大地区苏维埃及其他海外属地，地区下辖公社。共 ${communeCount} 个公社。`}
+>
+  <PageHead
+    title="行政区划"
+    crumb="行政区划"
+    desc="中央执行委员会在各地区设立行政公署，任命地区主任代表凛海局领导；地区苏维埃下辖公社，公社享委员级权限、可自治，须服从上级地区。"
+  >
+    <div class="page-meta">
+      <span>节点合计 <b>{total}</b> 个</span>
+      {tierChips.map((t) => (
+        <span>{t.name} <b>{t.n}</b></span>
+      ))}
+    </div>
+  </PageHead>
+
+  <div class="wrap">
+    <div class="rgn-tree">
+      {rootRegions.map((r) => (
+        <RegionNode regionId={r.id} depth={0} />
+      ))}
+    </div>
+
+    <p class="aside-note rgn-foot-note">
+      地区级、公社级为该建制单位相当于凛海局的权限级别，不代表负责人的实际职级；负责人级别可高于地区级别。尚未指定代表的公社，人员补任后此处自动更新。
+    </p>
+  </div>
+</Base>

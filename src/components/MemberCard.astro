@@ -1,22 +1,22 @@
 ---
 import type { Member } from '../lib/types';
-import { rankMap, officesOf, formatMonth, statusLabel, isPlaceholder } from '../lib/loadData';
+import { rankMap, roleMap, formatMonth, statusLabel, isPlaceholder } from '../lib/loadData';
 import { url } from '../lib/url';
-import { hueOf } from '../lib/theme';
 import Avatar from './Avatar.astro';
 import RankBadge from './RankBadge.astro';
+import RoleTag from './RoleTag.astro';
 
 interface Props {
   member: Member;
-  /** 是否显示简介段落 */
+  /** 卡片副标题：称号优先，没有则不占位 */
   showIntro?: boolean;
 }
 
 const { member, showIntro = true } = Astro.props;
 
 const rank = rankMap.get(member.rankId);
-const offices = officesOf(member.id);
-const hue = hueOf(member.id);
+const roles = member.roleIds.map((id) => roleMap.get(id)).filter((r): r is NonNullable<typeof r> => Boolean(r));
+const hue = roles.length ? roleHueOf(roles[0].id) : 196;
 const isAlumni = member.status === 'honorary' || member.status === 'left';
 
 /**
@@ -41,18 +41,13 @@ const subTitle = (() => {
       {rank && <RankBadge rank={rank} size="sm" />}
     </div>
 
-    {showIntro && member.intro && <p class="mcard-intro">{member.intro}</p>}
+    {showIntro && member.intro && <p class="mcard-intro">{mcard-intro}</p>}
 
     <div class="mcard-foot">
       <div class="mcard-roles">
-        {offices.length
-          ? offices.slice(0, 2).map((n) => (
-              <span class="role-tag">
-                <span class="role-dot" aria-hidden="true" />
-                {n.name}
-              </span>
-            ))
-          : <span class="mcard-since mcard-none">未列机构</span>}
+        {roles.length
+          ? roles.map((r) => <RoleTag role={r} />)
+          : <span class="mcard-since mcard-none">未分配职务</span>}
       </div>
       <span class="mcard-since">
         {isAlumni ? statusLabel[member.status] : member.joinedAt ? `加入 ${formatMonth(member.joinedAt)}` : member.gameId}
