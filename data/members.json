@@ -7,345 +7,255 @@
       "displayName": "祁钰师",
       "title": "书记",
       "rankId": "chief",
+      "roleIds": [
+        "foreign",
+        "secretariat",
+        "finance",
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "璃海苏维埃公社联盟首席执行委员。自 Ultroveritas 远洋而来的璃海凛冬号在云大陆南端靠岸时，他在船上。此后凛海城从一片雪原上长出码头、街区和凛海宫，联盟的每一次建制调整也都由他签署。用他自己的话说：捍卫璃海革命，保卫胜利果实。",
+      "intro": "璃海苏维埃公社联盟首席执行委员，璃海社团的创始人，见证了璃海的前世今生，如今持续的推动着璃海的变革。",
       "tags": [
-        "统筹",
-        "外交",
-        "建制"
+        "统筹计划",
+        "治理",
+        "革命理论"
       ],
       "contacts": {},
       "featured": true,
       "order": 10,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "root",
+        "finance-committee",
+        "gov",
+        "culture",
+        "judiciary",
+        "mil",
+        "red-army-hq",
+        "red-guard-corps"
+      ]
     },
     {
       "id": "foreverzzz",
       "gameId": "ForeverZzz",
       "displayName": "ForeverZzz",
-      "title": "",
+      "title": "总裁",
       "rankId": "deputy-chief",
+      "roleIds": [
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "璃海的技术派和战争机器，富可敌国的同时充满顽强与个性。",
+      "tags": [ "经济派",
+        "军事",
+        "技术"],
       "contacts": {},
       "featured": true,
       "order": 20,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "judiciary",
+        "mil",
+        "defense-dept",
+        "red-army-hq",
+        "falcon-corps"
+      ]
     },
     {
       "id": "lnactifseven",
       "gameId": "Lnactifseven",
       "displayName": "Lnactifseven",
-      "title": "",
+      "title": "政委",
       "rankId": "deputy-chief",
+      "roleIds": [
+        "finance",
+        "labor",
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "从基层晋升到最高层的魅力领袖，负责管理国家的经贸中枢。",
+      "tags": [ "经贸",
+        "演艺",
+        "行政管理"],
       "contacts": {},
       "featured": true,
       "order": 21,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "plan",
+        "liquor-bureau",
+        "trade-bureau",
+        "finance-committee",
+        "supervision",
+        "culture",
+        "judiciary",
+        "mil",
+        "red-army-hq",
+        "arcane-corps"
+      ]
     },
     {
       "id": "yangguagua",
       "gameId": "Yangguagua",
       "displayName": "Yangguagua",
-      "title": "",
+      "title": "瓜神",
       "rankId": "executive",
+      "roleIds": [
+        "foreign",
+        "propaganda"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "九亿璃海人的女神",
+      "tags": [ "招新",
+        "表演",
+        "外交"],
       "contacts": {},
       "featured": true,
       "order": 30,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "foreign-recruit",
+        "culture"
+      ]
     },
     {
       "id": "akiyamatwt",
       "gameId": "AkiyamaTwT",
       "displayName": "AkiyamaTwT",
-      "title": "",
+      "title": "革命旗手",
       "rankId": "executive",
+      "roleIds": [
+        "regional"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "少年奇才，文史哲艺术多开花，负责社团理论以及璃海的总体建设规划。",
+      "tags": [ "革命理论",
+        "文化宣传",
+        "创意"],
       "contacts": {},
       "featured": true,
       "order": 31,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "housing-dept"
+      ]
     },
     {
       "id": "heinrich4084",
       "gameId": "Heinrich4084",
       "displayName": "Heinrich4084",
-      "title": "",
+      "title": "元老",
       "rankId": "executive",
+      "roleIds": [
+        "secretariat",
+        "military"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "Yun 历 28 年璃海第一次政治危机中，Qiyushi 与 haaamburger 缺位，由他代理政务。",
-      "tags": [
-        "代理政务"
-      ],
+      "intro": "璃海最早期的元老，和祁钰师一同建立了早期的璃海，目前负责璃海的基层与后勤事务。",
+      "tags":  ["元老",
+        "后勤",
+        "基层管理"],
       "contacts": {},
       "featured": true,
       "order": 32,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "warehouse",
+        "urban-facilities",
+        "supervision",
+        "capital-garrison"
+      ]
     },
     {
       "id": "hh-xmh",
       "gameId": "HH_XMH",
       "displayName": "HH_XMH",
-      "title": "",
+      "title": "监察官",
       "rankId": "executive",
+      "roleIds": [
+        "secretariat",
+        "propaganda"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "璃海的政治监察人员",
+      "tags":  ["政治监察"],
       "contacts": {},
       "featured": false,
       "order": 33,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "supervision",
+        "culture"
+      ]
     },
     {
       "id": "haaamburger",
       "gameId": "haaamburger",
       "displayName": "haaamburger",
-      "title": "",
+      "title": "元帅",
       "rankId": "executive",
+      "roleIds": [
+        "labor"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "璃海社团的二号人物，凛海局的早期建立者之一，负责岐川地区的事务与劳动生产。",
+      "tags":  ["劳动生产",
+        "元帅",
+        "军事"],
       "contacts": {},
       "featured": false,
       "order": 34,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "darkwings-lok",
-      "gameId": "Darkwings_Lok",
-      "displayName": "Darkwings_Lok",
-      "title": "",
-      "rankId": "standing",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 40,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-dept"
+      ]
     },
     {
       "id": "xiaofeiying",
       "gameId": "xiaofeiying",
       "displayName": "xiaofeiying",
-      "title": "",
+      "title": "酿酒师",
       "rankId": "standing",
+      "roleIds": [
+        "finance"
+      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "璃海的从基层晋升上来的中层管理，是个性格沉稳的女酿酒师。",
+      "tags":  ["酿酒"],
       "contacts": {},
       "featured": false,
       "order": 41,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "ssds-x",
-      "gameId": "SSDS_x",
-      "displayName": "SSDS_x",
-      "title": "",
-      "rankId": "commissar",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 50,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "wd-zzt",
-      "gameId": "WD_ZZT",
-      "displayName": "WD_ZZT",
-      "title": "",
-      "rankId": "commissar",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 51,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "yue-smile",
-      "gameId": "Yue_Smile",
-      "displayName": "Yue_Smile",
-      "title": "",
-      "rankId": "commissar",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 52,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "yizz34",
-      "gameId": "yizz34",
-      "displayName": "yizz34",
-      "title": "",
-      "rankId": "commissar",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 53,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "longyiyi1314",
-      "gameId": "longyiyi1314",
-      "displayName": "longyiyi1314",
-      "title": "",
-      "rankId": "commissar",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 54,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "endanuz0728",
-      "gameId": "Endanuz0728",
-      "displayName": "Endanuz0728",
-      "title": "",
-      "rankId": "delegate",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 60,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "wondertion",
-      "gameId": "Wondertion",
-      "displayName": "Wondertion",
-      "title": "",
-      "rankId": "specialist",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 70,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "miao-tao",
-      "gameId": "miao_tao",
-      "displayName": "miao_tao",
-      "title": "",
-      "rankId": "specialist",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 71,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "mcfangkuaireng",
-      "gameId": "mcfangkuaireng",
-      "displayName": "mcfangkuaireng",
-      "title": "",
-      "rankId": "specialist",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 72,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "abanice",
-      "gameId": "abanice",
-      "displayName": "abanice",
-      "title": "",
-      "rankId": "specialist",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 73,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "liquor-bureau"
+      ]
     },
     {
       "id": "tyfm1324",
@@ -353,6 +263,7 @@
       "displayName": "tyfm1324",
       "title": "",
       "rankId": "specialist",
+      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -362,31 +273,231 @@
       "contacts": {},
       "featured": false,
       "order": 74,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "darkwings-lok",
+      "gameId": "Darkwings_Lok",
+      "displayName": "Darkwings_Lok",
+      "title": "",
+      "rankId": "standing",
+      "roleIds": [
+        "labor",
+        "military"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "璃海的工人代表，负责管理劳动局，挖掉了大量的山体并完成了多个工程项目。",
+      "tags": ["工人代表",
+        "建设",
+        "劳模"],
+      "contacts": {},
+      "featured": false,
+      "order": 40,
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-dept",
+        "labor-bureau",
+        "capital-garrison"
+      ]
     },
     {
       "id": "ssuzu3",
       "gameId": "SSuzu3",
       "displayName": "SSuzu3",
-      "title": "",
+      "title": "大厨",
       "rankId": "specialist",
+      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "曾担任过老农、大厨和仓管，目前已离休啦。",
+      "tags": ["离休"],
       "contacts": {},
       "featured": false,
       "order": 75,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "yizz34",
+      "gameId": "yizz34",
+      "displayName": "yizz34",
+      "title": "工农兵",
+      "rankId": "commissar",
+      "roleIds": [
+        "labor"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "担任工人、农业人员和士兵的基层干部，还是个苦出身！",
+      "tags":  ["劳动者",
+        "士兵"],
+      "contacts": {},
+      "featured": false,
+      "order": 53,
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "labor-bureau",
+        "workers-committee"
+      ]
+    },
+    {
+      "id": "ssds-x",
+      "gameId": "SSDS_x",
+      "displayName": "SSDS_x",
+      "title": "老农",
+      "rankId": "commissar",
+      "roleIds": [
+        "finance",
+        "military"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "璃海的农业负责人，同时也是璃海的战斗人员，集耕战于一体。",
+      "tags":  ["农耕",
+        "战斗"],
+      "contacts": {},
+      "featured": false,
+      "order": 50,
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "agri-bureau",
+        "commerce-dept",
+        "finance-committee",
+        "menghai-cmd"
+      ]
+    },
+    {
+      "id": "wd-zzt",
+      "gameId": "WD_ZZT",
+      "displayName": "WD_ZZT",
+      "title": "厨师长",
+      "rankId": "commissar",
+      "roleIds": [
+        "labor"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "耕战人员，而且能战斗爽。",
+      "tags": ["耕战","烹饪"],
+      "contacts": {},
+      "featured": false,
+      "order": 51,
+      "updatedAt":「2026-11-24」,
+      "orgIds": [
+        "labor-dept",
+        "agri-bureau",
+        "farm-products",
+        "food-bureau"
+      ]
+    },
+    {
+      "id": "yue-smile",
+      "gameId": "Yue_Smile",
+      "displayName": "Yue_Smile",
+      "title": "建筑师",
+      "rankId": "commissar",
+      "roleIds": [
+        "regional"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "擅长建设哥特式风格建筑。",
+      "tags": ["建筑师"],
+      "contacts": {},
+      "featured": false,
+      "order": 52,
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "housing-dept"
+      ]
     },
     {
       "id": "wumengze",
       "gameId": "Wumengze",
       "displayName": "Wumengze",
+      "title": "资深海员",
+      "rankId": "specialist",
+      "roleIds": [],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "曾经负责渔业和牧业生产，目前已离休。",
+      "tags": ["离休"],
+      "contacts": {},
+      "featured": false,
+      "order": 76,
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "longyiyi1314",
+      "gameId": "longyiyi1314",
+      "displayName": "longyiyi1314",
+      "title": "专家",
+      "rankId": "commissar",
+      "roleIds": [
+        "labor"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "本网站的主要负责人之一，是璃海的科学工业负责人，专家型人才。",
+      "tags":  ["科工人员",
+        "专家",
+        "技术派"],
+      "contacts": {},
+      "featured": false,
+      "order": 54,
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "industry-bureau",
+        "science-tech"
+      ]
+    },
+    {
+      "id": "endanuz0728",
+      "gameId": "Endanuz0728",
+      "displayName": "Endanuz0728",
+      "title": "",
+      "rankId": "delegate",
+      "roleIds": [
+        "regional"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "璃海早期的战斗人员，目前负责千叶市的治理。",
+      "tags": ["治理","行政管理"],
+      "contacts": {},
+      "featured": false,
+      "order": 60,
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "wondertion",
+      "gameId": "Wondertion",
+      "displayName": "Wondertion",
       "title": "",
       "rankId": "specialist",
+      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -395,8 +506,90 @@
       "tags": [],
       "contacts": {},
       "featured": false,
-      "order": 76,
-      "updatedAt": "2026-11-24"
+      "order": 70,
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "miao-tao",
+      "gameId": "miao_tao",
+      "displayName": "miao_tao",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 71,
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "mcfangkuaireng",
+      "gameId": "mcfangkuaireng",
+      "displayName": "mcfangkuaireng",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 72,
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "abanice",
+      "gameId": "abanice",
+      "displayName": "abanice",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "恩佩里安冰晶港的领导人。",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 73,
+      "updatedAt": "2026-11-24",
+      "orgIds": []
+    },
+    {
+      "id": "xmohe",
+      "gameId": "xmohe",
+      "displayName": "xmohe",
+      "title": "",
+      "rankId": "red-army",
+      "roleIds": [
+        "military"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "璃海的新厨师，也是璃海的战斗人员。",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 80,
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "food-bureau",
+        "qichuan-cmd"
+      ]
     },
     {
       "id": "chu-mengg",
@@ -411,29 +604,15 @@
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
+      "intro": "恩佩里安冰晶港的领导者之一，协助璃海共同举办RP活动。",
       "tags": [],
       "contacts": {},
       "featured": false,
       "order": 77,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "xmohe",
-      "gameId": "xmohe",
-      "displayName": "xmohe",
-      "title": "",
-      "rankId": "red-army",
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 80,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "culture"
+      ]
     },
     {
       "id": "xindexinde",
@@ -453,7 +632,10 @@
       "contacts": {},
       "featured": false,
       "order": 81,
-      "updatedAt": "2026-11-24"
+      "updatedAt": "2026-11-24",
+      "orgIds": [
+        "qichuan-cmd"
+      ]
     }
   ]
 }
