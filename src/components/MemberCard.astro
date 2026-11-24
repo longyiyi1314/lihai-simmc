@@ -2,6 +2,7 @@
 import type { Member } from '../lib/types';
 import { rankMap, roleMap, formatMonth, statusLabel, isPlaceholder } from '../lib/loadData';
 import { url } from '../lib/url';
+import { roleHueOf } from '../lib/theme';
 import Avatar from './Avatar.astro';
 import RankBadge from './RankBadge.astro';
 import RoleTag from './RoleTag.astro';
@@ -41,7 +42,7 @@ const subTitle = (() => {
       {rank && <RankBadge rank={rank} size="sm" />}
     </div>
 
-    {showIntro && member.intro && <p class="mcard-intro">{mcard-intro}</p>}
+    {showIntro && member.intro && <p class="mcard-intro">{member.intro}</p>}
 
     <div class="mcard-foot">
       <div class="mcard-roles">

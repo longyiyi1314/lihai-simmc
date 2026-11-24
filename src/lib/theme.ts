@@ -31,6 +31,7 @@ export function alpha(hex: string, a: number): string {
 /** 向白色混合，用于把过暗的职位色提亮到可读 */
 export function lighten(hex: string, amount: number): string {
   const { r, g, b } = hexToRgb(hex);
+  const k = Math.max(0, Math.min(1, amount));
   const mix = (c: number) => Math.round(c + (255 - c) * k);
   return `rgb(${mix(r)}, ${mix(g)}, ${mix(b)})`;
 }
