@@ -48,6 +48,8 @@ export const MemberSchema = z.object({
   roleIds: z.array(z.string()).default([]),
   /** 任职机构（纵向部门树），与横向职能 roleIds 相互独立 */
   orgIds: z.array(z.string()).default([]),
+  /** 任职地区/公社（行政区划树），与部门树 orgIds 相互独立 */
+  regionIds: z.array(z.string()).default([]),
   status: StatusSchema,
   /** 加入时间，允许留空（真实名册里往往无法逐人考证） */
   joinedAt: z
@@ -107,6 +109,33 @@ export const OrganizationSchema = z.object({
 export const OrganizationFileSchema = z.object({
   isPlaceholder: z.boolean().default(false),
   organizations: z.array(OrganizationSchema),
+});
+
+/** 行政区划层级：联盟 / 凛海局 / 中央执行委员会 / 地区苏维埃 / 公社 */
+export const RegionTierSchema = z.enum([
+  'union',
+  'bureau',
+  'executive',
+  'region',
+  'commune',
+]);
+
+export const RegionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/, '节点 id 只能是小写英文、数字和短横线'),
+  name: z.string().min(1, '名称不能为空'),
+  tier: RegionTierSchema,
+  /** 上级节点 id，根节点为 null */
+  parentId: z.string().nullable(),
+  /** 负责人（主任/公社代表，可多人或暂缺） */
+  headMemberIds: z.array(z.string()).default([]),
+  /** 在该节点任职的全部成员（含负责人） */
+  memberIds: z.array(z.string()).default([]),
+  summary: z.string().default(''),
+});
+
+export const RegionFileSchema = z.object({
+  isPlaceholder: z.boolean().default(false),
+  regions: z.array(RegionSchema),
 });
 
 /** 领地层级：首都 / 都市圈 / 城市 / 领地 / 省份 / 城镇 / 村庄 / 定居点 */
