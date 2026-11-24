@@ -111,7 +111,7 @@ export const OrganizationFileSchema = z.object({
   organizations: z.array(OrganizationSchema),
 });
 
-/** 行政区划层级：联盟 / 凛海局 / 中央执行委员会 / 地区苏维埃 / 公社 */
+/** 行政区划层级：联盟 / 凛海局 / 凛海局 / 中央执行委员会 / 地区苏维埃 / 公社 */
 export const RegionTierSchema = z.enum([
   'union',
   'bureau',
@@ -195,7 +195,7 @@ export const SiteSchema = z.object({
   pact: z.string().default(''),
   peoples: z.string().default(''),
   languages: z.array(z.string()).default([]),
-  holidays: z.array(z.string()).default([]),
+  holidays: z.array(HolidaySchema).default([]),
   /** 全社在册人数（名册只逐人收录了其中一部分） */
   memberTotal: z.number().int().default(0),
   /** 领土区块总数，仅用于文案 */
@@ -218,5 +218,5 @@ export const SiteSchema = z.object({
   slogan: z.string().default(''),
   recruiting: z.boolean().default(false),
   isPlaceholder: z.boolean().default(false),
-  announcements: z.array(z.AnnouncementSchema).default([]),
+  announcements: z.array(AnnouncementSchema).default([]),
 });
