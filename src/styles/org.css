@@ -16,7 +16,7 @@
   border: 1px solid var(--line);
   border-left: 2px solid var(--line-2);
   border-radius: var(--radius-sm);
-  background: linear-gradient(180deg, rgba(255, 255, 0.03), transparent);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
   transition: border-color 0.22s var(--ease), transform 0.22s var(--ease);
 }
 
