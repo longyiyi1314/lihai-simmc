@@ -1,0 +1,51 @@
+---
+import type { Member } from '../lib/types';
+import { rankMap, roleMap, formatMonth, statusLabel, isPlaceholder } from '../lib/loadData';
+import { url } from '../lib/url';
+import { roleHueOf } from '../lib/theme';
+import Avatar from './Avatar.astro';
+import RankBadge from './RankBadge.astro';
+import RoleTag from './RoleTag.astro';
+
+interface Props {
+  member: Member;
+  /** 卡片副标题：称号优先，没有则不占位 */
+  showIntro?: boolean;
+}
+
+const { member, showIntro = true } = Astro.props;
+
+const rank = rankMap.get(member.rankId);
+const roles = member.roleIds.map((id) => roleMap.get(id)).filter((r): r is NonNullable<typeof r> => Boolean(r));
+const hue = roles.length ? roleHueOf(roles[0].id) : 196;
+const isAlumni = member.status === 'honorary' || member.status === 'left';
+---
+
+<article class="mcard" style={`--h:${hue}`}>
+  <a class="mcard-link" href={url(`/members/${member.id}/`)} aria-label={`${member.displayName} 的成员资料`}>
+    <div class="mcard-top">
+      <Avatar seed={member.id} name={member.displayName} src={member.avatar} size="md" />
+      <div class="mcard-id">
+        <span class="mcard-name">{member.displayName}</span>
+        {member.title
+          ? <span class="mcard-title">{member.title}</span>
+          : <span class="mcard-title mcard-gid">{member.gameId}</span>}
+      </div>
+      {rank && <RankBadge rank={rank} size="sm" />}
+    </div>
+
+    {showIntro && <p class="mcard-intro">{member.intro}</p>}
+
+    <div class="mcard-foot">
+      <div class="mcard-roles">
+        {roles.length
+          ? roles.map((r) => <RoleTag role={r} />)
+          : <span class="mcard-since">未分配职务</span>}
+      </div>
+      <span class="mcard-since">
+        {isAlumni ? statusLabel[member.status] : `加入 ${formatMonth(member.joinedAt)}`}
+      </span>
+    </div>
+  </a>
+  {isPlaceholder && member.status === 'reserve' && <span class="mcard-flag">休假</span>}
+</article>

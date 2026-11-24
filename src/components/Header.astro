@@ -1,0 +1,55 @@
+---
+import { url } from '../lib/url';
+import { site } from '../lib/loadData';
+
+const path = (Astro.url.pathname || '/').replace(/\/+$/, '') || '/';
+
+const nav = [
+  { href: url('/'), label: '首页', match: '/' },
+  { href: url('/members/'), label: '成员', match: '/members' },
+  { href: url('/ranks/'), label: '职位', match: '/ranks' },
+  { href: url('/about/'), label: '关于', match: '/about' },
+];
+
+const base = url('').replace(/\/+$/, '');
+const isCurrent = (match: string) => {
+  const p = path.slice(base.length) || '/';
+  if (match === '/') return p === '/';
+  return p === match || p.startsWith(match + '/');
+};
+---
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href={url('/')} aria-label={`${site.nationName} 首页`}>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-name">{site.nationName}</span>
+        <span class="brand-en">{site.nationNameEn || site.server}</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="主导航">
+      {
+        nav.map((n) => (
+          <a
+            class="nav-link"
+            href={n.href}
+            aria-current={isCurrent(n.match) ? 'page' : undefined}
+          >
+            {n.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    {
+      site.recruiting && (
+        <a class="header-cta" href={url('/about/#join')}>
+          <span class="dot" aria-hidden="true" />
+          招募中
+        </a>
+      )
+    }
+  </div>
+</header>

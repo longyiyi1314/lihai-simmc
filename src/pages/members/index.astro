@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import MemberCard from '../../components/MemberCard.astro';
+import RankBadge from '../../components/RankBadge.astro';
+import {
+  site,
+  rankList,
+  roleList,
+  memberList,
+  activeMembers,
+  alumniMembers,
+  membersOfRank,
+  isPlaceholder,
+  placeholderNotice,
+} from '../../lib/loadData';
+import { url } from '../../lib/url';
+
+const rankGroups = rankList
+  .map((rank) => ({ rank, members: membersOfRank(rank.id) }))
+  .filter((g) => g.members.length > 0);
+
+const reserved = activeMembers.filter((m) => m.status === 'reserve');
+const alumni = alumniMembers;
+---
+
+<Base
+  title="成员名单"
+  description={`${site.nationName}（${site.server}）成员名单：共 ${memberList.length} 位在册成员，按职位与职务排列。`}
+>
+  <PageHead
+    title="成员名单"
+    crumb="成员"
+    desc="每一个名字背后都有一段在海上待过的日子。按职位由高到低排列，休假与荣誉成员单列在后。"
+  >
+    <div class="page-meta">
+      <span>在册 <b>{memberList.length}</b> 人</span>
+      <span>现役 <b>{activeMembers.length}</b> 人</span>
+      <span>荣誉与历史 <b>{alumni.length}</b> 人</span>
+      <span>职位 <b>{rankList.length}</b> 级</span>
+    </div>
+
+    <nav class="roster-bar" aria-label="按职位跳转">
+      {
+        rankGroups.map((g) => (
+          <a class="chip" href={`#rank-${g.rank.id}`}>
+            <span class="rank-gem" style={`--rc:${g.rank.color}`} aria-hidden="true" />
+            {g.rank.name}
+            <b>{g.members.length}</b>
+          </a>
+        ))
+      }
+      {
+        alumni.length > 0 && (
+          <a class="chip" href="#alumni">
+            荣誉与历史<b>{alumni.length}</b>
+          </a>
+        )
+      }
+    </nav>
+  </PageHead>
+
+  <div class="wrap">
+    {
+      rankGroups.map((g) => (
+        <section class="roster-group" id={`rank-${g.rank.id}`}>
+          <div class="roster-head" style={`--rc:${g.rank.color}`}>
+            <span class="rank-gem" aria-hidden="true" />
+            <h2>{g.rank.name}</h2>
+            <span class="count">
+              {g.members.length}
+              {g.rank.limit ? ` / ${g.rank.limit}` : ''}
+            </span>
+            <span class="line" aria-hidden="true" />
+            <span class="sum">{g.rank.summary}</span>
+          </div>
+          <div class="mgrid">
+            {g.members.map((m) => <MemberCard member={m} />)}
+          </div>
+        </section>
+      ))
+    }
+
+    {
+      alumni.length > 0 && (
+        <section class="roster-group" id="alumni">
+          <div class="roster-head roster-head--quiet">
+            <span class="rank-gem" style="--rc:#b79cea" aria-hidden="true" />
+            <h2>荣誉与历史</h2>
+            <span class="count">{alumni.length}</span>
+            <span class="line" aria-hidden="true" />
+            <span class="sum">离开的人仍然是璃海的一部分</span>
+          </div>
+          <div class="mgrid">
+            {alumni.map((m) => <MemberCard member={m} />)}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      reserved.length > 0 && (
+        <section class="roster-group roster-group--note">
+          <p class="aside-note">
+            名单中有 {reserved.length} 位同伴正在休假（
+            {reserved.map((m) => m.displayName).join('、')}
+            ），他们仍保留职位与职务，随时可以回到海上。
+          </p>
+        </section>
+      )
+    }
+
+    {
+      isPlaceholder && (
+        <p class="flag-note" style="margin-top:36px">
+          <span aria-hidden="true">◆</span>
+          {placeholderNotice}
+        </p>
+      )
+    }
+
+    <div class="roster-foot">
+      <a class="btn btn--ghost" href={url('/ranks/')}>
+        看看职位是怎么升的<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn--quiet" href={url('/about/')}>关于璃海</a>
+    </div>
+  </div>
+</Base>

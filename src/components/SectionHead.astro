@@ -1,0 +1,23 @@
+---
+import { url } from '../lib/url';
+
+interface Props {
+  /** 章节序号，如 01 */
+  no: string;
+  title: string;
+  desc?: string;
+  moreHref?: string;
+  moreLabel?: string;
+}
+
+const { no, title, desc = '', moreHref, moreLabel = '查看全部' } = Astro.props;
+---
+
+<div class="sec-head">
+  <span class="sec-no" aria-hidden="true">{no}</span>
+  <div class="sec-title">
+    <h2>{title}</h2>
+    {desc && <p>{desc}</p>}
+  </div>
+  {moreHref ? <a class="sec-more" href={moreHref}>{moreLabel}</a> : <span />}
+</div>

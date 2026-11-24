@@ -1,0 +1,248 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import {
+  site,
+  memberList,
+  rankList,
+  roleList,
+  isPlaceholder,
+  placeholderNotice,
+  formatMonth,
+} from '../lib/loadData';
+import { url } from '../lib/url';
+
+const values = [
+  {
+    no: '01',
+    title: '澄澈',
+    text: '规则写在明处，名单挂在墙上。谁负责什么、东西放在哪里、事情办到哪一步，都可以直接问，也都能查得到。',
+  },
+  {
+    no: '02',
+    title: '历久',
+    text: '我们不追求一个周末起一座城。宁可慢一点，把材料配比、道路走向、灯塔的角度都算清楚，让它在两年后依然站得住。',
+  },
+  {
+    no: '03',
+    title: '共治',
+    text: '国主拍板，但议案从下面来。营造、防务、外交、后勤各有一条线，谁在那条线上，谁就有发言权。',
+  },
+];
+
+const timeline = [
+  { date: '2024 · 03', title: '群岛落锚', text: '第一批人在 SimMC 的东南群岛选址，立下第一根界桩。璃海这个名字，是从一块琉璃色的海面来的。' },
+  { date: '2024 · 04', title: '营造开工', text: '主城规划定稿，临渊带着营造组开始铺第一段主干道与码头。' },
+  { date: '2024 · 06', title: '防务成军', text: '深舟接管防务，第一次团战守住了北岸的工事，也定下了「先看地形，再谈装备」的规矩。' },
+  { date: '2025 · 08', title: '开海之人离会', text: '远舟把规划图交出来，转为荣誉成员。后来主城的每一次扩建，都还在用他那版路网。' },
+  { date: '2026 · 10', title: '新一批见习入海', text: '池鱼通过申请，成为新一轮考察期的第一位成员。' },
+  { date: '2026 · 11', title: '成员站上线', text: '职位、职务、名单第一次被完整地整理成一页可以查的东西。', now: true },
+];
+
+const steps = [
+  { no: 'STEP 01', title: '递交申请', text: '在服务器内或社区群里找到管理层，说明你想玩的方向：营造、防务、外交、后勤、宣传或招募。' },
+  { no: 'STEP 02', title: '见习考察', text: '以见习身份入海，通常两到四周。这段时间不派硬任务，主要是熟悉地形、规矩和人。' },
+  { no: 'STEP 03', title: '分工试岗', text: '挑一个职务跟着做一轮实际的事——跟一次工程、站一次岗、写一篇记录。合不合适，做完就知道了。' },
+  { no: 'STEP 04', title: '转为国民', text: '双方都点头，转正为国民，进入正式名单，可以参与议事。之后的路，按职位序列慢慢走。' },
+];
+---
+
+<Base
+  title="关于璃海"
+  description={`${site.nationName} · ${site.server}：建立于 ${site.foundedAt}，${site.motto}。这里是我们的来历、做事方式与加入方式。`}
+>
+  <PageHead
+    title="关于璃海"
+    crumb="关于"
+    desc={`${site.summary}`}
+  >
+    <div class="page-meta">
+      <span>建立 <b>{formatMonth(site.foundedAt)}</b></span>
+      <span>成员 <b>{memberList.length}</b> 人</span>
+      <span>职位 <b>{rankList.length}</b> 级</span>
+      <span>职务 <b>{roleList.length}</b> 类</span>
+    </div>
+
+    <nav class="roster-bar" aria-label="页面章节">
+      <a class="chip" href="#story">来历</a>
+      <a class="chip" href="#values">信条</a>
+      <a class="chip" href="#timeline">时间线</a>
+      {site.recruiting && <a class="chip" href="#join">加入方式</a>}
+    </nav>
+  </PageHead>
+
+  <section class="wrap section" id="story">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <div class="sec-title">
+        <h2>一片群岛，一块琉璃</h2>
+        <p>「璃」是琉璃澄澈、历久不蚀。这两个词，后来成了我们做事的标准。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="story">
+      <div class="prose">
+        <p class="dropcap">
+          璃海起于 SimMC 东南的一片群岛。最初只有几个人、一张手绘的选址图，和一堆没处放的石材。第一年我们没急着盖房子，先把海岸线走了一遍，把潮汐、视距、航道都记下来，再决定主城落在哪一道湾里。
+        </p>
+        <p>
+          这个顺序后来一直没变：先看清楚，再动手。营造组至今保留着当年的材料配比表；防务组的地形工事图改了七版，每一版都留着；连灯塔的高度，都是按能见距离反推出来的。我们不觉得这是磨蹭——海上的东西，塌一次就没人再信第二次。
+        </p>
+        <p>
+          璃海也不只是建筑。有人负责对外谈盟约，有人负责深夜巡海，有人专门把城建过程剪成延时视频。这些事看起来不产生一块砖，但它们决定了这片地方到底是不是一个「国」。
+        </p>
+        <p>
+          到今天，璃海有 {memberList.length} 位在册成员、{rankList.length} 级职位、{roleList.length} 类职务。人数不算多，但每一个名字后面都有具体在做的
+          事。
+        </p>
+      </div>
+
+      <figure class="story-quote">
+        <blockquote>{site.motto}</blockquote>
+        <figcaption>Lihai · {site.server} · EST. {site.foundedAt.replace('-', '.')}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap section" id="values">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <div class="sec-title">
+        <h2>我们相信的三件事</h2>
+        <p>写在公约第一条之前的东西。规矩可以改，这三条不改。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="values">
+      {
+        values.map((v) => (
+          <article class="value-card">
+            <div class="value-no">{v.no}</div>
+            <h3>{v.title}</h3>
+            <p>{v.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap section" id="timeline">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <div class="sec-title">
+        <h2>一路过来</h2>
+        <p>只记节点，不记日常。日常都在岛上的砖缝里。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="timeline">
+      {
+        timeline.map((t) => (
+          <div class={`tl-item${t.now ? ' tl-item--now' : ''}`}>
+            <div class="tl-date">{t.date}</div>
+            <h3>{t.title}</h3>
+            <p>{t.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap section" id="join">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <div class="sec-title">
+        <h2>{site.recruiting ? '怎么加入我们' : '关于加入'}</h2>
+        <p>
+          {
+            site.recruiting
+              ? '不设笔试，也不看装备。我们只想知道你愿意长期做哪一件事。'
+              : '当前暂停招新。等到重新开放时，这里会更新具体流程。'
+          }
+        </p>
+      </div>
+      <span />
+    </div>
+
+    {
+      site.recruiting ? (
+        <div class="steps">
+          {steps.map((s) => (
+            <div class="step">
+              <div class="step-no">{s.no}</div>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="aside-note">招新暂停中。仍可通过游戏内或社区群联系管理层咨询。</p>
+      )
+    }
+
+    <div class="cta-band" style="margin-top:34px">
+      <div>
+        <h2>{site.recruiting ? '下一次涨潮，一起出海。' : '潮水会再涨一次。'}</h2>
+        <p>
+          {
+            site.recruiting
+              ? `璃海在 ${site.server} ${site.version}，随时可以来看看。先聊聊你想做什么，再决定要不要留下。`
+              : '关注社区公告，招新开放时会在第一时间公布。'
+          }
+        </p>
+      </div>
+      {
+        site.recruiting ? (
+          <a class="btn btn--primary" href={url('/members/')}>
+            先看看现在都有谁<span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        ) : (
+          <a class="btn btn--ghost" href={url('/members/')}>
+            成员名单<span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <div class="sec-title">
+        <h2>公告</h2>
+        <p>站内与国境内的大小事，都记在这里。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="panel panel--pad">
+      <div class="panel-title">最近</div>
+      <div class="notice-list">
+        {
+          site.announcements.length > 0 ? (
+            site.announcements.map((a) => (
+              <div class="notice-item">
+                <span class="notice-date mono">{a.date}</span>
+                <span class="notice-text">{a.text}</span>
+              </div>
+            ))
+          ) : (
+            <p class="aside-note">暂无公告。</p>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      isPlaceholder && (
+        <p class="flag-note" style="margin-top:26px">
+          <span aria-hidden="true">◆</span>
+          {placeholderNotice}
+        </p>
+      )
+    }
+  </section>
+</Base>

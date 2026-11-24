@@ -1,0 +1,55 @@
+{
+  "isPlaceholder": true,
+  "ranks": [
+    {
+      "id": "leader",
+      "name": "国主",
+      "level": 100,
+      "color": "#c8a24a",
+      "summary": "璃海的最高负责人",
+      "duties": ["统筹全境事务", "对外代表璃海", "重大事项最终裁定"],
+      "promotion": "由核心成员推举产生",
+      "limit": 1
+    },
+    {
+      "id": "vice",
+      "name": "副国主",
+      "level": 80,
+      "color": "#9aa7b8",
+      "summary": "协助国主处理日常政务",
+      "duties": ["分管条线事务", "国主不在时代行职责", "协调各职务协作"],
+      "promotion": "由国主任命",
+      "limit": 2
+    },
+    {
+      "id": "elder",
+      "name": "长老",
+      "level": 60,
+      "color": "#8f7fd1",
+      "summary": "资深成员与决策参与者",
+      "duties": ["参与议事", "带教新人", "专项事务负责"],
+      "promotion": "由国主提名，核心成员认可",
+      "limit": 4
+    },
+    {
+      "id": "member",
+      "name": "国民",
+      "level": 20,
+      "color": "#6f8fa8",
+      "summary": "璃海正式成员",
+      "duties": ["参与日常建设与活动", "遵守璃海公约"],
+      "promotion": "加入并通过考察期",
+      "limit": null
+    },
+    {
+      "id": "recruit",
+      "name": "见习",
+      "level": 10,
+      "color": "#5f6b76",
+      "summary": "考察期成员",
+      "duties": ["熟悉璃海事务", "完成入门任务"],
+      "promotion": "通过入海申请",
+      "limit": null
+    }
+  ]
+}

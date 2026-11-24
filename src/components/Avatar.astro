@@ -1,0 +1,37 @@
+---
+import { asset } from '../lib/url';
+import { initialOf } from '../lib/loadData';
+
+interface Props {
+  /** 成员 id，用于生成稳定色相 */
+  seed: string;
+  /** 展示名，取首字 */
+  name: string;
+  /** 头像相对路径（可为空，空则用首字占位） */
+  src?: string;
+  /** 尺寸 */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const { seed, name, src = '', size = 'md', class: cls = '' } = Astro.props;
+
+/**
+ * 头像色相：不用满 360°，收在「深海 + 矿物」这一族里，
+ * 保证 11 个头像排在一起仍然像同一个世界，而不是调色盘。
+ */
+const JEWEL = [172, 184, 196, 208, 220, 236, 262, 288, 40, 12, 150];
+function hueOf(seedStr: string) {
+  let h = 0;
+  for (let i = 0; i < seedStr.length; i++) h = (h * 33 + seedStr.charCodeAt(i)) % 9973;
+  return JEWEL[h % JEWEL.length];
+}
+
+const hue = hueOf(seed);
+const letter = initialOf(name);
+const cls2 = ['avatar', size !== 'md' ? `avatar--${size}` : '', cls].filter(Boolean).join(' ');
+---
+
+<span class={cls2} style={`--h:${hue}`} aria-hidden="true">
+  {src ? <img class="avatar-img" src={asset(src)} alt="" loading="lazy" decoding="async" /> : <span class="avatar-letter">{letter}</span>}
+</span>

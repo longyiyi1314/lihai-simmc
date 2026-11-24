@@ -1,0 +1,17 @@
+{
+  "name": "lihai-simmc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "璃海 · SimMC 国家成员站",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^7.4.13",
+    "zod": "^4.6.7"
+  }
+}

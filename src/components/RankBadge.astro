@@ -1,0 +1,26 @@
+---
+import type { Rank } from '../lib/types';
+
+interface Props {
+  rank: Rank;
+  size?: 'sm' | 'md' | 'lg';
+  /** 追加在徽章后的人数，如 3 */
+  count?: number | null;
+}
+
+const { rank, size = 'md', count = null } = Astro.props;
+
+const cls = [
+  'rank-badge',
+  size === 'lg' ? 'rank-badge--lg' : '',
+  size === 'sm' ? 'rank-badge--sm' : '',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<span class={cls} style={`--rc:${rank.color}`}>
+  <span class="rank-gem" aria-hidden="true"></span>
+  <span>{rank.name}</span>
+  {count !== null && <span class="rank-count" aria-label={`${count} 人`}>{count}</span>}
+</span>

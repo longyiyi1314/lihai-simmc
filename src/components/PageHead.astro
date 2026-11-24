@@ -1,0 +1,25 @@
+---
+import { url } from '../lib/url';
+
+interface Props {
+  title: string;
+  desc?: string;
+  /** 面包屑末级，缺省用 title */
+  crumb?: string;
+}
+
+const { title, desc = '', crumb = '' } = Astro.props;
+---
+
+<header class="page-head">
+  <div class="wrap">
+    <nav class="crumb" aria-label="面包屑">
+      <a href={url('/')}>璃海</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">{crumb || title}</span>
+    </nav>
+    <h1 class="page-title">{title}</h1>
+    {desc && <p class="page-desc">{desc}</p>}
+    <slot />
+  </div>
+</header>

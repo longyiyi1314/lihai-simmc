@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, rankList, memberList } from '../lib/loadData';
+import { url } from '../lib/url';
+
+const links = [
+  { href: url('/'), label: '首页', desc: '回到岸边' },
+  { href: url('/members/'), label: '成员名单', desc: `${memberList.length} 位在册成员` },
+  { href: url('/ranks/'), label: '职位与职务', desc: `${rankList.length} 级职位 · 6 类职务` },
+  { href: url('/about/'), label: '关于璃海', desc: '来历、信条与加入方式' },
+];
+---
+
+<Base title="404 · 这片海域不存在" description="页面不存在。也许是被潮水带走了。">
+  <section class="notfound">
+    <div class="wrap nf-inner">
+      <div class="nf-code" aria-hidden="true">404</div>
+      <h1 class="nf-title">这片海域没有灯</h1>
+      <p class="nf-desc">
+        你要找的页面不在这里——可能是链接旧了，也可能是地址写错了一个字。
+        {site.nationName}的岛还在，从下面任意一处重新上岸。
+      </p>
+
+      <div class="nf-actions">
+        <a class="btn btn--primary" href={url('/')}>
+          回到首页<span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn--ghost" href={url('/members/')}>成员名单</a>
+      </div>
+
+      <nav class="nf-links" aria-label="站内导航">
+        {
+          links.map((l) => (
+            <a class="nf-link" href={l.href}>
+              <span class="nf-link-label">{l.label}</span>
+              <span class="nf-link-desc">{l.desc}</span>
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+</Base>

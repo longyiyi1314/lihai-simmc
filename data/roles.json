@@ -1,0 +1,47 @@
+{
+  "isPlaceholder": true,
+  "roles": [
+    {
+      "id": "diplomacy",
+      "name": "外交",
+      "icon": "🤝",
+      "description": "对外联络、结盟与谈判，代表璃海与其他城邦往来。",
+      "leadMemberId": null
+    },
+    {
+      "id": "military",
+      "name": "军事",
+      "icon": "⚔️",
+      "description": "负责防务部署与团战指挥，守护璃海的海疆。",
+      "leadMemberId": null
+    },
+    {
+      "id": "build",
+      "name": "营造",
+      "icon": "🏗️",
+      "description": "主城与各类工程建造，是璃海的门面担当。",
+      "leadMemberId": null
+    },
+    {
+      "id": "logistics",
+      "name": "后勤",
+      "icon": "📦",
+      "description": "物资储备、生产调度与补给保障。",
+      "leadMemberId": null
+    },
+    {
+      "id": "media",
+      "name": "宣传",
+      "icon": "📣",
+      "description": "视频剪辑、截图摄影与对外内容发布。",
+      "leadMemberId": null
+    },
+    {
+      "id": "recruit",
+      "name": "招募",
+      "icon": "🙋",
+      "description": "招新答疑与新人引导，负责璃海的人口增长。",
+      "leadMemberId": null
+    }
+  ]
+}

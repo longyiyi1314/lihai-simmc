@@ -1,0 +1,36 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 构建产物
+dist/
+.astro/
+
+# 日志
+npm-debug.log*
+yarn-error.log*
+.npm-install.log
+*.log
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 本地环境
+.env
+.env.local
+.env.*.local
+
+# 临时文件
+.tmp-*
+*.tmp
+
+# 本地截图 / 无头浏览器调试产物
+.shots/
+.chrome-tmp*/
+
+# 无头浏览器调试
+.chrome-profile*/
+.shot-*.mjs

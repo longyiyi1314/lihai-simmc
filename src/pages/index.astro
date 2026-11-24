@@ -1,0 +1,244 @@
+---
+import Base from '../layouts/Base.astro';
+import MemberCard from '../components/MemberCard.astro';
+import SectionHead from '../components/SectionHead.astro';
+import {
+  site,
+  rankList,
+  roleList,
+  memberList,
+  activeMembers,
+  featuredMembers,
+  membersOfRank,
+  isPlaceholder,
+  placeholderNotice,
+} from '../lib/loadData';
+import { url } from '../lib/url';
+import { pct, roleHueOf } from '../lib/theme';
+import type { Role } from '../lib/types';
+
+const founded = site.foundedAt ? site.foundedAt.replace('-', '.') : '—';
+const announcements = site.announcements.slice(0, 3);
+const maxRankCount = Math.max(1, ...rankList.map((r) => membersOfRank(r.id).length));
+
+const stats = [
+  { num: String(memberList.length), unit: '人', label: '在册成员' },
+  { num: String(activeMembers.length), unit: '人', label: '现役同伴' },
+  { num: String(rankList.length), unit: '级', label: '职位序列' },
+  { num: founded, unit: '', label: '建站时间' },
+];
+
+function fmtDate(d: string) {
+  return d.replaceAll('-', '.');
+}
+---
+
+<Base description={`${site.nationName} · ${site.server} 国家成员站：成员名单、职位层级、职务分工与国家沿革。`}>
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <span class="hero-orb hero-orb--a"></span>
+      <span class="hero-orb hero-orb--b"></span>
+      <span class="hero-grid"></span>
+      <span class="hero-sea"></span>
+      <span class="hero-sheen"></span>
+    </div>
+
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">
+            <span class="tag">{site.game}</span>
+            <span class="sep"></span>
+            <span>{site.server}{site.version ? ` ${site.version}` : ''}</span>
+            <span class="sep"></span>
+            <span>EST. {founded}</span>
+          </p>
+
+          <h1 class="hero-word" data-word={site.nationName}>
+            <span class="hero-word-main">{site.nationName}</span>
+            <span class="hero-word-en">{site.nationNameEn || 'Lihai'}</span>
+          </h1>
+
+          {site.motto && <p class="hero-motto">{site.motto}</p>}
+          <p class="hero-desc">{site.summary}</p>
+
+          <div class="hero-actions">
+            <a class="btn btn--primary" href={url('/members/')}>
+              查看成员名单<span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn--ghost" href={url('/about/')}>关于璃海</a>
+          </div>
+        </div>
+
+        <div class="hero-side" aria-hidden="true">
+          <div class="crest">
+            <span class="crest-halo"></span>
+            <span class="crest-ring crest-ring--1"></span>
+            <span class="crest-ring crest-ring--2"></span>
+            <span class="crest-ring crest-ring--3"></span>
+            <span class="crest-tick"></span>
+            <span class="crest-core">
+              <span class="crest-glyph">璃</span>
+            </span>
+            <span class="crest-caption">Glass · Sea · Light</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <div class="stat-num">
+                {s.num}
+                {s.unit && <small>{s.unit}</small>}
+              </div>
+              <div class="stat-label">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        no="01"
+        title="海上的面孔"
+        desc="常驻与休假中的同伴，按职位高低与入会顺序排列。"
+        moreHref={url('/members/')}
+        moreLabel="全部成员"
+      />
+
+      <div class="mgrid">
+        {featuredMembers.map((m) => <MemberCard member={m} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ranks">
+    <div class="wrap">
+      <SectionHead
+        no="02"
+        title="五级职守"
+        desc="从见习到国主，每一级都有明确的职责与晋升条件。"
+        moreHref={url('/ranks/')}
+        moreLabel="职位体系"
+      />
+
+      <div class="home-split">
+        <div class="panel panel--pad">
+          <div class="rlist">
+            {
+              rankList.map((r) => {
+                const n = membersOfRank(r.id).length;
+                return (
+                  <div class="rlist-row" style={`--rc:${r.color}`}>
+                    <span class="rlist-gem" aria-hidden="true" />
+                    <div class="rlist-main">
+                      <div class="rlist-top">
+                        <span class="rlist-name">{r.name}</span>
+                        <span class="rlist-lv">LV.{r.level}</span>
+                      </div>
+                      <div class="rlist-bar" aria-hidden="true">
+                        <span class="rlist-fill" style={`width:${Math.max(6, pct(n, maxRankCount))}%`} />
+                      </div>
+                    </div>
+                    <span class="rlist-n">
+                      <b>{n}</b> / {r.limit ?? '∞'}
+                    </span>
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+
+        <div class="home-side">
+          {
+            announcements.length > 0 && (
+              <div class="panel panel--pad">
+                <div class="panel-title">公告</div>
+                <div>
+                  {announcements.map((a) => (
+                    <div class="notice-item">
+                      <span class="notice-date">{fmtDate(a.date)}</span>
+                      <span class="notice-text">{a.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          }
+
+          <div class="panel panel--pad home-quote">
+            <div class="panel-title">格言</div>
+            <p class="serif home-quote-text">{site.motto}</p>
+            <p class="home-quote-sub">{site.server} · {site.version} · {site.game}</p>
+          </div>
+
+          {
+            isPlaceholder && (
+              <p class="flag-note">
+                <span aria-hidden="true">◆</span>
+                {placeholderNotice}
+              </p>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roles">
+    <div class="wrap">
+      <SectionHead
+        no="03"
+        title="六类职务"
+        desc="职位决定话语权，职务决定你每天在做什么。"
+        moreHref={url('/ranks/#roles')}
+        moreLabel="职务详情"
+      />
+
+      <div class="role-grid">
+        {
+          roleList.map((r: Role) => {
+            const n = activeMembers.filter((m) => m.roleIds.includes(r.id)).length;
+            return (
+              <a class="role-card" href={url(`/ranks/#role-${r.id}`)} style={`--rh:${roleHueOf(r.id)}`}>
+                <div class="role-card-head">
+                  <span class="role-ico" aria-hidden="true">{r.icon || '◇'}</span>
+                  <span class="role-name">{r.name}</span>
+                  <span class="role-count">{n} 人</span>
+                </div>
+                <p class="role-desc">{r.description}</p>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2>海面还留着一个位置</h2>
+          <p>
+            {site.recruiting
+              ? '璃海长期招募愿意一起搬砖、一起熬夜看日出的同伴。带上你的擅长与耐心，从见习开始。'
+              : '璃海当前暂停招募，但欢迎来岛上看看。'}
+          </p>
+        </div>
+        <div class="hero-actions" style="margin-top:0">
+          <a class="btn btn--primary" href={url(site.recruiting ? '/about/#join' : '/members/')}>
+            {site.recruiting ? '了解加入方式' : '看看大家'}<span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href={url('/members/')}>成员名单</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

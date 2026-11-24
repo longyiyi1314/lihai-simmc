@@ -1,0 +1,237 @@
+---
+import Base from '../../layouts/Base.astro';
+import Avatar from '../../components/Avatar.astro';
+import RankBadge from '../../components/RankBadge.astro';
+import RoleTag from '../../components/RoleTag.astro';
+import MemberCard from '../../components/MemberCard.astro';
+import {
+  site,
+  memberList,
+  rankMap,
+  roleMap,
+  membersOfRole,
+  formatMonth,
+  statusLabel,
+} from '../../lib/loadData';
+import { url } from '../../lib/url';
+import { roleHueOf, padNo } from '../../lib/theme';
+
+export function getStaticPaths() {
+  return memberList.map((member, i) => ({
+    params: { id: member.id },
+    props: { member, index: i },
+  }));
+}
+
+const { member, index } = Astro.props;
+
+const rank = rankMap.get(member.rankId);
+const roles = member.roleIds
+  .map((id) => roleMap.get(id))
+  .filter((r): r is NonNullable<typeof r> => Boolean(r));
+const hue = roles.length ? roleHueOf(roles[0].id) : 196;
+
+const prev = index > 0 ? memberList[index - 1] : null;
+const next = index < memberList.length - 1 ? memberList[index + 1] : null;
+
+const isAlumni = member.status === 'honorary' || member.status === 'left';
+
+const teammates = member.roleIds.length
+  ? memberList
+      .filter((m) => m.id !== member.id && m.roleIds.some((r) => member.roleIds.includes(r)))
+      .slice(0, 3)
+  : [];
+
+const contacts = Object.entries(member.contacts || {}).filter(([, v]) => Boolean(v));
+const contactLabel: Record<string, string> = {
+  bilibili: '哔哩哔哩',
+  discord: 'Discord',
+  qq: 'QQ',
+};
+
+const metaRows: Array<{ k: string; v: string; mono?: boolean }> = [
+  { k: '游戏 ID', v: member.gameId, mono: true },
+  { k: '职位', v: rank?.name ?? member.rankId },
+  { k: '加入时间', v: formatMonth(member.joinedAt), mono: true },
+];
+if (member.leftAt) metaRows.push({ k: '离会时间', v: formatMonth(member.leftAt), mono: true });
+if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mono: true });
+---
+
+<Base
+  title={member.displayName}
+  description={`${member.displayName}（${member.gameId}）· ${rank?.name ?? ''} · ${site.nationName}${site.server}成员。${member.intro.slice(0, 60)}`}
+>
+  <article class="profile" style={`--h:${hue}`}>
+    <div class="wrap">
+      <nav class="crumb" aria-label="面包屑">
+        <a href={url('/')}>璃海</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href={url('/members/')}>成员</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{member.displayName}</span>
+      </nav>
+
+      <div class="profile-head">
+        <div class="profile-main">
+          <Avatar seed={member.id} name={member.displayName} src={member.avatar} size="xl" />
+          <div class="profile-id">
+            <div class="profile-badge-row">
+              {rank && <RankBadge rank={rank} size="lg" />}
+              <span class={`status status--${member.status}`}>{statusLabel[member.status]}</span>
+              <span class="mono profile-no">NO.{padNo(index + 1)}</span>
+            </div>
+            <h1 class="profile-name">
+              {member.displayName}
+              {member.title && <span class="profile-title">{member.title}</span>}
+            </h1>
+            <p class="profile-gid">{member.gameId}</p>
+            {
+              roles.length > 0 && (
+                <div class="profile-tags">
+                  {roles.map((r) => <RoleTag role={r} icon />)}
+                </div>
+              )
+            }
+          </div>
+        </div>
+
+        <div class="profile-side">
+          <div class="pstat">
+            <div class="pstat-k">Joined</div>
+            <div class="pstat-v">{member.joinedAt.replace('-', '.')}</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-k">{isAlumni ? 'Status' : 'Rank'}</div>
+            <div class="pstat-v">{isAlumni ? statusLabel[member.status] : (rank?.name ?? '—')}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-body">
+        <div>
+          <div class="prose">
+            <p class="dropcap">{member.intro}</p>
+          </div>
+
+          {
+            member.tags.length > 0 && (
+              <div class="profile-section">
+                <h2 class="panel-title">擅长</h2>
+                <div class="tag-list">
+                  {member.tags.map((t) => <span class="tag">{t}</span>)}
+                </div>
+              </div>
+            )
+          }
+
+          {
+            roles.length > 0 && (
+              <div class="profile-section">
+                <h2 class="panel-title">职务</h2>
+                <div class="role-detail-list">
+                  {roles.map((r) => (
+                    <div class="role-detail" style={`--rh:${roleHueOf(r.id)}`}>
+                      <div class="role-detail-head">
+                        <span class="role-ico" aria-hidden="true">{r.icon || '◇'}</span>
+                        <span class="role-detail-name">{r.name}</span>
+                        <span class="role-detail-n">
+                          {membersOfRole(r.id).length} 人在此职务
+                        </span>
+                      </div>
+                      <p class="role-desc">{r.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          }
+
+          {
+            teammates.length > 0 && (
+              <div class="profile-section">
+                <h2 class="panel-title">同职务的同伴</h2>
+                <div class="mgrid mgrid--compact">
+                  {teammates.map((m) => (
+                    <MemberCard member={m} showIntro={false} />
+                  ))}
+                </div>
+              </div>
+            )
+          }
+        </div>
+
+        <aside class="profile-aside">
+          <div class="panel panel--pad">
+            <div class="panel-title">档案</div>
+            <div class="meta-list">
+              {
+                metaRows.map((row) => (
+                  <div class="meta-row">
+                    <span class="meta-k">{row.k}</span>
+                    <span class={`meta-v${row.mono ? ' mono' : ''}`}>{row.v}</span>
+                  </div>
+                ))
+              }
+              <div class="meta-row">
+                <span class="meta-k">状态</span>
+                <span class={`meta-v status status--${member.status}`}>
+                  {statusLabel[member.status]}
+                </span>
+              </div>
+            </div>
+
+            {
+              contacts.length > 0 && (
+                <>
+                  <div class="panel-title" style="margin-top:22px">联系</div>
+                  <div class="meta-list">
+                    {contacts.map(([k, v]) => (
+                      <div class="meta-row">
+                        <span class="meta-k">{contactLabel[k] ?? k}</span>
+                        <span class="meta-v mono">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )
+            }
+          </div>
+
+          <p class="aside-note">
+            {isAlumni
+              ? '这位同伴已经离开了日常名单，但档案与贡献仍保留在这里。'
+              : '资料由本人或管理层维护。如有出入，请在群内联系管理层更正。'}
+          </p>
+
+          <a class="aside-back" href={url('/members/')}>
+            <span aria-hidden="true">←</span> 返回成员名单
+          </a>
+        </aside>
+      </div>
+
+      <nav class="pager" aria-label="成员翻页">
+        {
+          prev ? (
+            <a class="pager-link" href={url(`/members/${prev.id}/`)}>
+              <span class="pager-k">上一位</span>
+              <span class="pager-v">{prev.displayName}</span>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+        {
+          next ? (
+            <a class="pager-link pager-link--next" href={url(`/members/${next.id}/`)}>
+              <span class="pager-k">下一位</span>
+              <span class="pager-v">{next.displayName}</span>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+      </nav>
+    </div>
+  </article>
+</Base>
