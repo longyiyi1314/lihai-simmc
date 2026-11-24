@@ -5,41 +5,43 @@ import Avatar from '../components/Avatar.astro';
 import {
   site,
   rankList,
-  orgRoot,
-  orgChildren,
-  orgHeadcount,
-  orgChildCount,
+  roleList,
   membersOfRank,
+  membersOfRole,
   isPlaceholder,
   placeholderNotice,
 } from '../lib/loadData';
 import { url } from '../lib/url';
-import { branchHue } from '../lib/theme';
+import { roleHueOf } from '../theme';
 
 const total = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
-const branches = orgChildren(orgRoot.id);
+const tracks = [
+  { id: 'party', name: '党务与行政', desc: '凛海局中央执行委员会与国家各部门的职级序列。' },
+  { id: 'soviet', name: '苏维埃代表', desc: '由各地区选举产生，参与地方立法与执行。' },
+  { id: 'army', name: '武装力量', desc: '红军序列，承担军事防卫与开边垦荒。' },
+];
 ---
 
 <Base
   title="职级与职务"
-  description={`${site.fullName}的 ${rankList.length} 级职级序列，以及凛海局三个大委员会下的完整机构分工：从执行专员到首席执行委员，每一级都写明了职责与晋升方式。`}
+  description={`${site.fullName}的 ${rankList.length} 级职级序列与 ${roleList.length} 类职务分工：从执行专员到首席执行委员，每一级都写明了职责与晋升方式。`}
 >
   <PageHead
-    title="职级与机构"
+    title="职级与职务"
     crumb="职级"
-    desc="职级决定你能承担多少，机构决定你在哪一件事上被需要。党务行政、苏维埃代表与武装力量三条线并行，才拼得出一个完整的璃海。"
+    desc="职级决定你能承担多少，职务决定你在哪一件事上被需要。党务行政、苏维埃代表与武装力量三条线并行，才拼得出一个完整的璃海。"
   >
     <div class="page-meta">
       <span>职级 <b>{rankList.length}</b> 级</span>
-      <span>机构 <b>{branches.length}</b> 委</span>
+      <span>职务 <b>{roleList.length}</b> 类</span>
       <span>名录收录 <b>{total}</b> 人</span>
       <span>晋升 <b>评议与考核</b></span>
     </div>
 
     <nav class="roster-bar" aria-label="页面章节">
       <a class="chip" href="#ladder">职级阶梯</a>
-      <a class="chip" href="#org">机构分支</a>
-      <a class="chip" href={url('/org/')}>完整机构树</a>
+      <a class="chip" href="#roles">职务分工</a>
+      <a class="chip" href={url('/members/')}>成员名录</a>
     </nav>
   </PageHead>
 
@@ -117,40 +119,41 @@ const branches = orgChildren(orgRoot.id);
     }
   </section>
 
-  <section class="wrap section" id="org">
+  <section class="wrap section" id="roles">
     <div class="sec-head">
       <span class="sec-no">02</span>
       <div class="sec-title">
-        <h2>{branches.length} 个大委员会</h2>
-        <p>凛海局之下分三条线：政务枢机管人与法，革命军事管枪，计划经济管产出。</p>
+        <h2>{roleList.length} 类职务</h2>
+        <p>职务是横向的：一个人可以同时挂着两三个头衔，也可以一个都不挂，只安静地盖房子。</p>
       </div>
       <span class="sec-more">
-        <a href={url('/org/')}>看机构树 →</a>
+        <a href={url('/members/')}>按人看 →</a>
       </span>
     </div>
 
-    <div class="org-grid org-grid--tight">
+    <div class="role-grid">
       {
-        branches.map((b, i) => {
-          const kids = orgChildren(b.id);
+        roleList.map((role) => {
+          const holders = membersOfRole(role.id);
           return (
-            <a class="org-card" id={`org-${b.id}`} href={url(`/org/#org-${b.id}`)} style={`--oh:${branchHue(i)}`}>
-              <div class="org-card-head">
-                <span class="org-ico" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class="org-name">{b.name}</h3>
-                <span class="org-count">{orgHeadcount(b.id)} 人</span>
+            <article class="role-card" id={`role-${role.id}`} style={`--rh:${roleHueOf(role.id)}`}>
+              <div class="role-card-head">
+                <span class="role-ico" aria-hidden="true">{role.icon || '◇'}</span>
+                <h3 class="role-name">{role.name}</h3>
+                <span class="role-count">{holders.length} 人</span>
               </div>
-              <p class="org-desc">{b.summary}</p>
-              <div class="org-kids">
-                {kids.map((k) => (
-                  <span class="org-kid">{k.name}</span>
-                ))}
-              </div>
-              <div class="org-foot">
-                <span class="mono">{orgChildCount(b.id)} 个直属机构</span>
-                <span class="org-arrow" aria-hidden="true">→</span>
-              </div>
-            </a>
+              <p class="role-desc">{role.description}</p>
+              {holders.length > 0 && (
+                <div class="role-holders">
+                  {holders.map((m) => (
+                    <a class="holder" href={url(`/members/${m.id}/`)}>
+                      <Avatar seed={m.id} name={m.displayName} src={m.avatar} size="sm" />
+                      <span>{m.displayName}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </article>
           );
         })
       }

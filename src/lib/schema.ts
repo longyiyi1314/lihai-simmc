@@ -19,55 +19,17 @@ export const RankSchema = z.object({
   limit: z.number().int().nullable().default(null),
 });
 
-/** 机构层级：凛海局 / 委员会 / 部 / 兵团 / 局 / 处 / 军区 */
-export const OrgKindSchema = z.enum([
-  'root',
-  'commission',
-  'bureau',
-  'corps',
-  'division',
-  'office',
-  'district',
-]);
-
-/** 机构任职：memberId 为空时用 name 占位（图上有人、名册里没有的成员） */
-export const OrgHolderSchema = z
-  .object({
-    memberId: z.string().optional(),
-    name: z.string().optional(),
-    label: z.string().default(''),
-  })
-  .refine((h) => Boolean(h.memberId || h.name), {
-    message: 'holder 必须至少有 memberId 或 name',
-  });
-
-export const OrgNodeSchema = z.object({
-  id: z.string().regex(/^[a-z0-9-]+$/),
-  name: z.string().min(1),
-  kind: OrgKindSchema,
-  parentId: z.string().nullable().default(null),
-  order: z.number().default(100),
-  summary: z.string().default(''),
-  holders: z.array(OrgHolderSchema).default([]),
-});
-
-export const OrgFileSchema = z.object({
+export const RolesFileSchema = z.object({
   isPlaceholder: z.boolean().default(false),
-  rootId: z.string().min(1),
-  note: z.string().default(''),
-  presidium: z
-    .object({
-      title: z.string().default(''),
-      groups: z.array(
-        z.object({
-          id: z.string(),
-          name: z.string(),
-          memberIds: z.array(z.string()).default([]),
-        })
-      ).default([]),
+  roles: z.array(
+    z.object({
+      id: z.string().regex(/^[a-z0-9-]+$/),
+      name: z.string().min(1),
+      icon: z.string().default(''),
+      description: z.string().default(''),
+      leadMemberId: z.string().nullable().default(null),
     })
-    .default({ title: '', groups: [] }),
-  nodes: z.array(OrgNodeSchema),
+  ),
 });
 
 export const RankFileSchema = z.object({
@@ -83,6 +45,11 @@ export const MemberSchema = z.object({
   displayName: z.string().min(1, '展示名不能为空'),
   title: z.string().default(''),
   rankId: z.string().min(1, '必须填写职位'),
+  roleIds: z.array(z.string()).default([]),
+  /** 任职机构（纵向部门树），与横向职能 roleIds 相互独立 */
+  orgIds: z.array(z.string()).default([]),
+  /** 任职地区/公社（行政区划树），与部门树 orgIds 相互独立 */
+  regionIds: z.array(z.string()).default([]),
   status: StatusSchema,
   /** 加入时间，允许留空（真实名册里往往无法逐人考证） */
   joinedAt: z
@@ -114,6 +81,61 @@ export const MemberSchema = z.object({
 export const MembersFileSchema = z.object({
   isPlaceholder: z.boolean().default(false),
   members: z.array(MemberSchema),
+});
+
+/** 机构等级：根 / 委员会 / 部 / 局 / 处 / 军队单位 */
+export const OrgTierSchema = z.enum([
+  'root',
+  'committee',
+  'department',
+  'bureau',
+  'division',
+  'unit',
+]);
+
+export const OrganizationSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/, '机构 id 只能是小写英文、数字和短横线'),
+  name: z.string().min(1, '机构名称不能为空'),
+  tier: OrgTierSchema,
+  /** 上级机构 id，根节点为 null */
+  parentId: z.string().nullable(),
+  /** 负责人（可多人或暂缺） */
+  headMemberIds: z.array(z.string()).default([]),
+  /** 在该机构任职的全部成员（含负责人） */
+  memberIds: z.array(z.string()).default([]),
+  summary: z.string().default(''),
+});
+
+export const OrganizationFileSchema = z.object({
+  isPlaceholder: z.boolean().default(false),
+  organizations: z.array(OrganizationSchema),
+});
+
+/** 行政区划层级：联盟 / 凛海局 / 中央执行委员会 / 地区苏维埃 / 公社 */
+export const RegionTierSchema = z.enum([
+  'union',
+  'bureau',
+  'executive',
+  'region',
+  'commune',
+]);
+
+export const RegionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/, '节点 id 只能是小写英文、数字和短横线'),
+  name: z.string().min(1, '名称不能为空'),
+  tier: RegionTierSchema,
+  /** 上级节点 id，根节点为 null */
+  parentId: z.string().nullable(),
+  /** 负责人（主任/公社代表，可多人或暂缺） */
+  headMemberIds: z.array(z.string()).default([]),
+  /** 在该节点任职的全部成员（含负责人） */
+  memberIds: z.array(z.string()).default([]),
+  summary: z.string().default(''),
+});
+
+export const RegionFileSchema = z.object({
+  isPlaceholder: z.boolean().default(false),
+  regions: z.array(RegionSchema),
 });
 
 /** 领地层级：首都 / 都市圈 / 城市 / 领地 / 省份 / 城镇 / 村庄 / 定居点 */
@@ -173,7 +195,7 @@ export const SiteSchema = z.object({
   pact: z.string().default(''),
   peoples: z.string().default(''),
   languages: z.array(z.string()).default([]),
-  holidays: z.array(HolidaySchema).default([]),
+  holidays: z.array(z.string()).default([]),
   /** 全社在册人数（名册只逐人收录了其中一部分） */
   memberTotal: z.number().int().default(0),
   /** 领土区块总数，仅用于文案 */
@@ -196,5 +218,5 @@ export const SiteSchema = z.object({
   slogan: z.string().default(''),
   recruiting: z.boolean().default(false),
   isPlaceholder: z.boolean().default(false),
-  announcements: z.array(AnnouncementSchema).default([]),
+  announcements: z.array(z.AnnouncementSchema).default([]),
 });
