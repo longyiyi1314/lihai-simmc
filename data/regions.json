@@ -1,0 +1,375 @@
+{
+  "isPlaceholder": false,
+  "regions": [
+    {
+      "id": "union-soviet",
+      "name": "璃海最高苏维埃",
+      "tier": "union",
+      "parentId": null,
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": "联盟级最高权力机关；凛海局为其常务机关。"
+    },
+    {
+      "id": "bureau",
+      "name": "凛海局",
+      "tier": "bureau",
+      "parentId": "union-soviet",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": "社团级，璃海最高苏维埃的常务机关。"
+    },
+    {
+      "id": "central-executive",
+      "name": "凛海局中央执行委员会",
+      "tier": "executive",
+      "parentId": "bureau",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": "首席执行委员级，负责监督与日常行政；在各地区设立行政公署，任命地区主任代表凛海局领导。"
+    },
+    {
+      "id": "region-linhai",
+      "name": "凛海地区苏维埃",
+      "tier": "region",
+      "parentId": "central-executive",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi",
+        "heinrich4084",
+        "akiyamatwt",
+        "longyiyi1314",
+        "endanuz0728"
+      ],
+      "summary": "地区/执行委员级。主任 Qiyushi，副主任 Heinrich4084、AkiyamaTwT，代表 longyiyi1314、Endanuz0728。"
+    },
+    {
+      "id": "commune-linhai-central",
+      "name": "凛海城中央公社",
+      "tier": "commune",
+      "parentId": "region-linhai",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-cliffsburg",
+      "name": "克里夫斯堡军区",
+      "tier": "commune",
+      "parentId": "region-linhai",
+      "headMemberIds": [
+        "heinrich4084"
+      ],
+      "memberIds": [
+        "heinrich4084"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-yanlin",
+      "name": "延凛公社",
+      "tier": "commune",
+      "parentId": "region-linhai",
+      "headMemberIds": [
+        "akiyamatwt"
+      ],
+      "memberIds": [
+        "akiyamatwt"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-silverhill",
+      "name": "北凛海银丘公社",
+      "tier": "commune",
+      "parentId": "region-linhai",
+      "headMemberIds": [
+        "llong"
+      ],
+      "memberIds": [
+        "llong"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-snowfield",
+      "name": "北凛海雪原公社",
+      "tier": "commune",
+      "parentId": "region-linhai",
+      "headMemberIds": [
+        "xiaofeiying"
+      ],
+      "memberIds": [
+        "xiaofeiying"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-border",
+      "name": "北凛海边区公社",
+      "tier": "commune",
+      "parentId": "region-linhai",
+      "headMemberIds": [
+        "yizz34"
+      ],
+      "memberIds": [
+        "yizz34"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "region-qichuan",
+      "name": "岐川地区苏维埃",
+      "tier": "region",
+      "parentId": "central-executive",
+      "headMemberIds": [
+        "haaamburger"
+      ],
+      "memberIds": [
+        "haaamburger",
+        "foreverzzz",
+        "darkwings-lok",
+        "xmohe",
+        "xindexinde"
+      ],
+      "summary": "地区/执行委员级。主任 haaamburger，副主任 ForeverZzz、Darkwings_Lok，代表 xmohe、xindexinde。"
+    },
+    {
+      "id": "commune-qichuan",
+      "name": "岐川公社",
+      "tier": "commune",
+      "parentId": "region-qichuan",
+      "headMemberIds": [
+        "haaamburger"
+      ],
+      "memberIds": [
+        "haaamburger"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-birchvalley",
+      "name": "岐川北桦谷公社",
+      "tier": "commune",
+      "parentId": "region-qichuan",
+      "headMemberIds": [
+        "xindexinde"
+      ],
+      "memberIds": [
+        "xindexinde"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-eastwind",
+      "name": "东风谷公社",
+      "tier": "commune",
+      "parentId": "region-qichuan",
+      "headMemberIds": [
+        "darkwings-lok"
+      ],
+      "memberIds": [
+        "darkwings-lok"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-forever",
+      "name": "永远特区",
+      "tier": "commune",
+      "parentId": "region-qichuan",
+      "headMemberIds": [
+        "foreverzzz"
+      ],
+      "memberIds": [
+        "foreverzzz"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "region-yudao",
+      "name": "雨岛地区苏维埃",
+      "tier": "region",
+      "parentId": "central-executive",
+      "headMemberIds": [
+        "tyfm1324"
+      ],
+      "memberIds": [
+        "tyfm1324",
+        "yue-smile",
+        "yizz34"
+      ],
+      "summary": "地区/执行委员级。主任 tyfm1324，副主任 Yue_Smile，代表 yizz34。"
+    },
+    {
+      "id": "commune-yudaobay",
+      "name": "雨海湾开发区",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "tyfm1324"
+      ],
+      "memberIds": [
+        "tyfm1324"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-yudaolake",
+      "name": "雨岛湖公社",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "ssuzu3"
+      ],
+      "memberIds": [
+        "ssuzu3"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-north-yudao",
+      "name": "北雨岛公社",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "mcfangkuaireng"
+      ],
+      "memberIds": [
+        "mcfangkuaireng"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-mengyu",
+      "name": "梦雨公社",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "wumengze"
+      ],
+      "memberIds": [
+        "wumengze"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-yushan",
+      "name": "雨山公社",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "yue-smile"
+      ],
+      "memberIds": [
+        "yue-smile"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-nova",
+      "name": "诺瓦",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "yumoyoo"
+      ],
+      "memberIds": [
+        "yumoyoo"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-farmgod",
+      "name": "种地之神",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [
+        "zheng-fang"
+      ],
+      "memberIds": [
+        "zheng-fang"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-longwhite",
+      "name": "长白云之乡",
+      "tier": "commune",
+      "parentId": "region-yudao",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": "架构图中尚未指定公社代表。"
+    },
+    {
+      "id": "region-menghai",
+      "name": "蒙海地区苏维埃",
+      "tier": "region",
+      "parentId": "central-executive",
+      "headMemberIds": [
+        "lnactifseven"
+      ],
+      "memberIds": [
+        "lnactifseven",
+        "ssds-x",
+        "wd-zzt",
+        "junia-kitty"
+      ],
+      "summary": "地区/执行委员级。主任 Lnactifseven，副主任 SSDs_x、WD_ZZT，代表 JuniaKitty。"
+    },
+    {
+      "id": "commune-mengde",
+      "name": "蒙德公社",
+      "tier": "commune",
+      "parentId": "region-menghai",
+      "headMemberIds": [
+        "lnactifseven"
+      ],
+      "memberIds": [
+        "lnactifseven"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-menghai-new",
+      "name": "蒙海公社·新公社",
+      "tier": "commune",
+      "parentId": "region-menghai",
+      "headMemberIds": [
+        "ruanboww"
+      ],
+      "memberIds": [
+        "ruanboww"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commune-fengchun",
+      "name": "逢春公社",
+      "tier": "commune",
+      "parentId": "region-menghai",
+      "headMemberIds": [
+        "ssds-x"
+      ],
+      "memberIds": [
+        "ssds-x"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "region-overseas",
+      "name": "其他海外属地",
+      "tier": "region",
+      "parentId": "central-executive",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": "与地区苏维埃并列；架构图未列下级明细。"
+    }
+  ]
+}
