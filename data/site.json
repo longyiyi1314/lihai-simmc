@@ -1,8 +1,8 @@
 {
   "nationName": "璃海",
   "fullName": "璃海苏维埃公社联盟",
-  "nationNameEn": "Riheria",
-  "fullNameEn": "Riheria Soviete Commune Unien",
+  "nationNameEn": "Lihai",
+  "fullNameEn": "Riherie Soviete Commune Unien",
   "clubName": "璃海社团",
   "studioName": "Ultroveritas Studio",
   "game": "Minecraft",
@@ -59,7 +59,7 @@
   "announcements": [
     {
       "date": "2026-11-24",
-      "text": "成员站接入璃海苏维埃公社联盟正式资料：凛海城中央公社名录 26 人已录入，全社在册 277 人。"
+      "text": "成员站接入璃海苏维埃公社联盟正式资料：凛海城中央公社名录 24 人已录入，全社在册 277 人。"
     },
     {
       "date": "2026-11-24",
@@ -67,7 +67,11 @@
     },
     {
       "date": "2026-11-24",
-      "text": "机构编制页上线：按最新凛海局架构录入 37 个机构、56 条任职，中央执行委员会职级与分工同步校正。"
+      "text": "组织信息按最新凛海局架构补录：中央执行委员会职级与职务分工已校正，名录增至 26 人；酒业局由 Lnactifseven、xiaofeiying 负责。"
+    },
+    {
+      "date": "2026-11-24",
+      "text": "组织架构页上线：凛海局三大委员会及下属部、局、处，璃海红军兵团与军区完整录入，共 37 个机构；成员任职机构同步更新。"
     }
   ]
 }

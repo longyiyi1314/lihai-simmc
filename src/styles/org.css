@@ -1,0 +1,190 @@
+/* --------------------------------------------------------------------------
+   组织架构 · 机构树（图纸感：细线、逐级缩进）
+   -------------------------------------------------------------------------- */
+
+.org-tree {
+  padding-top: 38px;
+}
+
+.org-node {
+  min-width: 0;
+}
+
+.org-card {
+  position: relative;
+  padding: 14px 18px 15px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, rgba(255, 255, 0.03), transparent);
+  transition: border-color 0.22s var(--ease), transform 0.22s var(--ease);
+}
+
+.org-card:hover {
+  border-color: var(--line-3);
+  transform: translateY(-1px);
+}
+
+.org-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.org-tier-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid var(--line-2);
+  white-space: nowrap;
+}
+
+.org-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+/* 等级配色：根/委员会用金，部用红，局用蓝，处用灰，军队单位用红 */
+.org-card--root,
+.org-card--committee {
+  border-left-color: var(--gold);
+}
+.org-card--root .org-tier-tag,
+.org-card--committee .org-tier-tag {
+  color: var(--gold);
+  border-color: rgba(230, 198, 124, 0.34);
+}
+.org-card--department {
+  border-left-color: var(--red);
+}
+.org-card--department .org-tier-tag,
+.org-card--unit .org-tier-tag {
+  color: var(--red);
+  border-color: rgba(217, 84, 74, 0.3);
+}
+.org-card--bureau {
+  border-left-color: var(--blue);
+}
+.org-card--bureau .org-tier-tag {
+  color: var(--blue);
+  border-color: rgba(148, 163, 212, 0.3);
+}
+
+.org-people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.org-person {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 12px;
+  color: var(--text-2);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.org-person:hover {
+  border-color: rgba(217, 84, 74, 0.45);
+  color: var(--text);
+}
+
+.org-person-role {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  color: var(--gold);
+  border: 1px solid rgba(230, 198, 124, 0.32);
+}
+
+.org-vacant {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--muted-2);
+}
+
+/* 子级：左侧连接线 + 逐级缩进 */
+.org-children {
+  margin-top: 10px;
+  margin-left: 13px;
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.org-foot-note {
+  margin-top: 34px;
+}
+
+/* 成员详情页 · 任职机构清单 */
+.org-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.org-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-2);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.org-link:hover {
+  border-color: var(--line-3);
+  color: var(--text);
+}
+
+.org-link-tier {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.org-link-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.org-link-role {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+@media (max-width: 720px) {
+  .org-children {
+    margin-left: 8px;
+    padding-left: 14px;
+  }
+  .org-card {
+    padding: 12px 14px 13px;
+  }
+}
