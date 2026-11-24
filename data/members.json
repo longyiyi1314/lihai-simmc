@@ -7,12 +7,6 @@
       "displayName": "祁钰师",
       "title": "书记",
       "rankId": "chief",
-      "roleIds": [
-        "foreign",
-        "secretariat",
-        "finance",
-        "military"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -34,9 +28,6 @@
       "displayName": "ForeverZzz",
       "title": "",
       "rankId": "deputy-chief",
-      "roleIds": [
-        "military"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -54,11 +45,6 @@
       "displayName": "Lnactifseven",
       "title": "",
       "rankId": "deputy-chief",
-      "roleIds": [
-        "finance",
-        "labor",
-        "military"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -76,10 +62,6 @@
       "displayName": "Yangguagua",
       "title": "",
       "rankId": "executive",
-      "roleIds": [
-        "foreign",
-        "propaganda"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -97,9 +79,6 @@
       "displayName": "AkiyamaTwT",
       "title": "",
       "rankId": "executive",
-      "roleIds": [
-        "regional"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -117,10 +96,6 @@
       "displayName": "Heinrich4084",
       "title": "",
       "rankId": "executive",
-      "roleIds": [
-        "secretariat",
-        "military"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -140,10 +115,6 @@
       "displayName": "HH_XMH",
       "title": "",
       "rankId": "executive",
-      "roleIds": [
-        "secretariat",
-        "propaganda"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -161,9 +132,6 @@
       "displayName": "haaamburger",
       "title": "",
       "rankId": "executive",
-      "roleIds": [
-        "labor"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -176,53 +144,11 @@
       "updatedAt": "2026-11-24"
     },
     {
-      "id": "xiaofeiying",
-      "gameId": "xiaofeiying",
-      "displayName": "xiaofeiying",
-      "title": "",
-      "rankId": "standing",
-      "roleIds": [
-        "finance"
-      ],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 41,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "tyfm1324",
-      "gameId": "tyfm1324",
-      "displayName": "tyfm1324",
-      "title": "",
-      "rankId": "specialist",
-      "roleIds": [],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 74,
-      "updatedAt": "2026-11-24"
-    },
-    {
       "id": "darkwings-lok",
       "gameId": "Darkwings_Lok",
       "displayName": "Darkwings_Lok",
       "title": "",
       "rankId": "standing",
-      "roleIds": [
-        "labor",
-        "military"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -235,12 +161,11 @@
       "updatedAt": "2026-11-24"
     },
     {
-      "id": "ssuzu3",
-      "gameId": "SSuzu3",
-      "displayName": "SSuzu3",
+      "id": "xiaofeiying",
+      "gameId": "xiaofeiying",
+      "displayName": "xiaofeiying",
       "title": "",
-      "rankId": "specialist",
-      "roleIds": [],
+      "rankId": "standing",
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -249,27 +174,7 @@
       "tags": [],
       "contacts": {},
       "featured": false,
-      "order": 75,
-      "updatedAt": "2026-11-24"
-    },
-    {
-      "id": "yizz34",
-      "gameId": "yizz34",
-      "displayName": "yizz34",
-      "title": "",
-      "rankId": "commissar",
-      "roleIds": [
-        "labor"
-      ],
-      "status": "active",
-      "joinedAt": "",
-      "leftAt": null,
-      "avatar": "",
-      "intro": "",
-      "tags": [],
-      "contacts": {},
-      "featured": false,
-      "order": 53,
+      "order": 41,
       "updatedAt": "2026-11-24"
     },
     {
@@ -278,10 +183,6 @@
       "displayName": "SSDS_x",
       "title": "",
       "rankId": "commissar",
-      "roleIds": [
-        "finance",
-        "military"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -299,9 +200,6 @@
       "displayName": "WD_ZZT",
       "title": "",
       "rankId": "commissar",
-      "roleIds": [
-        "labor"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -319,9 +217,6 @@
       "displayName": "Yue_Smile",
       "title": "",
       "rankId": "commissar",
-      "roleIds": [
-        "regional"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -334,12 +229,11 @@
       "updatedAt": "2026-11-24"
     },
     {
-      "id": "wumengze",
-      "gameId": "Wumengze",
-      "displayName": "Wumengze",
+      "id": "yizz34",
+      "gameId": "yizz34",
+      "displayName": "yizz34",
       "title": "",
-      "rankId": "specialist",
-      "roleIds": [],
+      "rankId": "commissar",
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -348,7 +242,7 @@
       "tags": [],
       "contacts": {},
       "featured": false,
-      "order": 76,
+      "order": 53,
       "updatedAt": "2026-11-24"
     },
     {
@@ -357,9 +251,6 @@
       "displayName": "longyiyi1314",
       "title": "",
       "rankId": "commissar",
-      "roleIds": [
-        "labor"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -377,9 +268,6 @@
       "displayName": "Endanuz0728",
       "title": "",
       "rankId": "delegate",
-      "roleIds": [
-        "regional"
-      ],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -397,7 +285,6 @@
       "displayName": "Wondertion",
       "title": "",
       "rankId": "specialist",
-      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -415,7 +302,6 @@
       "displayName": "miao_tao",
       "title": "",
       "rankId": "specialist",
-      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -433,7 +319,6 @@
       "displayName": "mcfangkuaireng",
       "title": "",
       "rankId": "specialist",
-      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -451,7 +336,6 @@
       "displayName": "abanice",
       "title": "",
       "rankId": "specialist",
-      "roleIds": [],
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -464,14 +348,11 @@
       "updatedAt": "2026-11-24"
     },
     {
-      "id": "xmohe",
-      "gameId": "xmohe",
-      "displayName": "xmohe",
+      "id": "tyfm1324",
+      "gameId": "tyfm1324",
+      "displayName": "tyfm1324",
       "title": "",
-      "rankId": "red-army",
-      "roleIds": [
-        "military"
-      ],
+      "rankId": "specialist",
       "status": "active",
       "joinedAt": "",
       "leftAt": null,
@@ -480,7 +361,41 @@
       "tags": [],
       "contacts": {},
       "featured": false,
-      "order": 80,
+      "order": 74,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "ssuzu3",
+      "gameId": "SSuzu3",
+      "displayName": "SSuzu3",
+      "title": "",
+      "rankId": "specialist",
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 75,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "wumengze",
+      "gameId": "Wumengze",
+      "displayName": "Wumengze",
+      "title": "",
+      "rankId": "specialist",
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 76,
       "updatedAt": "2026-11-24"
     },
     {
@@ -501,6 +416,23 @@
       "contacts": {},
       "featured": false,
       "order": 77,
+      "updatedAt": "2026-11-24"
+    },
+    {
+      "id": "xmohe",
+      "gameId": "xmohe",
+      "displayName": "xmohe",
+      "title": "",
+      "rankId": "red-army",
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 80,
       "updatedAt": "2026-11-24"
     },
     {

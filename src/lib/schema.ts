@@ -19,17 +19,55 @@ export const RankSchema = z.object({
   limit: z.number().int().nullable().default(null),
 });
 
-export const RolesFileSchema = z.object({
+/** 机构层级：凛海局 / 委员会 / 部 / 兵团 / 局 / 处 / 军区 */
+export const OrgKindSchema = z.enum([
+  'root',
+  'commission',
+  'bureau',
+  'corps',
+  'division',
+  'office',
+  'district',
+]);
+
+/** 机构任职：memberId 为空时用 name 占位（图上有人、名册里没有的成员） */
+export const OrgHolderSchema = z
+  .object({
+    memberId: z.string().optional(),
+    name: z.string().optional(),
+    label: z.string().default(''),
+  })
+  .refine((h) => Boolean(h.memberId || h.name), {
+    message: 'holder 必须至少有 memberId 或 name',
+  });
+
+export const OrgNodeSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  name: z.string().min(1),
+  kind: OrgKindSchema,
+  parentId: z.string().nullable().default(null),
+  order: z.number().default(100),
+  summary: z.string().default(''),
+  holders: z.array(OrgHolderSchema).default([]),
+});
+
+export const OrgFileSchema = z.object({
   isPlaceholder: z.boolean().default(false),
-  roles: z.array(
-    z.object({
-      id: z.string().regex(/^[a-z0-9-]+$/),
-      name: z.string().min(1),
-      icon: z.string().default(''),
-      description: z.string().default(''),
-      leadMemberId: z.string().nullable().default(null),
+  rootId: z.string().min(1),
+  note: z.string().default(''),
+  presidium: z
+    .object({
+      title: z.string().default(''),
+      groups: z.array(
+        z.object({
+          id: z.string(),
+          name: z.string(),
+          memberIds: z.array(z.string()).default([]),
+        })
+      ).default([]),
     })
-  ),
+    .default({ title: '', groups: [] }),
+  nodes: z.array(OrgNodeSchema),
 });
 
 export const RankFileSchema = z.object({
@@ -45,7 +83,6 @@ export const MemberSchema = z.object({
   displayName: z.string().min(1, '展示名不能为空'),
   title: z.string().default(''),
   rankId: z.string().min(1, '必须填写职位'),
-  roleIds: z.array(z.string()).default([]),
   status: StatusSchema,
   /** 加入时间，允许留空（真实名册里往往无法逐人考证） */
   joinedAt: z

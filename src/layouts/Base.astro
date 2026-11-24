@@ -47,6 +47,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
   </head>
   <body>
     <a class="skip-link" href="#main">跳至正文</a>
+    <div class="fx" aria-hidden="true">
+      <span class="fx-grid"></span>
+      <span class="fx-scan"></span>
+    </div>
     <Header />
     <main id="main">
       <slot />

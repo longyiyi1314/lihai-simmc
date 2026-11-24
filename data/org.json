@@ -1,0 +1,599 @@
+{
+  "isPlaceholder": false,
+  "rootId": "lihai-bureau",
+  "note": "由两个大委员会（政务枢机委员会、革命军事委员会）双重领导",
+  "presidium": {
+    "title": "当前凛海局中央执行委员会人员如下",
+    "groups": [
+      {
+        "id": "chief",
+        "name": "首席执行委员",
+        "memberIds": [
+          "qiyushi"
+        ]
+      },
+      {
+        "id": "deputy-chief",
+        "name": "副首席执行委员",
+        "memberIds": [
+          "lnactifseven",
+          "foreverzzz"
+        ]
+      },
+      {
+        "id": "executive",
+        "name": "执行委员",
+        "memberIds": [
+          "heinrich4084",
+          "akiyamatwt",
+          "haaamburger",
+          "yangguagua",
+          "hh-xmh"
+        ]
+      },
+      {
+        "id": "standing",
+        "name": "常务委员",
+        "memberIds": [
+          "darkwings-lok",
+          "xiaofeiying"
+        ]
+      },
+      {
+        "id": "commissar",
+        "name": "委员",
+        "memberIds": [
+          "ssds-x",
+          "wd-zzt",
+          "yue-smile",
+          "yizz34",
+          "longyiyi1314"
+        ]
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "lihai-bureau",
+      "name": "璃海苏维埃凛海局",
+      "kind": "root",
+      "parentId": null,
+      "order": 0,
+      "summary": "联盟的最高执行机关，统辖政务、军事与计划经济的全部条线。",
+      "holders": []
+    },
+    {
+      "id": "political-commission",
+      "name": "政务枢机委员会",
+      "kind": "commission",
+      "parentId": "lihai-bureau",
+      "order": 10,
+      "summary": "掌管外交招募、民政治安、政治监察、文化宣传与司法，是凛海局的政务中枢。",
+      "holders": [
+        {
+          "memberId": "qiyushi"
+        }
+      ]
+    },
+    {
+      "id": "foreign-recruit-bureau",
+      "name": "外交招募部",
+      "kind": "bureau",
+      "parentId": "political-commission",
+      "order": 11,
+      "summary": "对外联络与新人招募，负责把愿意留下的人接进璃海。",
+      "holders": [
+        {
+          "memberId": "yangguagua"
+        }
+      ]
+    },
+    {
+      "id": "recruit-office",
+      "name": "招新处（招新组）",
+      "kind": "office",
+      "parentId": "foreign-recruit-bureau",
+      "order": 12,
+      "summary": "面试、引导与入社手续的具体经办。",
+      "holders": []
+    },
+    {
+      "id": "civil-security-bureau",
+      "name": "民政治安部",
+      "kind": "bureau",
+      "parentId": "political-commission",
+      "order": 13,
+      "summary": "户籍、安置与日常治安，维持各公社的秩序。",
+      "holders": []
+    },
+    {
+      "id": "settlement-office",
+      "name": "安置处（引导组）",
+      "kind": "office",
+      "parentId": "civil-security-bureau",
+      "order": 14,
+      "summary": "新人落脚、住地与生产岗位的分配。",
+      "holders": []
+    },
+    {
+      "id": "political-supervision-commission",
+      "name": "政治监察委员会",
+      "kind": "commission",
+      "parentId": "political-commission",
+      "order": 15,
+      "summary": "监督各级机关与干部，受理纪律与作风问题。",
+      "holders": [
+        {
+          "memberId": "heinrich4084",
+          "label": "主要"
+        },
+        {
+          "memberId": "hh-xmh"
+        },
+        {
+          "memberId": "lnactifseven"
+        }
+      ]
+    },
+    {
+      "id": "culture-propaganda-commission",
+      "name": "文化宣传与活动委员会",
+      "kind": "commission",
+      "parentId": "political-commission",
+      "order": 16,
+      "summary": "对外宣传、文化建设与节庆活动的组织。",
+      "holders": [
+        {
+          "memberId": "lnactifseven"
+        },
+        {
+          "memberId": "yangguagua"
+        },
+        {
+          "memberId": "qiyushi"
+        },
+        {
+          "memberId": "chu-mengg"
+        },
+        {
+          "memberId": "hh-xmh"
+        }
+      ]
+    },
+    {
+      "id": "judicial-commission",
+      "name": "司法委员会",
+      "kind": "commission",
+      "parentId": "political-commission",
+      "order": 17,
+      "summary": "解释联盟章程、审理纠纷与仲裁。",
+      "holders": [
+        {
+          "memberId": "qiyushi"
+        },
+        {
+          "memberId": "foreverzzz"
+        },
+        {
+          "memberId": "lnactifseven"
+        }
+      ]
+    },
+    {
+      "id": "military-commission",
+      "name": "革命军事委员会",
+      "kind": "commission",
+      "parentId": "lihai-bureau",
+      "order": 20,
+      "summary": "统辖国防军事、总后勤与璃海红军，是联盟的武装领导机关。",
+      "holders": [
+        {
+          "memberId": "qiyushi"
+        },
+        {
+          "memberId": "lnactifseven"
+        },
+        {
+          "memberId": "foreverzzz"
+        }
+      ]
+    },
+    {
+      "id": "national-defense-bureau",
+      "name": "国防军事部",
+      "kind": "bureau",
+      "parentId": "military-commission",
+      "order": 21,
+      "summary": "战备值班、防务部署与对外军事事务。",
+      "holders": [
+        {
+          "memberId": "foreverzzz",
+          "label": "副总司令"
+        }
+      ]
+    },
+    {
+      "id": "general-logistics-bureau",
+      "name": "总后勤部",
+      "kind": "bureau",
+      "parentId": "military-commission",
+      "order": 22,
+      "summary": "军需、装备与战时物资的统一调配。",
+      "holders": []
+    },
+    {
+      "id": "red-army",
+      "name": "璃海红军",
+      "kind": "corps",
+      "parentId": "military-commission",
+      "order": 23,
+      "summary": "联盟的常备武装，下辖三个兵团与各自的责任军区。",
+      "holders": [
+        {
+          "memberId": "qiyushi",
+          "label": "总司令"
+        },
+        {
+          "memberId": "lnactifseven",
+          "label": "副总司令"
+        },
+        {
+          "memberId": "foreverzzz",
+          "label": "副总司令"
+        }
+      ]
+    },
+    {
+      "id": "arcane-corps",
+      "name": "奥术兵团",
+      "kind": "corps",
+      "parentId": "red-army",
+      "order": 24,
+      "summary": "以奥术力量为建制的兵团，驻防蒙海一线。",
+      "holders": [
+        {
+          "memberId": "lnactifseven"
+        }
+      ]
+    },
+    {
+      "id": "menghai-district",
+      "name": "蒙海军区",
+      "kind": "district",
+      "parentId": "arcane-corps",
+      "order": 25,
+      "summary": "蒙海地区的防务与开边垦荒。",
+      "holders": [
+        {
+          "memberId": "wd-zzt"
+        },
+        {
+          "memberId": "ssds-x"
+        }
+      ]
+    },
+    {
+      "id": "red-guard-corps",
+      "name": "红色近卫兵团",
+      "kind": "corps",
+      "parentId": "red-army",
+      "order": 26,
+      "summary": "首都的卫戍与近卫任务。",
+      "holders": [
+        {
+          "memberId": "qiyushi"
+        }
+      ]
+    },
+    {
+      "id": "capital-garrison",
+      "name": "首都卫戍区",
+      "kind": "district",
+      "parentId": "red-guard-corps",
+      "order": 27,
+      "summary": "凛海城与凛海宫的防务。",
+      "holders": [
+        {
+          "memberId": "heinrich4084"
+        },
+        {
+          "memberId": "darkwings-lok"
+        }
+      ]
+    },
+    {
+      "id": "expedition-corps",
+      "name": "远征猎魔兵团",
+      "kind": "corps",
+      "parentId": "red-army",
+      "order": 28,
+      "summary": "承担远征与猎魔任务的机动兵团。",
+      "holders": [
+        {
+          "memberId": "foreverzzz"
+        }
+      ]
+    },
+    {
+      "id": "qichuan-district",
+      "name": "岐川军区",
+      "kind": "district",
+      "parentId": "expedition-corps",
+      "order": 29,
+      "summary": "岐川一带的防务与远征补给。",
+      "holders": [
+        {
+          "memberId": "xindexinde"
+        },
+        {
+          "memberId": "xmohe"
+        }
+      ]
+    },
+    {
+      "id": "planned-economy-commission",
+      "name": "计划经济委员会",
+      "kind": "commission",
+      "parentId": "lihai-bureau",
+      "order": 30,
+      "summary": "统辖劳动生产、住房建设、工商贸易与财政，是联盟的经济中枢。",
+      "holders": [
+        {
+          "memberId": "lnactifseven"
+        }
+      ]
+    },
+    {
+      "id": "labor-production-bureau",
+      "name": "劳动生产部",
+      "kind": "bureau",
+      "parentId": "planned-economy-commission",
+      "order": 31,
+      "summary": "农业、劳动与工业三条生产线的统管部门。",
+      "holders": [
+        {
+          "memberId": "haaamburger"
+        },
+        {
+          "memberId": "darkwings-lok"
+        },
+        {
+          "memberId": "ssds-x"
+        },
+        {
+          "memberId": "wd-zzt"
+        }
+      ]
+    },
+    {
+      "id": "agriculture-division",
+      "name": "农业局",
+      "kind": "division",
+      "parentId": "labor-production-bureau",
+      "order": 32,
+      "summary": "农产与牧产的规划、垦殖与收储。",
+      "holders": [
+        {
+          "memberId": "ssds-x",
+          "label": "主要"
+        },
+        {
+          "memberId": "wd-zzt"
+        }
+      ]
+    },
+    {
+      "id": "crop-office",
+      "name": "农产处",
+      "kind": "office",
+      "parentId": "agriculture-division",
+      "order": 33,
+      "summary": "作物种植、良种与农田管理。",
+      "holders": [
+        {
+          "memberId": "wd-zzt"
+        }
+      ]
+    },
+    {
+      "id": "livestock-office",
+      "name": "牧产处",
+      "kind": "office",
+      "parentId": "agriculture-division",
+      "order": 34,
+      "summary": "畜牧养殖与肉奶供给。",
+      "holders": []
+    },
+    {
+      "id": "labor-division",
+      "name": "劳动局",
+      "kind": "division",
+      "parentId": "labor-production-bureau",
+      "order": 35,
+      "summary": "劳动资质评定、业务考核与工人权益。",
+      "holders": [
+        {
+          "memberId": "darkwings-lok",
+          "label": "主要"
+        },
+        {
+          "memberId": "yizz34"
+        }
+      ]
+    },
+    {
+      "id": "warehouse-logistics-office",
+      "name": "仓储物流处",
+      "kind": "office",
+      "parentId": "labor-division",
+      "order": 36,
+      "summary": "仓库、运输与物资周转。",
+      "holders": [
+        {
+          "memberId": "heinrich4084"
+        }
+      ]
+    },
+    {
+      "id": "workers-committee",
+      "name": "璃海工人委员会",
+      "kind": "commission",
+      "parentId": "labor-division",
+      "order": 37,
+      "summary": "工人的自治组织，向上反映生产一线的意见。",
+      "holders": [
+        {
+          "memberId": "yizz34"
+        }
+      ]
+    },
+    {
+      "id": "industry-division",
+      "name": "工业局",
+      "kind": "division",
+      "parentId": "labor-production-bureau",
+      "order": 38,
+      "summary": "工业产能、技术路线与建设材料的统筹。",
+      "holders": [
+        {
+          "memberId": "longyiyi1314"
+        }
+      ]
+    },
+    {
+      "id": "science-industry-committee",
+      "name": "科学技术工业委员会",
+      "kind": "commission",
+      "parentId": "industry-division",
+      "order": 39,
+      "summary": "红石技术、自动化与工业标准的研究制定。",
+      "holders": [
+        {
+          "memberId": "longyiyi1314"
+        }
+      ]
+    },
+    {
+      "id": "building-materials-office",
+      "name": "建材生产处",
+      "kind": "office",
+      "parentId": "industry-division",
+      "order": 40,
+      "summary": "石料、木材与建材的规模化生产。",
+      "holders": []
+    },
+    {
+      "id": "housing-bureau",
+      "name": "住房建设部",
+      "kind": "bureau",
+      "parentId": "planned-economy-commission",
+      "order": 41,
+      "summary": "住宅、公共建筑与城市基础设施的建设。",
+      "holders": [
+        {
+          "memberId": "akiyamatwt",
+          "label": "主要"
+        },
+        {
+          "memberId": "yue-smile"
+        }
+      ]
+    },
+    {
+      "id": "urban-facilities-division",
+      "name": "城市设施局",
+      "kind": "division",
+      "parentId": "housing-bureau",
+      "order": 42,
+      "summary": "道路、照明、水利等城市设施的维护。",
+      "holders": [
+        {
+          "memberId": "heinrich4084"
+        }
+      ]
+    },
+    {
+      "id": "trade-bureau",
+      "name": "工商贸易部",
+      "kind": "bureau",
+      "parentId": "planned-economy-commission",
+      "order": 43,
+      "summary": "酒业、食品与商贸三条线，管着联盟的流通与消费。",
+      "holders": [
+        {
+          "memberId": "lnactifseven",
+          "label": "主要"
+        },
+        {
+          "memberId": "ssds-x"
+        }
+      ]
+    },
+    {
+      "id": "liquor-division",
+      "name": "酒业局",
+      "kind": "division",
+      "parentId": "trade-bureau",
+      "order": 44,
+      "summary": "酿酒、酒类品鉴与节庆供应。",
+      "holders": [
+        {
+          "memberId": "lnactifseven",
+          "label": "主要"
+        },
+        {
+          "memberId": "xiaofeiying"
+        }
+      ]
+    },
+    {
+      "id": "food-division",
+      "name": "食品局",
+      "kind": "division",
+      "parentId": "trade-bureau",
+      "order": 45,
+      "summary": "食品加工、配给与食谱开发。",
+      "holders": [
+        {
+          "memberId": "wd-zzt",
+          "label": "主要"
+        },
+        {
+          "memberId": "xmohe"
+        }
+      ]
+    },
+    {
+      "id": "commerce-division",
+      "name": "商贸局",
+      "kind": "division",
+      "parentId": "trade-bureau",
+      "order": 46,
+      "summary": "对外交易、商店与市场管理。",
+      "holders": [
+        {
+          "memberId": "lnactifseven"
+        }
+      ]
+    },
+    {
+      "id": "finance-commission",
+      "name": "财政委员会",
+      "kind": "commission",
+      "parentId": "planned-economy-commission",
+      "order": 47,
+      "summary": "预算、税收与国营企业收益的统一管理。",
+      "holders": [
+        {
+          "memberId": "qiyushi"
+        },
+        {
+          "memberId": "lnactifseven"
+        },
+        {
+          "memberId": "ssds-x"
+        }
+      ]
+    }
+  ]
+}

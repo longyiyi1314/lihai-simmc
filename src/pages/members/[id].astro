@@ -2,19 +2,21 @@
 import Base from '../../layouts/Base.astro';
 import Avatar from '../../components/Avatar.astro';
 import RankBadge from '../../components/RankBadge.astro';
-import RoleTag from '../../components/RoleTag.astro';
 import MemberCard from '../../components/MemberCard.astro';
 import {
   site,
   memberList,
   rankMap,
-  roleMap,
-  membersOfRole,
+  officesOf,
+  orgPath,
+  orgKindLabel,
+  orgHolders,
+  membersOfOrg,
   formatMonth,
   statusLabel,
 } from '../../lib/loadData';
 import { url } from '../../lib/url';
-import { roleHueOf, padNo } from '../../lib/theme';
+import { padNo, hueOf } from '../../lib/theme';
 
 export function getStaticPaths() {
   return memberList.map((member, i) => ({
@@ -26,20 +28,26 @@ export function getStaticPaths() {
 const { member, index } = Astro.props;
 
 const rank = rankMap.get(member.rankId);
-const roles = member.roleIds
-  .map((id) => roleMap.get(id))
-  .filter((r): r is NonNullable<typeof r> => Boolean(r));
-const hue = roles.length ? roleHueOf(roles[0].id) : 196;
+const offices = officesOf(member.id);
+const hue = hueOf(member.id);
 
 const prev = index > 0 ? memberList[index - 1] : null;
 const next = index < memberList.length - 1 ? memberList[index + 1] : null;
 
 const isAlumni = member.status === 'honorary' || member.status === 'left';
 
-const teammates = member.roleIds.length
+/** 同机构里的其他同伴（按共同机构数排序，取前 3） */
+const teammates = offices.length
   ? memberList
-      .filter((m) => m.id !== member.id && m.roleIds.some((r) => member.roleIds.includes(r)))
+      .filter((m) => m.id !== member.id)
+      .map((m) => ({
+        member: m,
+        shared: officesOf(m.id).filter((n) => offices.some((o) => o.id === n.id)).length,
+      }))
+      .filter((x) => x.shared > 0)
+      .sort((a, b) => b.shared - a.shared)
       .slice(0, 3)
+      .map((x) => x.member)
   : [];
 
 const contacts = Object.entries(member.contacts || {}).filter(([, v]) => Boolean(v));
@@ -54,6 +62,7 @@ const metaRows: Array<{ k: string; v: string; mono?: boolean }> = [
   { k: '职级', v: rank?.name ?? member.rankId },
 ];
 if (rank?.grade) metaRows.push({ k: '级别', v: rank.grade });
+metaRows.push({ k: '任职机构', v: offices.length ? `${offices.length} 处` : '未记录' });
 metaRows.push({ k: '加入时间', v: member.joinedAt ? formatMonth(member.joinedAt) : '未记录', mono: true });
 if (member.leftAt) metaRows.push({ k: '离会时间', v: formatMonth(member.leftAt), mono: true });
 if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mono: true });
@@ -88,9 +97,14 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
             </h1>
             <p class="profile-gid">{member.gameId}{rank?.grade ? ` · ${rank.grade}` : ''}</p>
             {
-              roles.length > 0 && (
+              offices.length > 0 && (
                 <div class="profile-tags">
-                  {roles.map((r) => <RoleTag role={r} icon />)}
+                  {offices.slice(0, 4).map((n) => (
+                    <a class="post-tag" href={url(`/org/#org-${n.id}`)}>
+                      <span class="post-dot" aria-hidden="true" />
+                      {n.name}
+                    </a>
+                  ))}
                 </div>
               )
             }
@@ -119,7 +133,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
             ) : (
               <div class="prose">
                 <p class="prose-plain">
-                  {member.displayName} 目前是{rank?.name ?? '成员'}。个人简介尚未录入——这份名录只保证游戏 ID 与职级准确，
+                  {member.displayName} 目前是{rank?.name ?? '成员'}。个人简介尚未录入——这份名录只保证游戏 ID、职级与机构任职准确，
                   不编造个人经历；等本人或管理层补充后，这里会补上。
                 </p>
               </div>
@@ -138,22 +152,29 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
           }
 
           {
-            roles.length > 0 && (
+            offices.length > 0 && (
               <div class="profile-section">
-                <h2 class="panel-title">职务</h2>
-                <div class="role-detail-list">
-                  {roles.map((r) => (
-                    <div class="role-detail" style={`--rh:${roleHueOf(r.id)}`}>
-                      <div class="role-detail-head">
-                        <span class="role-ico" aria-hidden="true">{r.icon || '◇'}</span>
-                        <span class="role-detail-name">{r.name}</span>
-                        <span class="role-detail-n">
-                          {membersOfRole(r.id).length} 人在此职务
+                <h2 class="panel-title">机构任职</h2>
+                <div class="post-list">
+                  {offices.map((n) => {
+                    const path = orgPath(n.id).slice(1, -1);
+                    const self = orgHolders(n.id).find(
+                      (h) => h.member?.id === member.id
+                    );
+                    return (
+                      <a class="post-row" href={url(`/org/#org-${n.id}`)}>
+                        <span class="post-kind mono">{orgKindLabel[n.kind] ?? n.kind}</span>
+                        <span class="post-main">
+                          <span class="post-name">{n.name}</span>
+                          <span class="post-path">
+                            {path.map((p) => p.name).join(' / ') || '凛海局直属'}
+                          </span>
                         </span>
-                      </div>
-                      <p class="role-desc">{r.description}</p>
-                    </div>
-                  ))}
+                        <span class="post-label">{self?.label || '任职'}</span>
+                        <span class="post-arrow" aria-hidden="true">→</span>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             )
@@ -162,7 +183,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
           {
             teammates.length > 0 && (
               <div class="profile-section">
-                <h2 class="panel-title">同职务的同伴</h2>
+                <h2 class="panel-title">共事的人</h2>
                 <div class="mgrid mgrid--compact">
                   {teammates.map((m) => (
                     <MemberCard member={m} showIntro={false} />
@@ -213,7 +234,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
           <p class="aside-note">
             {isAlumni
               ? '这位同伴已经离开了日常名单，但档案与贡献仍保留在这里。'
-              : '资料由本人或管理层维护。这份名录只保证游戏 ID 与职级准确，简介留白处不做补写；有补充请在群内联系管理层。'}
+              : '资料由本人或管理层维护。这份名录只保证游戏 ID、职级与机构任职准确，简介留白处不做补写；有补充请在群内联系管理层。'}
           </p>
 
           <a class="aside-back" href={url('/members/')}>

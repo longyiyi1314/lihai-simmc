@@ -4,7 +4,7 @@ import type { z } from 'zod';
 import {
   SiteSchema,
   RankFileSchema,
-  RolesFileSchema,
+  OrgFileSchema,
   MembersFileSchema,
   TerritoryFileSchema,
 } from './schema';
@@ -42,16 +42,16 @@ function readJson<T>(file: string, schema: z.ZodType<T>): T {
   return parsed.data;
 }
 
-/** 跨文件一致性校验：外键、唯一性、头像文件、名额 */
+/** 跨文件一致性校验：外键、唯一性、头像文件、名额、机构树 */
 function crossValidate(data: {
   site: z.infer<typeof SiteSchema>;
   ranks: z.infer<typeof RankFileSchema>;
-  roles: z.infer<typeof RolesFileSchema>;
+  org: z.infer<typeof OrgFileSchema>;
   members: z.infer<typeof MembersFileSchema>;
   territories: z.infer<typeof TerritoryFileSchema>;
 }) {
   const errors: string[] = [];
-  const { ranks, roles, members, territories, site } = data;
+  const { ranks, org, members, territories, site } = data;
 
   // 1. 职位 id 唯一
   const rankIds = new Set<string>();
@@ -71,11 +71,11 @@ function crossValidate(data: {
     levels.set(r.level, r.name);
   }
 
-  // 3. 职务 id 唯一
-  const roleIds = new Set<string>();
-  for (const r of roles.roles) {
-    if (roleIds.has(r.id)) errors.push(`roles.json：「${r.id}」职务 id 重复`);
-    roleIds.add(r.id);
+  // 3. 机构 id 唯一
+  const orgIds = new Set<string>();
+  for (const n of org.nodes) {
+    if (orgIds.has(n.id)) errors.push(`org.json：「${n.id}」机构 id 重复`);
+    orgIds.add(n.id);
   }
 
   // 4. 成员 id 唯一
@@ -87,20 +87,13 @@ function crossValidate(data: {
     memberIds.add(m.id);
   }
 
-  // 5. 成员的 rankId / roleIds 外键必须存在
+  // 5. 成员的 rankId 外键必须存在
   for (const m of members.members) {
     const who = `members.json 的「${m.displayName || m.id}」`;
     if (!rankIds.has(m.rankId)) {
       errors.push(
         `${who}：职位 rankId "${m.rankId}" 不存在，可用值：${[...rankIds].join(' / ')}`
       );
-    }
-    for (const rid of m.roleIds) {
-      if (!roleIds.has(rid)) {
-        errors.push(
-          `${who}：职务 roleId "${rid}" 不存在，可用值：${[...roleIds].join(' / ')}`
-        );
-      }
     }
   }
 
@@ -136,16 +129,55 @@ function crossValidate(data: {
     );
   }
 
-  // 9. 职务负责人 leadMemberId 必须存在
-  for (const r of roles.roles) {
-    if (r.leadMemberId && !memberIds.has(r.leadMemberId)) {
-      errors.push(
-        `roles.json 的「${r.name}」：负责人 leadMemberId "${r.leadMemberId}" 不存在`
-      );
+  // 9. 机构树的根必须存在，且 parentId 必须指回已存在的机构
+  if (!orgIds.has(org.rootId)) {
+    errors.push(`org.json：rootId "${org.rootId}" 不在 nodes 里`);
+  }
+  for (const n of org.nodes) {
+    if (n.parentId !== null && !orgIds.has(n.parentId)) {
+      errors.push(`org.json 的「${n.name}」：parentId "${n.parentId}" 不存在`);
     }
   }
 
-  // 10. 领地 id 唯一
+  // 10. 机构树的 holders 必须能解析成人（memberId 存在，或给出了 name）
+  for (const n of org.nodes) {
+    for (const h of n.holders) {
+      if (h.memberId && !memberIds.has(h.memberId)) {
+        errors.push(
+          `org.json 的「${n.name}」：任职人 memberId "${h.memberId}" 不在 members.json 里`
+        );
+      }
+      if (!h.memberId && !h.name) {
+        errors.push(`org.json 的「${n.name}」：有一条任职记录既没有 memberId 也没有 name`);
+      }
+    }
+  }
+
+  // 11. 中央执行委员会名单里的人必须存在
+  for (const g of org.presidium.groups) {
+    for (const id of g.memberIds) {
+      if (!memberIds.has(id)) {
+        errors.push(`org.json 的中央执行委员会「${g.name}」：memberId "${id}" 不存在`);
+      }
+    }
+  }
+
+  // 12. 机构树不得成环
+  const parentOf = new Map(org.nodes.map((n) => [n.id, n.parentId]));
+  for (const n of org.nodes) {
+    const seen = new Set<string>([n.id]);
+    let cur = parentOf.get(n.id) ?? null;
+    while (cur) {
+      if (seen.has(cur)) {
+        errors.push(`org.json 的「${n.name}」：parentId 链成环`);
+        break;
+      }
+      seen.add(cur);
+      cur = parentOf.get(cur) ?? null;
+    }
+  }
+
+  // 13. 领地 id 唯一
   const territoryIds = new Set<string>();
   for (const t of territories.territories) {
     if (territoryIds.has(t.id)) {
@@ -154,7 +186,7 @@ function crossValidate(data: {
     territoryIds.add(t.id);
   }
 
-  // 11. 领地数量与 site.json 的总数口径一致
+  // 14. 领地数量与 site.json 的总数口径一致
   const granted = territories.territories.length;
   if (site.territoryGranted && site.territoryGranted !== granted) {
     errors.push(
@@ -171,7 +203,7 @@ function crossValidate(data: {
     );
   }
 
-  // 12. 全社人数不得小于名录里的人数
+  // 15. 全社人数不得小于名录里的人数
   if (site.memberTotal && site.memberTotal < members.members.length) {
     errors.push(
       `site.json：memberTotal（${site.memberTotal}）小于 members.json 收录的 ${members.members.length} 人`
@@ -188,15 +220,14 @@ function crossValidate(data: {
 
 const site = readJson('site.json', SiteSchema);
 const ranks = readJson('ranks.json', RankFileSchema);
-const roles = readJson('roles.json', RolesFileSchema);
+const org = readJson('org.json', OrgFileSchema);
 const members = readJson('members.json', MembersFileSchema);
 const territories = readJson('territories.json', TerritoryFileSchema);
 
-crossValidate({ site, ranks, roles, members, territories });
+crossValidate({ site, ranks, org, members, territories });
 
 /** 职位按 level 从高到低 */
 export const rankList = [...ranks.ranks].sort((a, b) => b.level - a.level);
-export const roleList = roles.roles;
 export const memberList = [...members.members].sort((a, b) => {
   const ra = rankList.findIndex((r) => r.id === a.rankId);
   const rb = rankList.findIndex((r) => r.id === b.rankId);
@@ -205,11 +236,124 @@ export const memberList = [...members.members].sort((a, b) => {
 });
 
 export const rankMap = new Map(rankList.map((r) => [r.id, r]));
-export const roleMap = new Map(roleList.map((r) => [r.id, r]));
+export const memberMap = new Map(memberList.map((m) => [m.id, m]));
 
-export { site, ranks, roles, members, territories };
+export { site, ranks, org, members, territories };
 
-/** 领地层级：显示名与权重（用于分组排序） */
+/* ------------------------------------------------------------------ */
+/* 机构树                                                              */
+/* ------------------------------------------------------------------ */
+
+export const orgNodeList = [...org.nodes].sort((a, b) => a.order - b.order);
+export const orgNodeMap = new Map(orgNodeList.map((n) => [n.id, n]));
+export const orgRoot = orgNodeMap.get(org.rootId)!;
+
+/** 某机构的直接下级，按 order 排 */
+export function orgChildren(parentId: string) {
+  return orgNodeList.filter((n) => n.parentId === parentId);
+}
+
+/** 从根到该机构的路径（含自身） */
+export function orgPath(id: string) {
+  const chain = [];
+  let cur = orgNodeMap.get(id);
+  const guard = new Set<string>();
+  while (cur && !guard.has(cur.id)) {
+    guard.add(cur.id);
+    chain.unshift(cur);
+    cur = cur.parentId ? orgNodeMap.get(cur.parentId) : undefined;
+  }
+  return chain;
+}
+
+/** 该机构所属的一级分支（凛海局之下的大委员会） */
+export function orgBranchOf(id: string) {
+  const path = orgPath(id);
+  return path[1] ?? path[0];
+}
+
+/** 机构层级的中文标签 */
+export const orgKindLabel: Record<string, string> = {
+  root: '凛海局',
+  commission: '委员会',
+  bureau: '部',
+  corps: '兵团',
+  division: '局',
+  office: '处',
+  district: '军区',
+};
+
+/** 某机构的直属下级数量（用于卡片上的“下辖 N 个机构”） */
+export function orgChildCount(id: string) {
+  return orgNodeList.filter((n) => n.parentId === id).length;
+}
+
+/** 把 holders 解析成「人 + 备注」；名册里没有的人只给 name */
+export function orgHolders(nodeId: string) {
+  const node = orgNodeMap.get(nodeId);
+  if (!node) return [];
+  return node.holders.map((h) => ({
+    member: h.memberId ? memberMap.get(h.memberId) ?? null : null,
+    name: h.memberId ? memberMap.get(h.memberId)?.displayName ?? h.memberId : h.name ?? '',
+    label: h.label,
+  }));
+}
+
+/** 某人担任的全部机构（按机构顺序） */
+export function officesOf(memberId: string) {
+  return orgNodeList.filter((n) => n.holders.some((h) => h.memberId === memberId));
+}
+
+/** 某机构的直属任职成员（不含下级机构的人） */
+export function membersOfOrg(nodeId: string) {
+  return orgHolders(nodeId)
+    .map((h) => h.member)
+    .filter((m): m is NonNullable<typeof m> => Boolean(m));
+}
+
+/** 整个机构子树（含自身）里的所有机构 */
+export function orgSubtree(id: string) {
+  const out = [];
+  const walk = (nodeId: string) => {
+    const node = orgNodeMap.get(nodeId);
+    if (!node) return;
+    out.push(node);
+    for (const child of orgChildren(nodeId)) walk(child.id);
+  };
+  walk(id);
+  return out;
+}
+
+/** 机构子树里的任职人数（去重，仅统计在名册里的成员） */
+export function orgHeadcount(id: string) {
+  const ids = new Set<string>();
+  for (const node of orgSubtree(id)) {
+    for (const h of node.holders) if (h.memberId) ids.add(h.memberId);
+  }
+  return ids.size;
+}
+
+/** 机构树嵌套结构，供递归渲染 */
+export interface OrgTree {
+  node: (typeof orgNodeList)[number];
+  children: OrgTree[];
+}
+export function buildOrgTree(id: string): OrgTree {
+  const node = orgNodeMap.get(id)!;
+  return { node, children: orgChildren(id).map((c) => buildOrgTree(c.id)) };
+}
+
+/** 图中出现但名册里没有的人（按姓名列出，用于页脚说明） */
+export const orgUnlistedNames = [
+  ...new Set(
+    orgNodeList.flatMap((n) => n.holders.filter((h) => !h.memberId && h.name).map((h) => h.name!))
+  ),
+];
+
+/* ------------------------------------------------------------------ */
+/* 领地层级                                                            */
+/* ------------------------------------------------------------------ */
+
 export const territoryTiers = [
   { id: 'capital', name: '首都', weight: 80 },
   { id: 'metro', name: '都市圈', weight: 70 },
@@ -234,6 +378,10 @@ export function territoriesOfTier(tier: string) {
   return territoryList.filter((t) => t.tier === tier);
 }
 
+/* ------------------------------------------------------------------ */
+/* 成员分组                                                            */
+/* ------------------------------------------------------------------ */
+
 /** 在任 + 休假 = 现役名单；荣誉/已离会单独分区 */
 export const activeMembers = memberList.filter(
   (m) => m.status === 'active' || m.status === 'reserve'
@@ -249,13 +397,8 @@ export function membersOfRank(rankId: string) {
   return activeMembers.filter((m) => m.rankId === rankId);
 }
 
-/** 某职务下的现役成员 */
-export function membersOfRole(roleId: string) {
-  return activeMembers.filter((m) => m.roleIds.includes(roleId));
-}
-
 export const isPlaceholder = Boolean(
-  members.isPlaceholder || ranks.isPlaceholder || roles.isPlaceholder
+  members.isPlaceholder || ranks.isPlaceholder || org.isPlaceholder
 );
 export const placeholderNotice = isPlaceholder
   ? '当前为示例数据 · 正式名单录入后自动替换'

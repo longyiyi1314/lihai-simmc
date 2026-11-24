@@ -1,0 +1,38 @@
+﻿机构ID,名称,类型,上级机构ID,上级路径,排序,说明,任职人
+lihai-bureau,璃海苏维埃凛海局,总局,,,0,联盟的最高执行机关，统辖政务、军事与计划经济的全部条线。,
+political-commission,政务枢机委员会,委员会,lihai-bureau,璃海苏维埃凛海局,10,掌管外交招募、民政治安、政治监察、文化宣传与司法，是凛海局的政务中枢。,Qiyushi
+foreign-recruit-bureau,外交招募部,部,political-commission,璃海苏维埃凛海局 / 政务枢机委员会,11,对外联络与新人招募，负责把愿意留下的人接进璃海。,Yangguagua
+recruit-office,招新处（招新组）,处,foreign-recruit-bureau,璃海苏维埃凛海局 / 政务枢机委员会 / 外交招募部,12,面试、引导与入社手续的具体经办。,
+civil-security-bureau,民政治安部,部,political-commission,璃海苏维埃凛海局 / 政务枢机委员会,13,户籍、安置与日常治安，维持各公社的秩序。,
+settlement-office,安置处（引导组）,处,civil-security-bureau,璃海苏维埃凛海局 / 政务枢机委员会 / 民政治安部,14,新人落脚、住地与生产岗位的分配。,
+political-supervision-commission,政治监察委员会,委员会,political-commission,璃海苏维埃凛海局 / 政务枢机委员会,15,监督各级机关与干部，受理纪律与作风问题。,Heinrich4084（主要）|HH_XMH|Lnactifseven
+culture-propaganda-commission,文化宣传与活动委员会,委员会,political-commission,璃海苏维埃凛海局 / 政务枢机委员会,16,对外宣传、文化建设与节庆活动的组织。,Lnactifseven|Yangguagua|Qiyushi|chu_mengg|HH_XMH
+judicial-commission,司法委员会,委员会,political-commission,璃海苏维埃凛海局 / 政务枢机委员会,17,解释联盟章程、审理纠纷与仲裁。,Qiyushi|ForeverZzz|Lnactifseven
+military-commission,革命军事委员会,委员会,lihai-bureau,璃海苏维埃凛海局,20,统辖国防军事、总后勤与璃海红军，是联盟的武装领导机关。,Qiyushi|Lnactifseven|ForeverZzz
+national-defense-bureau,国防军事部,部,military-commission,璃海苏维埃凛海局 / 革命军事委员会,21,战备值班、防务部署与对外军事事务。,ForeverZzz（副总司令）
+general-logistics-bureau,总后勤部,部,military-commission,璃海苏维埃凛海局 / 革命军事委员会,22,军需、装备与战时物资的统一调配。,
+red-army,璃海红军,兵团,military-commission,璃海苏维埃凛海局 / 革命军事委员会,23,联盟的常备武装，下辖三个兵团与各自的责任军区。,Qiyushi（总司令）|Lnactifseven（副总司令）|ForeverZzz（副总司令）
+arcane-corps,奥术兵团,兵团,red-army,璃海苏维埃凛海局 / 革命军事委员会 / 璃海红军,24,以奥术力量为建制的兵团，驻防蒙海一线。,Lnactifseven
+menghai-district,蒙海军区,军区,arcane-corps,璃海苏维埃凛海局 / 革命军事委员会 / 璃海红军 / 奥术兵团,25,蒙海地区的防务与开边垦荒。,WD_ZZT|SSDS_x
+red-guard-corps,红色近卫兵团,兵团,red-army,璃海苏维埃凛海局 / 革命军事委员会 / 璃海红军,26,首都的卫戍与近卫任务。,Qiyushi
+capital-garrison,首都卫戍区,军区,red-guard-corps,璃海苏维埃凛海局 / 革命军事委员会 / 璃海红军 / 红色近卫兵团,27,凛海城与凛海宫的防务。,Heinrich4084|Darkwings_Lok
+expedition-corps,远征猎魔兵团,兵团,red-army,璃海苏维埃凛海局 / 革命军事委员会 / 璃海红军,28,承担远征与猎魔任务的机动兵团。,ForeverZzz
+qichuan-district,岐川军区,军区,expedition-corps,璃海苏维埃凛海局 / 革命军事委员会 / 璃海红军 / 远征猎魔兵团,29,岐川一带的防务与远征补给。,xindexinde|xmohe
+planned-economy-commission,计划经济委员会,委员会,lihai-bureau,璃海苏维埃凛海局,30,统辖劳动生产、住房建设、工商贸易与财政，是联盟的经济中枢。,Lnactifseven
+labor-production-bureau,劳动生产部,部,planned-economy-commission,璃海苏维埃凛海局 / 计划经济委员会,31,农业、劳动与工业三条生产线的统管部门。,haaamburger|Darkwings_Lok|SSDS_x|WD_ZZT
+agriculture-division,农业局,局,labor-production-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部,32,农产与牧产的规划、垦殖与收储。,SSDS_x（主要）|WD_ZZT
+crop-office,农产处,处,agriculture-division,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部 / 农业局,33,作物种植、良种与农田管理。,WD_ZZT
+livestock-office,牧产处,处,agriculture-division,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部 / 农业局,34,畜牧养殖与肉奶供给。,
+labor-division,劳动局,局,labor-production-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部,35,劳动资质评定、业务考核与工人权益。,Darkwings_Lok（主要）|yizz34
+warehouse-logistics-office,仓储物流处,处,labor-division,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部 / 劳动局,36,仓库、运输与物资周转。,Heinrich4084
+workers-committee,璃海工人委员会,委员会,labor-division,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部 / 劳动局,37,工人的自治组织，向上反映生产一线的意见。,yizz34
+industry-division,工业局,局,labor-production-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部,38,工业产能、技术路线与建设材料的统筹。,longyiyi1314
+science-industry-committee,科学技术工业委员会,委员会,industry-division,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部 / 工业局,39,红石技术、自动化与工业标准的研究制定。,longyiyi1314
+building-materials-office,建材生产处,处,industry-division,璃海苏维埃凛海局 / 计划经济委员会 / 劳动生产部 / 工业局,40,石料、木材与建材的规模化生产。,
+housing-bureau,住房建设部,部,planned-economy-commission,璃海苏维埃凛海局 / 计划经济委员会,41,住宅、公共建筑与城市基础设施的建设。,AkiyamaTwT（主要）|Yue_Smile
+urban-facilities-division,城市设施局,局,housing-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 住房建设部,42,道路、照明、水利等城市设施的维护。,Heinrich4084
+trade-bureau,工商贸易部,部,planned-economy-commission,璃海苏维埃凛海局 / 计划经济委员会,43,酒业、食品与商贸三条线，管着联盟的流通与消费。,Lnactifseven（主要）|SSDS_x
+liquor-division,酒业局,局,trade-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 工商贸易部,44,酿酒、酒类品鉴与节庆供应。,Lnactifseven（主要）|xiaofeiying
+food-division,食品局,局,trade-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 工商贸易部,45,食品加工、配给与食谱开发。,WD_ZZT（主要）|xmohe
+commerce-division,商贸局,局,trade-bureau,璃海苏维埃凛海局 / 计划经济委员会 / 工商贸易部,46,对外交易、商店与市场管理。,Lnactifseven
+finance-commission,财政委员会,委员会,planned-economy-commission,璃海苏维埃凛海局 / 计划经济委员会,47,预算、税收与国营企业收益的统一管理。,Qiyushi|Lnactifseven|SSDS_x

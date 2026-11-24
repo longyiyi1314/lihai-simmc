@@ -1,25 +1,25 @@
-﻿id,游戏ID,展示名,称号,职位ID,职务ID,状态,加入时间,离开时间,头像文件名,简介,擅长标签,B站链接,Discord,首页精选,排序
-qiyushi,Qiyushi,祁钰师,书记,chief,foreign|secretariat,在任,,,,璃海苏维埃公社联盟首席执行委员。自 Ultroveritas 远洋而来的璃海凛冬号在云大陆南端靠岸时，他在船上。此后凛海城从一片雪原上长出码头、街区和凛海宫，联盟的每一次建制调整也都由他签署。用他自己的话说：捍卫璃海革命，保卫胜利果实。,统筹|外交|建制,,,是,10
-foreverzzz,ForeverZzz,ForeverZzz,副首席执行委员,deputy-chief,,在任,,,,,,,,是,20
-lnactifseven,Lnactifseven,Lnactifseven,副首席执行委员,deputy-chief,,在任,,,,,,,,是,21
-yangguagua,Yangguagua,Yangguagua,执行委员,executive,,在任,,,,,,,,是,30
-akiyamatwt,AkiyamaTwT,AkiyamaTwT,执行委员,executive,,在任,,,,,,,,是,31
-heinrich4084,Heinrich4084,Heinrich4084,执行委员,executive,,在任,,,,Yun 历 28 年璃海第一次政治危机中，Qiyushi 与 haaamburger 缺位，由他代理政务。,代理政务,,,是,32
-hh-xmh,HH_XMH,HH_XMH,执行委员,executive,,在任,,,,,,,,否,33
-haaamburger,haaamburger,haaamburger,执行委员,executive,,在任,,,,,,,,否,34
-xiaofeiying,xiaofeiying,xiaofeiying,常务委员,standing,,在任,,,,,,,,否,40
-tyfm1324,tyfm1324,tyfm1324,常务委员,standing,,在任,,,,,,,,否,41
-darkwings-lok,Darkwings_Lok,Darkwings_Lok,常务委员,standing,,在任,,,,,,,,否,42
-ssuzu3,SSuzu3,SSuzu3,常务委员,standing,,在任,,,,,,,,否,43
-yizz34,yizz34,yizz34,委员,commissar,,在任,,,,,,,,否,50
-ssds-x,SSDS_x,SSDS_x,委员,commissar,,在任,,,,,,,,否,51
-wd-zzt,WD_ZZT,WD_ZZT,委员,commissar,,在任,,,,,,,,否,52
-yue-smile,Yue_Smile,Yue_Smile,委员,commissar,,在任,,,,,,,,否,53
-wumengze,Wumengze,Wumengze,委员,commissar,,在任,,,,,,,,否,54
-longyiyi1314,longyiyi1314,longyiyi1314,委员,commissar,,在任,,,,,,,,否,55
-endanuz0728,Endanuz0728,Endanuz0728,苏维埃代表,delegate,regional,在任,,,,,,,,否,60
-wondertion,Wondertion,Wondertion,执行专员,specialist,,在任,,,,,,,,否,70
-miao-tao,miao_tao,miao_tao,执行专员,specialist,,在任,,,,,,,,否,71
-mcfangkuaireng,mcfangkuaireng,mcfangkuaireng,执行专员,specialist,,在任,,,,,,,,否,72
-abanice,abanice,abanice,执行专员,specialist,,在任,,,,,,,,否,73
-xmohe,xmohe,xmohe,红军,red-army,military,在任,,,,,,,,否,80
+﻿id,游戏ID,展示名,称号,职位ID,状态,加入时间,离开时间,头像文件名,简介,擅长标签,B站链接,Discord,首页精选,排序
+qiyushi,Qiyushi,祁钰师,书记,chief,在任,,,,璃海苏维埃公社联盟首席执行委员。自 Ultroveritas 远洋而来的璃海凛冬号在云大陆南端靠岸时，他在船上。此后凛海城从一片雪原上长出码头、街区和凛海宫，联盟的每一次建制调整也都由他签署。用他自己的话说：捍卫璃海革命，保卫胜利果实。,统筹|外交|建制,,,是,10
+foreverzzz,ForeverZzz,ForeverZzz,,deputy-chief,在任,,,,,,,,是,20
+lnactifseven,Lnactifseven,Lnactifseven,,deputy-chief,在任,,,,,,,,是,21
+yangguagua,Yangguagua,Yangguagua,,executive,在任,,,,,,,,是,30
+akiyamatwt,AkiyamaTwT,AkiyamaTwT,,executive,在任,,,,,,,,是,31
+heinrich4084,Heinrich4084,Heinrich4084,,executive,在任,,,,Yun 历 28 年璃海第一次政治危机中，Qiyushi 与 haaamburger 缺位，由他代理政务。,代理政务,,,是,32
+hh-xmh,HH_XMH,HH_XMH,,executive,在任,,,,,,,,,33
+haaamburger,haaamburger,haaamburger,,executive,在任,,,,,,,,,34
+xiaofeiying,xiaofeiying,xiaofeiying,,standing,在任,,,,,,,,,40
+tyfm1324,tyfm1324,tyfm1324,,standing,在任,,,,,,,,,41
+darkwings-lok,Darkwings_Lok,Darkwings_Lok,,standing,在任,,,,,,,,,42
+ssuzu3,SSuzu3,SSuzu3,,standing,在任,,,,,,,,,43
+yizz34,yizz34,yizz34,,commissar,在任,,,,,,,,,50
+ssds-x,SSDS_x,SSDS_x,,commissar,在任,,,,,,,,,51
+wd-zzt,WD_ZZT,WD_ZZT,,commissar,在任,,,,,,,,,52
+yue-smile,Yue_Smile,Yue_Smile,,commissar,在任,,,,,,,,,53
+wumengze,Wumengze,Wumengze,,commissar,在任,,,,,,,,,54
+longyiyi1314,longyiyi1314,longyiyi1314,,commissar,在任,,,,,,,,,55
+endanuz0728,Endanuz0728,Endanuz0728,,delegate,在任,,,,,,,,,60
+wondertion,Wondertion,Wondertion,,specialist,在任,,,,,,,,,70
+miao-tao,miao_tao,miao_tao,,specialist,在任,,,,,,,,,71
+mcfangkuaireng,mcfangkuaireng,mcfangkuaireng,,specialist,在任,,,,,,,,,72
+abanice,abanice,abanice,,specialist,在任,,,,,,,,,73
+xmohe,xmohe,xmohe,,red-army,在任,,,,,,,,,80

@@ -1,0 +1,258 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Avatar from '../components/Avatar.astro';
+import {
+  site,
+  org,
+  orgRoot,
+  orgChildren,
+  orgNodeList,
+  orgKindLabel,
+  orgHolders,
+  orgHeadcount,
+  orgChildCount,
+  orgUnlistedNames,
+  memberMap,
+  isPlaceholder,
+  placeholderNotice,
+} from '../lib/loadData';
+import { url } from '../lib/url';
+import { orgHueOf } from '../lib/theme';
+
+type OrgNode = (typeof orgNodeList)[number];
+
+interface FlatRow {
+  node: OrgNode;
+  depth: number;
+  /** 是否为该支线的最后一个子节点，用于画拐角 */
+  last: boolean;
+  /** 各级祖先是否还有后续兄弟，决定左侧竖线是否延续 */
+  rails: boolean[];
+}
+
+/** 把一棵子树压平成带缩进的行，便于纯 CSS 画树线 */
+function flatten(id: string, depth = 0, last = true, rails: boolean[] = []): FlatRow[] {
+  const node = orgNodeList.find((n) => n.id === id)!;
+  const rows: FlatRow[] = [{ node, depth, last, rails }];
+  const kids = orgChildren(id);
+  kids.forEach((c, i) => {
+    rows.push(...flatten(c.id, depth + 1, i === kids.length - 1, [...rails, !last]));
+  });
+  return rows;
+}
+
+const branches = orgChildren(orgRoot.id);
+const branchRows = branches.map((b) => {
+  const kids = orgChildren(b.id);
+  return {
+    branch: b,
+    rows: kids.flatMap((c, i) => flatten(c.id, 0, i === kids.length - 1, [])),
+  };
+});
+
+const presidiumGroups = org.presidium.groups.map((g) => ({
+  ...g,
+  members: g.memberIds.map((id) => memberMap.get(id)).filter(Boolean),
+}));
+
+const kindOrder = ['commission', 'bureau', 'corps', 'division', 'office', 'district'];
+const kindCounts = kindOrder
+  .map((k) => ({
+    kind: k,
+    label: orgKindLabel[k],
+    n: orgNodeList.filter((n) => n.kind === k).length,
+  }))
+  .filter((k) => k.n > 0);
+
+const allRows = branchRows.flatMap((b) => b.rows);
+const officesTotal = allRows.reduce((n, r) => n + r.node.holders.length, 0);
+---
+
+<Base
+  title="机构"
+  description={`${site.fullName}的组织架构：凛海局之下分政务枢机、革命军事、计划经济三个大委员会，共 ${orgNodeList.length} 个机构，逐级列出部门、兵团与军区。`}
+>
+  <PageHead
+    title="机构"
+    crumb="机构"
+    desc={`凛海局由两个大委员会双重领导，实际运转中分三条线：政务枢机管人与法，革命军事管枪，计划经济管产出。${
+      orgNodeList.length
+    } 个机构，${officesTotal} 条任职记录。`}
+  >
+    <div class="page-meta">
+      <span>机构总数 <b>{orgNodeList.length}</b> 个</span>
+      {kindCounts.map((k) => <span>{k.label} <b>{k.n}</b></span>)}
+      <span>任职记录 <b>{officesTotal}</b> 条</span>
+    </div>
+
+    <nav class="roster-bar" aria-label="按委员会跳转">
+      <a class="chip" href="#presidium">中央执行委员会</a>
+      {
+        branches.map((b) => (
+          <a class="chip" href={`#org-${b.id}`}>
+            <span
+              class="rank-gem"
+              style={`--rc:hsl(${orgHueOf(b.id, b.kind)} 60% 62%)`}
+              aria-hidden="true"
+            />
+            {b.name}
+            <b>{orgChildCount(b.id)}</b>
+          </a>
+        ))
+      }
+    </nav>
+  </PageHead>
+
+  <section class="wrap section" id="presidium">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <div class="sec-title">
+        <h2>中央执行委员会</h2>
+        <p>{org.presidium.title}</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="presidium">
+      {
+        presidiumGroups.map((g) => (
+          <div class="presidium-row">
+            <span class="presidium-k mono">{g.name}</span>
+            <div class="presidium-people">
+              {g.members.map((m) => (
+                <a class="presidium-person" href={url(`/members/${m!.id}/`)}>
+                  <Avatar seed={m!.id} name={m!.displayName} src={m!.avatar} size="sm" />
+                  <span class="presidium-name">{m!.displayName}</span>
+                  <span class="presidium-gid mono">{m!.gameId}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap section" id="tree">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <div class="sec-title">
+        <h2>机构树</h2>
+        <p>从凛海局往下逐级展开，每条记录后标注该机构的直属任职人。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="orgtree-root" style={`--oh:${orgHueOf(orgRoot.id, orgRoot.kind)}`}>
+      <span class="orgtree-rootmark" aria-hidden="true">凛</span>
+      <div class="orgtree-roottxt">
+        <h2 class="orgtree-rootname">{orgRoot.name}</h2>
+        <p class="orgtree-rootsum">{orgRoot.summary || org.note}</p>
+      </div>
+      <span class="orgtree-rootcount mono">{orgNodeList.length - 1} 个下级机构</span>
+    </div>
+
+    <div class="orgtree">
+      {
+        branchRows.map(({ branch, rows }) => (
+          <section class="orgbranch" id={`org-${branch.id}`}>
+            <h3 class="orgbranch-head" style={`--oh:${orgHueOf(branch.id, branch.kind)}`}>
+              <span class="orgbranch-bar" aria-hidden="true" />
+              <span class="orgbranch-name">{branch.name}</span>
+              <span class="orgbranch-kind mono">{orgKindLabel[branch.kind]}</span>
+              <span class="orgbranch-n">
+                {orgHeadcount(branch.id)} 人 · {orgChildCount(branch.id)} 个直属
+              </span>
+            </h3>
+            {branch.summary && <p class="orgbranch-sum">{branch.summary}</p>}
+
+            <div class="orgnodes">
+              {rows.map((row) => {
+                const holders = orgHolders(row.node.id);
+                return (
+                  <div
+                    class="orgnode"
+                    class:list={{ 'orgnode--root': row.depth === 0 }}
+                    style={`--oh:${orgHueOf(row.node.id, row.node.kind)}; --d:${row.depth}`}
+                  >
+                    <span class="orgnode-rails" aria-hidden="true">
+                      {row.rails.map((cont) => (
+                        <span class:list={{ 'orgrail': true, 'orgrail--on': cont }} />
+                      ))}
+                    </span>
+                    <span class="orgnode-elbow" aria-hidden="true" />
+                    <div class="orgnode-body">
+                      <div class="orgnode-top">
+                        <span class="orgnode-kind mono">{orgKindLabel[row.node.kind]}</span>
+                        <span class="orgnode-name">{row.node.name}</span>
+                        {row.node.holders.length > 0 && (
+                          <span class="orgnode-n mono">{row.node.holders.length} 人</span>
+                        )}
+                      </div>
+                      {row.node.summary && <p class="orgnode-sum">{row.node.summary}</p>}
+                      {holders.length > 0 && (
+                        <div class="orgnode-people">
+                          {holders.map((h) =>
+                            h.member ? (
+                              <a class="orgperson" href={url(`/members/${h.member.id}/`)}>
+                                <Avatar
+                                  seed={h.member.id}
+                                  name={h.member.displayName}
+                                  src={h.member.avatar}
+                                  size="sm"
+                                />
+                                <span class="orgperson-name">{h.member.displayName}</span>
+                                {h.label && <span class="orgperson-label">{h.label}</span>}
+                              </a>
+                            ) : (
+                              <span class="orgperson orgperson--external" title="不在本站成员名录中">
+                                <span class="orgperson-glyph" aria-hidden="true">◇</span>
+                                <span class="orgperson-name">{h.name}</span>
+                                {h.label && <span class="orgperson-label">{h.label}</span>}
+                              </span>
+                            )
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    {
+      orgUnlistedNames.length > 0 && (
+        <p class="flag-note" style="margin-top:34px">
+          <span aria-hidden="true">◆</span>
+          图中另有 {orgUnlistedNames.join('、')} 参与机构任职，尚未加入本站成员名录。
+        </p>
+      )
+    }
+
+    {
+      isPlaceholder && (
+        <p class="flag-note" style="margin-top:18px">
+          <span aria-hidden="true">◆</span>
+          {placeholderNotice}
+        </p>
+      )
+    }
+  </section>
+
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>机构是骨架，人是血肉</h2>
+        <p>想看在某个机构里具体是谁，可以回到成员名录，或者从中央执行委员会往下找。</p>
+      </div>
+      <a class="btn btn--primary" href={url('/members/')}>
+        成员名录<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</Base>

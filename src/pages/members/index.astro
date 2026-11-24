@@ -5,8 +5,8 @@ import MemberCard from '../../components/MemberCard.astro';
 import {
   site,
   rankList,
-  roleList,
   memberList,
+  orgNodeList,
   activeMembers,
   alumniMembers,
   membersOfRank,
@@ -36,7 +36,7 @@ const alumni = alumniMembers;
       <span>全社在册 <b>{site.memberTotal}</b> 人</span>
       <span>名录收录 <b>{memberList.length}</b> 人</span>
       <span>职级 <b>{rankList.length}</b> 级</span>
-      <span>职务 <b>{roleList.length}</b> 类</span>
+      <span>机构 <b>{orgNodeList.length}</b> 个</span>
     </div>
 
     <nav class="roster-bar" aria-label="按职级跳转">
