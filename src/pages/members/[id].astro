@@ -12,6 +12,8 @@ import {
   membersOfRole,
   orgsOfMember,
   orgTierMap,
+  regionsOfMember,
+  regionTierMap,
   formatMonth,
   statusLabel,
 } from '../../lib/loadData';
@@ -45,6 +47,7 @@ const teammates = member.roleIds.length
   : [];
 
 const memberOrgs = orgsOfMember(member.id);
+const memberRegions = regionsOfMember(member.id);
 
 const contacts = Object.entries(member.contacts || {}).filter(([, v]) => Boolean(v));
 const contactLabel: Record<string, string> = {
@@ -174,6 +177,27 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
                       <span class="org-link-name">{o.name}</span>
                       {o.headMemberIds.includes(member.id) && (
                         <span class="org-link-role">负责人</span>
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )
+          }
+
+          {
+            memberRegions.length > 0 && (
+              <div class="profile-section">
+                <h2 class="panel-title">任职地区</h2>
+                <div class="region-link-list">
+                  {memberRegions.map((r) => (
+                    <a class="region-link" href={url('/regions/')}>
+                      <span class="region-link-tier">{regionTierMap.get(r.tier)?.name ?? ''}</span>
+                      <span class="region-link-name">{r.name}</span>
+                      {r.headMemberIds.includes(member.id) && (
+                        <span class="region-link-role">
+                          {r.tier === 'commune' ? '代表' : r.tier === 'region' ? '主任' : '负责'}
+                        </span>
                       )}
                     </a>
                   ))}
