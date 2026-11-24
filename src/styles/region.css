@@ -1,0 +1,195 @@
+/* --------------------------------------------------------------------------
+   行政区划 · 地区苏维埃/公社树（与机构树同构，强调色改用青绿色以区分维度）
+   -------------------------------------------------------------------------- */
+
+.rgn-tree {
+  padding-top: 38px;
+  --rgn: #79c2b4;
+  --rgn-soft: rgba(121, 194, 180, 0.34);
+  --rgn-faint: rgba(121, 194, 180, 0.12);
+}
+
+.rgn-node {
+  min-width: 0;
+}
+
+.rgn-card {
+  position: relative;
+  padding: 14px 18px 15px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+  transition: border-color 0.22s var(--ease), transform 0.22s var(--ease);
+}
+
+.rgn-card:hover {
+  border-color: var(--line-3);
+  transform: translateY(-1px);
+}
+
+.rgn-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rgn-tier-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid var(--line-2);
+  white-space: nowrap;
+}
+
+.rgn-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+/* 顶层机关用金，地区用青，公社用柔青 */
+.rgn-card--union,
+.rgn-card--bureau,
+.rgn-card--executive {
+  border-left-color: var(--gold);
+}
+.rgn-card--union .rgn-tier-tag,
+.rgn-card--bureau .rgn-tier-tag,
+.rgn-card--executive .rgn-tier-tag {
+  color: var(--gold);
+  border-color: rgba(230, 198, 124, 0.34);
+}
+.rgn-card--region {
+  border-left-color: var(--rgn);
+}
+.rgn-card--region .rgn-tier-tag {
+  color: var(--rgn);
+  border-color: var(--rgn-soft);
+}
+.rgn-card--commune {
+  border-left-color: var(--rgn);
+  border-left-width: 2px;
+}
+.rgn-card--commune .rgn-tier-tag {
+  color: var(--rgn);
+  border-color: var(--rgn-soft);
+}
+
+.rgn-summary {
+  margin: 9px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.rgn-people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.rgn-person {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 12px;
+  color: var(--text-2);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.rgn-person:hover {
+  border-color: var(--rgn-soft);
+  color: var(--text);
+}
+
+.rgn-person-role {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  color: var(--rgn);
+  border: 1px solid var(--rgn-soft);
+}
+
+/* 子级：左侧连接线 + 逐级缩进 */
+.rgn-children {
+  margin-top: 10px;
+  margin-left: 13px;
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rgn-foot-note {
+  margin-top: 34px;
+}
+
+/* 成员详情页 · 任职地区/公社清单 */
+.region-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.region-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-2);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.region-link:hover {
+  border-color: var(--rgn-soft);
+  color: var(--text);
+}
+
+.region-link-tier {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--rgn);
+  border: 1px solid var(--rgn-soft);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.region-link-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.region-link-role {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  color: var(--rgn);
+}
+
+@media (max-width: 720px) {
+  .rgn-children {
+    margin-left: 8px;
+    padding-left: 14px;
+  }
+  .rgn-card {
+    padding: 12px 14px 13px;
+  }
+}

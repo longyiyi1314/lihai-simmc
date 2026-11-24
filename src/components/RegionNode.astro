@@ -1,0 +1,62 @@
+---
+import RegionNode from './RegionNode.astro';
+import { url } from '../lib/url';
+import {
+  childrenOfRegion,
+  regionMap,
+  memberList,
+  regionTierMap,
+} from '../lib/loadData';
+
+interface Props {
+  regionId: string;
+  depth: number;
+}
+
+const { regionId, depth } = Astro.props;
+const rgn = regionMap.get(regionId);
+const kids = rgn ? childrenOfRegion(regionId) : [];
+const tier = rgn ? regionTierMap.get(rgn.tier) : null;
+const resolve = (id: string) => memberList.find((m) => m.id === id);
+
+const headLabel = (t: string) =>
+  t === 'region' ? '主任' : t === 'commune' ? '代表' : '负责';
+---
+
+{
+  rgn && (
+    <div class="rgn-node" style={`--rd:${depth}`}>
+      <article class={`rgn-card rgn-card--${rgn.tier}`}>
+        <div class="rgn-card-head">
+          <span class="rgn-tier-tag">{tier?.name ?? ''}</span>
+          <h3 class="rgn-name">{rgn.name}</h3>
+        </div>
+
+        {rgn.summary && <p class="rgn-summary">{rgn.summary}</p>}
+
+        {rgn.memberIds.length > 0 && (
+          <div class="rgn-people">
+            {rgn.memberIds.map((id) => {
+              const m = resolve(id);
+              const isHead = rgn.headMemberIds.includes(id);
+              return (
+                <a class="rgn-person" href={url(`/members/${id}`)}>
+                  <span class="rgn-person-name">{m?.displayName ?? id}</span>
+                  {isHead && <span class="rgn-person-role">{headLabel(rgn.tier)}</span>}
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </article>
+
+      {kids.length > 0 && (
+        <div class="rgn-children">
+          {kids.map((k) => (
+            <RegionNode regionId={k.id} depth={depth + 1} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
