@@ -46,6 +46,8 @@ export const MemberSchema = z.object({
   title: z.string().default(''),
   rankId: z.string().min(1, '必须填写职位'),
   roleIds: z.array(z.string()).default([]),
+  /** 任职机构（纵向部门树），与横向职能 roleIds 相互独立 */
+  orgIds: z.array(z.string()).default([]),
   status: StatusSchema,
   /** 加入时间，允许留空（真实名册里往往无法逐人考证） */
   joinedAt: z
@@ -77,6 +79,34 @@ export const MemberSchema = z.object({
 export const MembersFileSchema = z.object({
   isPlaceholder: z.boolean().default(false),
   members: z.array(MemberSchema),
+});
+
+/** 机构等级：根 / 委员会 / 部 / 局 / 处 / 军队单位 */
+export const OrgTierSchema = z.enum([
+  'root',
+  'committee',
+  'department',
+  'bureau',
+  'division',
+  'unit',
+]);
+
+export const OrganizationSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/, '机构 id 只能是小写英文、数字和短横线'),
+  name: z.string().min(1, '机构名称不能为空'),
+  tier: OrgTierSchema,
+  /** 上级机构 id，根节点为 null */
+  parentId: z.string().nullable(),
+  /** 负责人（可多人或暂缺） */
+  headMemberIds: z.array(z.string()).default([]),
+  /** 在该机构任职的全部成员（含负责人） */
+  memberIds: z.array(z.string()).default([]),
+  summary: z.string().default(''),
+});
+
+export const OrganizationFileSchema = z.object({
+  isPlaceholder: z.boolean().default(false),
+  organizations: z.array(OrganizationSchema),
 });
 
 /** 领地层级：首都 / 都市圈 / 城市 / 领地 / 省份 / 城镇 / 村庄 / 定居点 */
