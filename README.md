@@ -2,7 +2,7 @@
 
 > 追求真理，创造奇迹
 
-展示 Minecraft 服务器 **SimMC** 中国家「**璃海苏维埃公社联盟**」（Riherie Soviete Commune Unien）的公开档案：国家概况、成员名录、职级与职务、疆域、旗帜与编年。
+展示 Minecraft 服务器 **SimMC** 中国家「**璃海苏维埃公社联盟**」（Riheria Soviete Commune Unien）的公开档案：国家概况、成员名录、职级与职务、疆域、旗帜与编年。
 
 **线上地址：<https://longyiyi1314.github.io/lihai-simmc/>**
 
