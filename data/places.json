@@ -1,13 +1,14 @@
 {
   "isPlaceholder": false,
-  "regions": [
+  "pendingCount": 8,
+  "places": [
     {
       "id": "union-soviet",
       "name": "璃海最高苏维埃",
       "tier": "union",
       "parentId": null,
-      "headMemberIds": [],
-      "memberIds": [],
+      "settlement": null,
+      "note": "",
       "summary": "联盟级最高权力机关；凛海局为其常务机关。"
     },
     {
@@ -15,8 +16,8 @@
       "name": "凛海局",
       "tier": "bureau",
       "parentId": "union-soviet",
-      "headMemberIds": [],
-      "memberIds": [],
+      "settlement": null,
+      "note": "",
       "summary": "社团级，璃海最高苏维埃的常务机关。"
     },
     {
@@ -24,8 +25,8 @@
       "name": "凛海局中央执行委员会",
       "tier": "executive",
       "parentId": "bureau",
-      "headMemberIds": [],
-      "memberIds": [],
+      "settlement": null,
+      "note": "",
       "summary": "首席执行委员级，负责监督与日常行政；在各地区设立行政公署，任命地区主任代表凛海局领导。"
     },
     {
@@ -33,29 +34,17 @@
       "name": "凛海地区苏维埃",
       "tier": "region",
       "parentId": "central-executive",
-      "headMemberIds": [
-        "qiyushi"
-      ],
-      "memberIds": [
-        "qiyushi",
-        "heinrich4084",
-        "akiyamatwt",
-        "longyiyi1314",
-        "endanuz0728"
-      ],
-      "summary": "地区/执行委员级。主任 Qiyushi，副主任 Heinrich4084、AkiyamaTwT，代表 longyiyi1314、Endanuz0728。"
+      "settlement": null,
+      "note": "",
+      "summary": "地区/执行委员级。"
     },
     {
       "id": "commune-linhai-central",
       "name": "凛海城中央公社",
       "tier": "commune",
       "parentId": "region-linhai",
-      "headMemberIds": [
-        "qiyushi"
-      ],
-      "memberIds": [
-        "qiyushi"
-      ],
+      "settlement": "capital",
+      "note": "首府，几乎涵盖整个凛冬半岛",
       "summary": ""
     },
     {
@@ -63,12 +52,8 @@
       "name": "克里夫斯堡军区",
       "tier": "commune",
       "parentId": "region-linhai",
-      "headMemberIds": [
-        "heinrich4084"
-      ],
-      "memberIds": [
-        "heinrich4084"
-      ],
+      "settlement": null,
+      "note": "",
       "summary": ""
     },
     {
@@ -76,12 +61,8 @@
       "name": "延凛公社",
       "tier": "commune",
       "parentId": "region-linhai",
-      "headMemberIds": [
-        "akiyamatwt"
-      ],
-      "memberIds": [
-        "akiyamatwt"
-      ],
+      "settlement": "territory",
+      "note": "由北凛海公社改名而来",
       "summary": ""
     },
     {
@@ -89,12 +70,8 @@
       "name": "北凛海银丘公社",
       "tier": "commune",
       "parentId": "region-linhai",
-      "headMemberIds": [
-        "llong"
-      ],
-      "memberIds": [
-        "llong"
-      ],
+      "settlement": null,
+      "note": "",
       "summary": ""
     },
     {
@@ -102,12 +79,8 @@
       "name": "北凛海雪原公社",
       "tier": "commune",
       "parentId": "region-linhai",
-      "headMemberIds": [
-        "xiaofeiying"
-      ],
-      "memberIds": [
-        "xiaofeiying"
-      ],
+      "settlement": null,
+      "note": "",
       "summary": ""
     },
     {
@@ -115,12 +88,8 @@
       "name": "北凛海边区公社",
       "tier": "commune",
       "parentId": "region-linhai",
-      "headMemberIds": [
-        "yizz34"
-      ],
-      "memberIds": [
-        "yizz34"
-      ],
+      "settlement": "territory",
+      "note": "",
       "summary": ""
     },
     {
@@ -128,29 +97,17 @@
       "name": "岐川地区苏维埃",
       "tier": "region",
       "parentId": "central-executive",
-      "headMemberIds": [
-        "haaamburger"
-      ],
-      "memberIds": [
-        "haaamburger",
-        "foreverzzz",
-        "darkwings-lok",
-        "xmohe",
-        "xindexinde"
-      ],
-      "summary": "地区/执行委员级。主任 haaamburger，副主任 ForeverZzz、Darkwings_Lok，代表 xmohe、xindexinde。"
+      "settlement": null,
+      "note": "",
+      "summary": "地区/执行委员级。"
     },
     {
       "id": "commune-qichuan",
       "name": "岐川公社",
       "tier": "commune",
       "parentId": "region-qichuan",
-      "headMemberIds": [
-        "haaamburger"
-      ],
-      "memberIds": [
-        "haaamburger"
-      ],
+      "settlement": "metro",
+      "note": "第二大地区，地处丘陵与高山",
       "summary": ""
     },
     {
@@ -158,12 +115,8 @@
       "name": "岐川北桦谷公社",
       "tier": "commune",
       "parentId": "region-qichuan",
-      "headMemberIds": [
-        "xindexinde"
-      ],
-      "memberIds": [
-        "xindexinde"
-      ],
+      "settlement": "village",
+      "note": "",
       "summary": ""
     },
     {
@@ -171,12 +124,8 @@
       "name": "东风谷公社",
       "tier": "commune",
       "parentId": "region-qichuan",
-      "headMemberIds": [
-        "darkwings-lok"
-      ],
-      "memberIds": [
-        "darkwings-lok"
-      ],
+      "settlement": "village",
+      "note": "",
       "summary": ""
     },
     {
@@ -184,12 +133,8 @@
       "name": "永远特区",
       "tier": "commune",
       "parentId": "region-qichuan",
-      "headMemberIds": [
-        "foreverzzz"
-      ],
-      "memberIds": [
-        "foreverzzz"
-      ],
+      "settlement": "settlement",
+      "note": "",
       "summary": ""
     },
     {
@@ -197,27 +142,17 @@
       "name": "雨岛地区苏维埃",
       "tier": "region",
       "parentId": "central-executive",
-      "headMemberIds": [
-        "tyfm1324"
-      ],
-      "memberIds": [
-        "tyfm1324",
-        "yue-smile",
-        "yizz34"
-      ],
-      "summary": "地区/执行委员级。主任 tyfm1324，副主任 Yue_Smile，代表 yizz34。"
+      "settlement": null,
+      "note": "",
+      "summary": "地区/执行委员级。"
     },
     {
       "id": "commune-yudaobay",
       "name": "雨海湾开发区",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "tyfm1324"
-      ],
-      "memberIds": [
-        "tyfm1324"
-      ],
+      "settlement": "territory",
+      "note": "雨岛地区，与首都隔海相望",
       "summary": ""
     },
     {
@@ -225,12 +160,8 @@
       "name": "雨岛湖公社",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "ssuzu3"
-      ],
-      "memberIds": [
-        "ssuzu3"
-      ],
+      "settlement": "town",
+      "note": "",
       "summary": ""
     },
     {
@@ -238,12 +169,8 @@
       "name": "北雨岛公社",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "mcfangkuaireng"
-      ],
-      "memberIds": [
-        "mcfangkuaireng"
-      ],
+      "settlement": null,
+      "note": "",
       "summary": ""
     },
     {
@@ -251,12 +178,8 @@
       "name": "梦雨公社",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "wumengze"
-      ],
-      "memberIds": [
-        "wumengze"
-      ],
+      "settlement": "settlement",
+      "note": "",
       "summary": ""
     },
     {
@@ -264,12 +187,8 @@
       "name": "雨山公社",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "yue-smile"
-      ],
-      "memberIds": [
-        "yue-smile"
-      ],
+      "settlement": "settlement",
+      "note": "",
       "summary": ""
     },
     {
@@ -277,12 +196,8 @@
       "name": "诺瓦",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "yumoyoo"
-      ],
-      "memberIds": [
-        "yumoyoo"
-      ],
+      "settlement": "settlement",
+      "note": "海外属地",
       "summary": ""
     },
     {
@@ -290,12 +205,8 @@
       "name": "种地之神",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [
-        "zheng-fang"
-      ],
-      "memberIds": [
-        "zheng-fang"
-      ],
+      "settlement": "settlement",
+      "note": "",
       "summary": ""
     },
     {
@@ -303,8 +214,8 @@
       "name": "长白云之乡",
       "tier": "commune",
       "parentId": "region-yudao",
-      "headMemberIds": [],
-      "memberIds": [],
+      "settlement": "settlement",
+      "note": "",
       "summary": "架构图中尚未指定公社代表。"
     },
     {
@@ -312,28 +223,17 @@
       "name": "蒙海地区苏维埃",
       "tier": "region",
       "parentId": "central-executive",
-      "headMemberIds": [
-        "lnactifseven"
-      ],
-      "memberIds": [
-        "lnactifseven",
-        "ssds-x",
-        "wd-zzt",
-        "junia-kitty"
-      ],
-      "summary": "地区/执行委员级。主任 Lnactifseven，副主任 SSDs_x、WD_ZZT，代表 JuniaKitty。"
+      "settlement": null,
+      "note": "",
+      "summary": "地区/执行委员级。"
     },
     {
       "id": "commune-mengde",
       "name": "蒙德公社",
       "tier": "commune",
       "parentId": "region-menghai",
-      "headMemberIds": [
-        "lnactifseven"
-      ],
-      "memberIds": [
-        "lnactifseven"
-      ],
+      "settlement": "province",
+      "note": "蒙海地区，热带气候",
       "summary": ""
     },
     {
@@ -341,12 +241,8 @@
       "name": "蒙海公社·新公社",
       "tier": "commune",
       "parentId": "region-menghai",
-      "headMemberIds": [
-        "ruanboww"
-      ],
-      "memberIds": [
-        "ruanboww"
-      ],
+      "settlement": null,
+      "note": "",
       "summary": ""
     },
     {
@@ -354,12 +250,8 @@
       "name": "逢春公社",
       "tier": "commune",
       "parentId": "region-menghai",
-      "headMemberIds": [
-        "ssds-x"
-      ],
-      "memberIds": [
-        "ssds-x"
-      ],
+      "settlement": "town",
+      "note": "",
       "summary": ""
     },
     {
@@ -367,9 +259,81 @@
       "name": "其他海外属地",
       "tier": "region",
       "parentId": "central-executive",
-      "headMemberIds": [],
-      "memberIds": [],
+      "settlement": null,
+      "note": "",
       "summary": "与地区苏维埃并列；架构图未列下级明细。"
+    },
+    {
+      "id": "loc-longxing",
+      "name": "龙星圣域",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "city",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-xiayue-taozhou",
+      "name": "夏月桃舟画室工作区",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "city",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-qianye-west",
+      "name": "千葉市西城区",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "city",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-xingmeng",
+      "name": "星梦之庭",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "province",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-tianyuan",
+      "name": "天愿故我",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "town",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-qianye-east",
+      "name": "千葉市东城区",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "village",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-xuefeng",
+      "name": "雪峰镇",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "settlement",
+      "note": "",
+      "summary": ""
+    },
+    {
+      "id": "loc-jidao",
+      "name": "极道万岁",
+      "tier": "locality",
+      "parentId": null,
+      "settlement": "settlement",
+      "note": "",
+      "summary": ""
     }
   ]
 }

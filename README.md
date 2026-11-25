@@ -11,7 +11,7 @@
 ## 这是什么
 
 - 纯静态站点，由 [Astro](https://astro.build) 构建，**默认零 JavaScript**，加载快、可直接托管在 GitHub Pages。
-- 全部内容来自 `data/` 下的 5 个 JSON 文件，**改数据即改站**，无需触碰页面代码。
+- 全部内容来自 `data/` 下的 7 个 JSON 文件，**改数据即改站**，无需触碰页面代码。
 - 推送到 `main` 分支后由 GitHub Actions 自动构建并发布（见 `.github/workflows/deploy.yml`）。
 
 ## 页面
@@ -32,9 +32,11 @@
 data/                 ← 你只需要改这里
   site.json           国家信息：全称、口号、建站时间、首府、政体、节庆、联系方式、公告
   ranks.json          职级层级：8 级（含 track 序列与 grade 级别）
-  roles.json          职务分工：7 类
-  members.json        成员名录：每人一条记录
-  territories.json    疆域：24 处领地 + 待下发数量
+  portfolios.json     职务分工：7 类（含牵头机构外键 orgIds）
+  members.json        成员名录：每人一条记录（含统一任职 appointments）
+  organizations.json  机构树：37 个机构（纯树结构，成员由 appointments 派生）
+  places.json         地名树：37 处（行政级别 + 聚落规模，合并原 regions/territories）
+  lore.json           地区介绍：地区 → 奇观 → 章节
 src/
   lib/                数据读取、Zod 校验、跨文件校验、路径拼接、主题色工具
   components/         头像、职级徽章、职务标签、成员卡片、页头页脚等
@@ -58,19 +60,21 @@ public/
   "id": "qiyushi",
   "gameId": "Qiyushi",
   "displayName": "祁钰师",
-  "title": "书记",
+  "honorific": "书记",
   "rankId": "chief",
-  "roleIds": ["foreign", "secretariat"],
+  "portfolioIds": ["foreign", "secretariat"],
   "status": "active",
-  "joinedAt": "",
   "leftAt": null,
-  "avatar": "",
   "intro": "……",
   "tags": ["统筹", "外交", "建制"],
-  "contacts": {},
   "featured": true,
   "order": 10,
-  "updatedAt": "2026-11-24"
+  "updatedAt": "2026-11-24",
+  "appointments": [
+    { "node": "place", "id": "region-linhai", "post": "head" },
+    { "node": "place", "id": "commune-linhai-central", "post": "head" },
+    { "node": "org", "id": "foreign-recruit", "post": "member" }
+  ]
 }
 ```
 
@@ -79,42 +83,43 @@ public/
 | `id` | 是 | 唯一标识，同时是网址 `/members/<id>/`，建议拼音或游戏 ID 小写 |
 | `gameId` | 是 | 游戏内 ID，必须与游戏内一致 |
 | `displayName` | 是 | 站点显示名（昵称或中文名） |
-| `title` | 否 | 称号/职务短名，如「书记」；与职级名相同时不必重复填 |
+| `honorific` | 否 | 称号/职务短名，如「书记」；与职级名相同时不必重复填 |
 | `rankId` | 是 | 必须是 `data/ranks.json` 里的 `id` |
-| `roleIds` | 否 | 数组，元素必须是 `data/roles.json` 里的 `id`，可多选 |
+| `portfolioIds` | 否 | 数组，元素必须是 `data/portfolios.json` 里的 `id`，可多选 |
 | `status` | 是 | `active` 在任 / `reserve` 休假 / `honorary` 荣誉 / `left` 已离会 |
-| `joinedAt` | 否 | 加入月份 `YYYY-MM`；**查不到就留空**，页面显示「未记录」而不是编造 |
 | `leftAt` | 否 | 仅 `status` 为 `left` 时必填 |
-| `avatar` | 否 | 头像路径（放 `public/` 下）；留空则用姓名首字生成占位头像 |
 | `intro` | 否 | 个人简介。**留空会显示「简介尚未录入」占位文案**，不编造经历 |
 | `tags` | 否 | 擅长标签，最多 5 个 |
-| `contacts` | 否 | `bilibili` / `discord` / `qq`，可留空 |
 | `featured` | 否 | `true` 出现在首页「名录上的人」（建议 6 人） |
 | `order` | 否 | 同职级内的排序，小的在前 |
+| `appointments` | 是 | 统一任职，数组；每项 `{ node, id, post }`：`node` 为 `org`（机构）或 `place`（地名），`id` 对应其唯一 id，`post` 为 `head` / `deputy` / `member`。机构/地名不再各自记录成员，统一由这里派生 |
 
-### 职级（`data/ranks.json`）与职务（`data/roles.json`）
+### 职级（`data/ranks.json`）与职务（`data/portfolios.json`）
 
 职级 8 级，`track` 分三条线：`party`（党务行政，6 级）、`soviet`（苏维埃代表）、`army`（武装力量）。
 每级含 `grade`（行政级别，如「部级」）、`summary`、`duties[]`、`promotion`、`limit`（人数上限，`null` 为不限）。
 
-职务 7 类：财政 / 秘书处 / 文宣 / 外交 / 劳动 / 军事 / 地区行政，`leadMemberId` 指向牵头人。
+职务 7 类：财政 / 秘书处 / 文宣 / 外交 / 劳动 / 军事 / 地区行政，`orgIds` 指向牵头机构（`data/organizations.json` 的 `id`）。牵头人不再写在职务字段里，改由成员 `appointments` 体现。
 
-### 疆域（`data/territories.json`）
+### 地名与疆域（`data/places.json`）
+
+地名树合并了原「行政地区」与「领地」：每个地名同时带行政级别 `tier`（`union` / `bureau` / `executive` / `region` / `commune` / `locality`）与聚落规模 `settlement`（`capital` / `metro` / `city` / `territory` / `province` / `town` / `village` / `settlement`，region 独有地名为 `null`）。
 
 ```json
 {
   "pendingCount": 8,
-  "territories": [
-    { "id": "linhai-capital", "name": "凛海城中央公社", "tier": "capital", "note": "首府，几乎涵盖整个凛冬半岛" }
+  "places": [
+    { "id": "commune-linhai-central", "name": "凛海城中央公社", "tier": "commune", "parentId": "region-linhai", "settlement": "capital", "note": "首府，几乎涵盖整个凛冬半岛", "summary": "……" }
   ]
 }
 ```
 
-`tier` 取 `capital` / `metro` / `city` / `territory` / `province` / `town` / `village` / `settlement`。
+- 已下发领地 = 有 `settlement` 的地名（24 处）；`pendingCount` 为待下发数量（8）。
+- 疆域页按 `settlement` 分组；地区页按 `tier` 分组（`locality` 为纯聚落点，不入行政树，`parentId` 为 `null`）。
 
 ### 构建期校验
 
-构建时会做 12 项跨文件校验：`rankId`/`roleIds` 外键、`id` 唯一、职级人数上限、日期格式、`status` 与 `leftAt` 一致、领地层级合法、`territoryTotal = 已下发 + 待下发`、`memberTotal ≥ 名录人数` 等。**写错会直接构建失败并指出具体是哪个文件哪一条**，不会静默上线错误数据。
+构建时会做 14 项跨文件校验：`rankId`/`portfolioIds`/`appointments`/`orgIds`/`capitalPlaceId` 外键、`id` 唯一、职级名额、`status` 与 `leftAt` 一致、地名父子关系合法、`territoryTotal = 已下发 + 待下发`、`memberTotal ≥ 名录人数` 等。**写错会直接构建失败并指出具体是哪个文件哪一条**，不会静默上线错误数据。
 
 ### Excel 收集
 
@@ -124,11 +129,11 @@ public/
 |---|---|---|
 | `00-先看我-怎么用.md` | 四条填写规则 + 还缺哪些资料 | — |
 | `01-组织信息.md` | 全称、成立时间、政体、节日、联系方式 | — |
-| `02-成员名单.csv` | 成员主表（16 列，示例 2 行） | 2 |
+| `02-成员名单.csv` | 成员主表（13 列，含「任职」，示例 2 行） | 2 |
 | `03-职位层级.csv` | 8 级职级（含 track / grade / 人数上限） | 8 |
-| `04-职务分工.csv` | 7 类职务 | 7 |
-| `05-疆域.csv` | 24 处已下发领地 | 24 |
-| `06-完整成员名录.csv` | 全部 24 名成员的完整表格 | 24 |
+| `04-职务分工.csv` | 7 类职务（含牵头机构 orgIds） | 7 |
+| `05-疆域.csv` | 24 处已下发领地（按聚落规模） | 24 |
+| `06-完整成员名录.csv` | 全部 31 名成员的完整表格 | 31 |
 
 改完按 `00-先看我-怎么用.md` 的规则同步到 `data/` 下的 JSON，或直接把表发我。
 

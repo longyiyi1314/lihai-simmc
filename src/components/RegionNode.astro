@@ -6,7 +6,7 @@ import {
   regionMap,
   memberList,
   regionTierMap,
-  loreIntroOf,
+  loreOfPlace,
 } from '../lib/loadData';
 
 interface Props {
@@ -19,7 +19,7 @@ const rgn = regionMap.get(regionId);
 const kids = rgn ? childrenOfRegion(regionId) : [];
 const tier = rgn ? regionTierMap.get(rgn.tier) : null;
 const resolve = (id: string) => memberList.find((m) => m.id === id);
-const intro = rgn ? loreIntroOf(rgn.name) : null;
+const intro = rgn ? loreOfPlace(rgn.id) : null;
 
 const headLabel = (t: string) =>
   t === 'region' ? '主任' : t === 'commune' ? '代表' : '负责';

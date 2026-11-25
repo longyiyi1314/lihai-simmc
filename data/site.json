@@ -12,7 +12,6 @@
   "foundedTime": "09:26",
   "motto": "捍卫璃海革命，保卫胜利果实",
   "summary": "璃海苏维埃公社联盟，是承载着璃海人民的理想和革命热情的新家园。自 Ultroveritas 远洋而来的璃海凛冬号于 Yun 历 28 年在云大陆南端靠岸抛锚，先锋者们以这艘轮船为核心，建起了新的港湾与都市。",
-  "capital": "凛海城中央公社",
   "government": "苏维埃代表制度的公社联盟国家",
   "ideology": "璃海革命先锋主义",
   "pact": "凛海合作组织",
@@ -34,8 +33,6 @@
   ],
   "memberTotal": 277,
   "chunkTotal": 12800,
-  "territoryTotal": 32,
-  "territoryGranted": 24,
   "emblem": "",
   "banner": "flag.png",
   "links": [
@@ -73,5 +70,6 @@
       "date": "2026-11-24",
       "text": "组织架构页上线：凛海局三大委员会及下属部、局、处，璃海红军兵团与军区完整录入，共 37 个机构；成员任职机构同步更新。"
     }
-  ]
+  ],
+  "capitalPlaceId": "commune-linhai-central"
 }

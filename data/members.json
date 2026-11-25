@@ -5,863 +5,1088 @@
       "id": "qiyushi",
       "gameId": "Qiyushi",
       "displayName": "祁钰师",
-      "title": "书记",
+      "honorific": "书记",
       "rankId": "chief",
-      "roleIds": [
+      "portfolioIds": [
         "foreign",
         "secretariat",
         "finance",
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海苏维埃公社联盟首席执行委员，璃海社团的创始人，见证了璃海的前世今生，如今持续的推动着璃海的变革。",
       "tags": [
         "统筹计划",
         "治理",
         "革命理论"
       ],
-      "contacts": {},
       "featured": true,
       "order": 10,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "root",
-        "finance-committee",
-        "gov",
-        "culture",
-        "judiciary",
-        "mil",
-        "red-army-hq",
-        "red-guard-corps"
-      ],
-      "regionIds": [
-        "region-linhai",
-        "commune-linhai-central"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "root",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "finance-committee",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "gov",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "culture",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "judiciary",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "mil",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "red-army-hq",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "red-guard-corps",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-linhai",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "commune-linhai-central",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "foreverzzz",
       "gameId": "ForeverZzz",
       "displayName": "ForeverZzz",
-      "title": "总裁",
+      "honorific": "总裁",
       "rankId": "deputy-chief",
-      "roleIds": [
+      "portfolioIds": [
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海的技术派和战争机器，富可敌国的同时充满顽强与个性。",
       "tags": [
         "经济派",
         "军事",
         "技术"
       ],
-      "contacts": {},
       "featured": true,
       "order": 20,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "judiciary",
-        "mil",
-        "defense-dept",
-        "red-army-hq",
-        "falcon-corps"
-      ],
-      "regionIds": [
-        "region-qichuan",
-        "commune-forever"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "judiciary",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "mil",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "defense-dept",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "red-army-hq",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "falcon-corps",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-qichuan",
+          "post": "deputy"
+        },
+        {
+          "node": "place",
+          "id": "commune-forever",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "lnactifseven",
       "gameId": "Lnactifseven",
       "displayName": "Lnactifseven",
-      "title": "政委",
+      "honorific": "政委",
       "rankId": "deputy-chief",
-      "roleIds": [
+      "portfolioIds": [
         "finance",
         "labor",
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "从基层晋升到最高层的魅力领袖，负责管理国家的经贸中枢。",
       "tags": [
         "经贸",
         "演艺",
         "行政管理"
       ],
-      "contacts": {},
       "featured": true,
       "order": 21,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "plan",
-        "liquor-bureau",
-        "trade-bureau",
-        "finance-committee",
-        "supervision",
-        "culture",
-        "judiciary",
-        "mil",
-        "red-army-hq",
-        "arcane-corps"
-      ],
-      "regionIds": [
-        "region-menghai",
-        "commune-mengde"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "plan",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "liquor-bureau",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "trade-bureau",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "finance-committee",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "supervision",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "culture",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "judiciary",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "mil",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "red-army-hq",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "arcane-corps",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-menghai",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "commune-mengde",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "yangguagua",
       "gameId": "Yangguagua",
       "displayName": "Yangguagua",
-      "title": "瓜神",
+      "honorific": "瓜神",
       "rankId": "executive",
-      "roleIds": [
+      "portfolioIds": [
         "foreign",
         "propaganda"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "九亿璃海人的女神",
       "tags": [
         "招新",
         "表演",
         "外交"
       ],
-      "contacts": {},
       "featured": true,
       "order": 30,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "foreign-recruit",
-        "culture"
-      ],
-      "regionIds": []
+      "appointments": [
+        {
+          "node": "org",
+          "id": "foreign-recruit",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "culture",
+          "post": "member"
+        }
+      ]
     },
     {
       "id": "akiyamatwt",
       "gameId": "AkiyamaTwT",
       "displayName": "AkiyamaTwT",
-      "title": "革命旗手",
+      "honorific": "革命旗手",
       "rankId": "executive",
-      "roleIds": [
+      "portfolioIds": [
         "regional"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "少年奇才，文史哲艺术多开花，负责社团理论以及璃海的总体建设规划。",
       "tags": [
         "革命理论",
         "文化宣传",
         "创意"
       ],
-      "contacts": {},
       "featured": true,
       "order": 31,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "housing-dept"
-      ],
-      "regionIds": [
-        "region-linhai",
-        "commune-yanlin"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "housing-dept",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-linhai",
+          "post": "deputy"
+        },
+        {
+          "node": "place",
+          "id": "commune-yanlin",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "heinrich4084",
       "gameId": "Heinrich4084",
       "displayName": "Heinrich4084",
-      "title": "元老",
+      "honorific": "元老",
       "rankId": "executive",
-      "roleIds": [
+      "portfolioIds": [
         "secretariat",
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海最早期的元老，和祁钰师一同建立了早期的璃海，目前负责璃海的基层与后勤事务。",
       "tags": [
         "元老",
         "后勤",
         "基层管理"
       ],
-      "contacts": {},
       "featured": true,
       "order": 32,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "warehouse",
-        "urban-facilities",
-        "supervision",
-        "capital-garrison"
-      ],
-      "regionIds": [
-        "region-linhai",
-        "commune-cliffsburg"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "warehouse",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "urban-facilities",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "supervision",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "capital-garrison",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "region-linhai",
+          "post": "deputy"
+        },
+        {
+          "node": "place",
+          "id": "commune-cliffsburg",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "hh-xmh",
       "gameId": "HH_XMH",
       "displayName": "HH_XMH",
-      "title": "监察官",
+      "honorific": "监察官",
       "rankId": "executive",
-      "roleIds": [
+      "portfolioIds": [
         "secretariat",
         "propaganda"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海的政治监察人员",
       "tags": [
         "政治监察"
       ],
-      "contacts": {},
       "featured": false,
       "order": 33,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "supervision",
-        "culture"
-      ],
-      "regionIds": []
+      "appointments": [
+        {
+          "node": "org",
+          "id": "supervision",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "culture",
+          "post": "member"
+        }
+      ]
     },
     {
       "id": "haaamburger",
       "gameId": "haaamburger",
       "displayName": "haaamburger",
-      "title": "元帅",
+      "honorific": "元帅",
       "rankId": "executive",
-      "roleIds": [
+      "portfolioIds": [
         "labor"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海社团的二号人物，凛海局的早期建立者之一，负责岐川地区的事务与劳动生产。",
       "tags": [
         "劳动生产",
         "元帅",
         "军事"
       ],
-      "contacts": {},
       "featured": false,
       "order": 34,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "labor-dept"
-      ],
-      "regionIds": [
-        "region-qichuan",
-        "commune-qichuan"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "labor-dept",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-qichuan",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "commune-qichuan",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "xiaofeiying",
       "gameId": "xiaofeiying",
       "displayName": "xiaofeiying",
-      "title": "酿酒师",
+      "honorific": "酿酒师",
       "rankId": "standing",
-      "roleIds": [
+      "portfolioIds": [
         "finance"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海的从基层晋升上来的中层管理，是个性格沉稳的女酿酒师。",
       "tags": [
         "酿酒"
       ],
-      "contacts": {},
       "featured": false,
       "order": 41,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "liquor-bureau"
-      ],
-      "regionIds": [
-        "commune-snowfield"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "liquor-bureau",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "commune-snowfield",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "tyfm1324",
       "gameId": "tyfm1324",
       "displayName": "tyfm1324",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 74,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": [
-        "region-yudao",
-        "commune-yudaobay"
+      "appointments": [
+        {
+          "node": "place",
+          "id": "region-yudao",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "commune-yudaobay",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "darkwings-lok",
       "gameId": "Darkwings_Lok",
       "displayName": "Darkwings_Lok",
-      "title": "",
+      "honorific": "",
       "rankId": "standing",
-      "roleIds": [
+      "portfolioIds": [
         "labor",
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海的工人代表，负责管理劳动局，挖掉了大量的山体并完成了多个工程项目。",
       "tags": [
         "工人代表",
         "建设",
         "劳模"
       ],
-      "contacts": {},
       "featured": false,
       "order": 40,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "labor-dept",
-        "labor-bureau",
-        "capital-garrison"
-      ],
-      "regionIds": [
-        "region-qichuan",
-        "commune-eastwind"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "labor-dept",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "labor-bureau",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "capital-garrison",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "region-qichuan",
+          "post": "deputy"
+        },
+        {
+          "node": "place",
+          "id": "commune-eastwind",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "ssuzu3",
       "gameId": "SSuzu3",
       "displayName": "SSuzu3",
-      "title": "大厨",
+      "honorific": "大厨",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "曾担任过老农、大厨和仓管，目前已离休啦。",
       "tags": [
         "离休"
       ],
-      "contacts": {},
       "featured": false,
       "order": 75,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": [
-        "commune-yudaolake"
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-yudaolake",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "yizz34",
       "gameId": "yizz34",
       "displayName": "yizz34",
-      "title": "工农兵",
+      "honorific": "工农兵",
       "rankId": "commissar",
-      "roleIds": [
+      "portfolioIds": [
         "labor"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "担任工人、农业人员和士兵的基层干部，还是个苦出身！",
       "tags": [
         "劳动者",
         "士兵"
       ],
-      "contacts": {},
       "featured": false,
       "order": 53,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "labor-bureau",
-        "workers-committee"
-      ],
-      "regionIds": [
-        "commune-border",
-        "region-yudao"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "labor-bureau",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "workers-committee",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "commune-border",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-yudao",
+          "post": "member"
+        }
       ]
     },
     {
       "id": "ssds-x",
       "gameId": "SSDS_x",
       "displayName": "SSDS_x",
-      "title": "老农",
+      "honorific": "老农",
       "rankId": "commissar",
-      "roleIds": [
+      "portfolioIds": [
         "finance",
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海的农业负责人，同时也是璃海的战斗人员，集耕战于一体。",
       "tags": [
         "农耕",
         "战斗"
       ],
-      "contacts": {},
       "featured": false,
       "order": 50,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "agri-bureau",
-        "commerce-dept",
-        "finance-committee",
-        "menghai-cmd"
-      ],
-      "regionIds": [
-        "region-menghai",
-        "commune-fengchun"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "agri-bureau",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "commerce-dept",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "finance-committee",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "menghai-cmd",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-menghai",
+          "post": "deputy"
+        },
+        {
+          "node": "place",
+          "id": "commune-fengchun",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "wd-zzt",
       "gameId": "WD_ZZT",
       "displayName": "WD_ZZT",
-      "title": "厨师长",
+      "honorific": "厨师长",
       "rankId": "commissar",
-      "roleIds": [
+      "portfolioIds": [
         "labor"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "耕战人员，而且能战斗爽。",
       "tags": [
         "耕战",
         "烹饪"
       ],
-      "contacts": {},
       "featured": false,
       "order": 51,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "labor-dept",
-        "agri-bureau",
-        "farm-products",
-        "food-bureau"
-      ],
-      "regionIds": [
-        "region-menghai"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "labor-dept",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "agri-bureau",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "farm-products",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "food-bureau",
+          "post": "head"
+        },
+        {
+          "node": "place",
+          "id": "region-menghai",
+          "post": "deputy"
+        }
       ]
     },
     {
       "id": "yue-smile",
       "gameId": "Yue_Smile",
       "displayName": "Yue_Smile",
-      "title": "建筑师",
+      "honorific": "建筑师",
       "rankId": "commissar",
-      "roleIds": [
+      "portfolioIds": [
         "regional"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "擅长建设中世纪风格建筑。",
       "tags": [
         "建筑师"
       ],
-      "contacts": {},
       "featured": false,
       "order": 52,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "housing-dept"
-      ],
-      "regionIds": [
-        "region-yudao",
-        "commune-yushan"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "housing-dept",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "region-yudao",
+          "post": "deputy"
+        },
+        {
+          "node": "place",
+          "id": "commune-yushan",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "wumengze",
       "gameId": "Wumengze",
       "displayName": "Wumengze",
-      "title": "资深海员",
+      "honorific": "资深海员",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "曾经负责渔业和牧业生产，目前已离休。",
       "tags": [
         "离休"
       ],
-      "contacts": {},
       "featured": false,
       "order": 76,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": [
-        "commune-mengyu"
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-mengyu",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "longyiyi1314",
       "gameId": "longyiyi1314",
       "displayName": "longyiyi1314",
-      "title": "专家",
+      "honorific": "专家",
       "rankId": "commissar",
-      "roleIds": [
+      "portfolioIds": [
         "labor"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "本网站的主要负责人之一，是璃海的科学工业负责人，专家型人才。",
       "tags": [
         "科工人员",
         "专家",
         "技术派"
       ],
-      "contacts": {},
       "featured": false,
       "order": 54,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "industry-bureau",
-        "science-tech"
-      ],
-      "regionIds": [
-        "region-linhai"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "industry-bureau",
+          "post": "head"
+        },
+        {
+          "node": "org",
+          "id": "science-tech",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "region-linhai",
+          "post": "member"
+        }
       ]
     },
     {
       "id": "endanuz0728",
       "gameId": "Endanuz0728",
       "displayName": "Endanuz0728",
-      "title": "",
+      "honorific": "",
       "rankId": "delegate",
-      "roleIds": [
+      "portfolioIds": [
         "regional"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海早期的战斗人员，目前负责千叶市的治理。",
       "tags": [
         "治理",
         "行政管理"
       ],
-      "contacts": {},
       "featured": false,
       "order": 60,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": [
-        "region-linhai"
+      "appointments": [
+        {
+          "node": "place",
+          "id": "region-linhai",
+          "post": "member"
+        }
       ]
     },
     {
       "id": "wondertion",
       "gameId": "Wondertion",
       "displayName": "Wondertion",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 70,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": []
+      "appointments": []
     },
     {
       "id": "miao-tao",
       "gameId": "miao_tao",
       "displayName": "miao_tao",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 71,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": []
+      "appointments": []
     },
     {
       "id": "mcfangkuaireng",
       "gameId": "mcfangkuaireng",
       "displayName": "mcfangkuaireng",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 72,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": [
-        "commune-north-yudao"
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-north-yudao",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "abanice",
       "gameId": "abanice",
       "displayName": "abanice",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "恩佩里安冰晶港的领导人。",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 73,
       "updatedAt": "2026-11-24",
-      "orgIds": [],
-      "regionIds": []
+      "appointments": []
     },
     {
       "id": "xmohe",
       "gameId": "xmohe",
       "displayName": "xmohe",
-      "title": "",
+      "honorific": "",
       "rankId": "red-army",
-      "roleIds": [
+      "portfolioIds": [
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "璃海的新厨师，也是璃海的战斗人员。",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 80,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "food-bureau",
-        "qichuan-cmd"
-      ],
-      "regionIds": [
-        "region-qichuan"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "food-bureau",
+          "post": "member"
+        },
+        {
+          "node": "org",
+          "id": "qichuan-cmd",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "region-qichuan",
+          "post": "member"
+        }
       ]
     },
     {
       "id": "chu-mengg",
       "gameId": "chu_mengg",
       "displayName": "chu_mengg",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [
+      "portfolioIds": [
         "propaganda"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "恩佩里安冰晶港的领导者之一，协助璃海共同举办RP活动。",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 77,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "culture"
-      ],
-      "regionIds": []
+      "appointments": [
+        {
+          "node": "org",
+          "id": "culture",
+          "post": "member"
+        }
+      ]
     },
     {
       "id": "xindexinde",
       "gameId": "xindexinde",
       "displayName": "xindexinde",
-      "title": "",
+      "honorific": "",
       "rankId": "red-army",
-      "roleIds": [
+      "portfolioIds": [
         "military"
       ],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 81,
       "updatedAt": "2026-11-24",
-      "orgIds": [
-        "qichuan-cmd"
-      ],
-      "regionIds": [
-        "region-qichuan",
-        "commune-birchvalley"
+      "appointments": [
+        {
+          "node": "org",
+          "id": "qichuan-cmd",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "region-qichuan",
+          "post": "member"
+        },
+        {
+          "node": "place",
+          "id": "commune-birchvalley",
+          "post": "head"
+        }
       ]
     },
     {
       "id": "llong",
       "gameId": "Llong",
       "displayName": "Llong",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
-      "orgIds": [],
-      "regionIds": [
-        "commune-silverhill"
-      ],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 82,
-      "updatedAt": ""
+      "updatedAt": "",
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-silverhill",
+          "post": "head"
+        }
+      ]
     },
     {
       "id": "yumoyoo",
       "gameId": "Yumoyoo",
       "displayName": "Yumoyoo",
-      "title": "蒙海第一建筑师",
+      "honorific": "蒙海第一建筑师",
       "rankId": "specialist",
-      "roleIds": [],
-      "orgIds": [],
-      "regionIds": [
-        "commune-nova"
-      ],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "擅长建设哥特式风格建筑。",
       "tags": [
         "建筑师"
       ],
-      "contacts": {},
       "featured": false,
       "order": 83,
-      "updatedAt": ""
+      "updatedAt": "",
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-nova",
+          "post": "head"
+        }
+      ]
     },
     {
       "id": "zheng-fang",
       "gameId": "Zheng_Fang",
       "displayName": "Zheng_Fang",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
-      "orgIds": [],
-      "regionIds": [
-        "commune-farmgod"
-      ],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 84,
-      "updatedAt": ""
+      "updatedAt": "",
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-farmgod",
+          "post": "head"
+        }
+      ]
     },
     {
       "id": "junia-kitty",
       "gameId": "JuniaKitty",
       "displayName": "JuniaKitty",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
-      "orgIds": [],
-      "regionIds": [
-        "region-menghai"
-      ],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 85,
-      "updatedAt": ""
+      "updatedAt": "",
+      "appointments": [
+        {
+          "node": "place",
+          "id": "region-menghai",
+          "post": "member"
+        }
+      ]
     },
     {
       "id": "ruanboww",
       "gameId": "Ruanboww",
       "displayName": "Ruanboww",
-      "title": "",
+      "honorific": "",
       "rankId": "specialist",
-      "roleIds": [],
-      "orgIds": [],
-      "regionIds": [
-        "commune-menghai-new"
-      ],
+      "portfolioIds": [],
       "status": "active",
-      "joinedAt": "",
       "leftAt": null,
-      "avatar": "",
       "intro": "",
       "tags": [],
-      "contacts": {},
       "featured": false,
       "order": 86,
-      "updatedAt": ""
+      "updatedAt": "",
+      "appointments": [
+        {
+          "node": "place",
+          "id": "commune-menghai-new",
+          "post": "head"
+        }
+      ]
     }
   ]
 }

@@ -9,7 +9,7 @@ import {
   isPlaceholder,
   placeholderNotice,
   formatDateFull,
-  loreIntroOf,
+  loreOfPlace,
 } from '../lib/loadData';
 import { url } from '../lib/url';
 
@@ -61,7 +61,7 @@ const tierWithItems = territoryTiers
           </div>
           <div class="terr-cards">
             {tier.list.map((t) => {
-              const intro = loreIntroOf(t.name);
+              const intro = loreOfPlace(t.id);
               return (
                 <article class="terr-card">
                   <div class="terr-card-top">
