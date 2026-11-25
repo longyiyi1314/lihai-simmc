@@ -5,7 +5,7 @@ import {
   site,
   memberList,
   rankList,
-  orgNodeList,
+  roleList,
   territoryList,
   isPlaceholder,
   placeholderNotice,
@@ -127,7 +127,7 @@ const flagColors = [
           璃海要证明的是劳动者与智慧能做出什么：以璃海革命先锋主义与璃海模式为指导，让集体走向更先进的社会形态与人文精神。这不是一句口号——它落在劳动资质评定、月度计划、地区苏维埃与国营商店这些具体的东西上。
         </p>
         <p>
-          到今天，联盟有 {site.memberTotal} 人在册、{territoryList.length} 处已下发领地、{rankList.length} 级职级与 {orgNodeList.length} 个机构。本站逐人收录了凛海城中央公社的前 {memberList.length} 位成员。
+          到今天，联盟有 {site.memberTotal} 人在册、{territoryList.length} 处已下发领地、{rankList.length} 级职级与 {roleList.length} 类职务。本站逐人收录了凛海城中央公社的前 {memberList.length} 位成员。
         </p>
       </div>
 
@@ -284,7 +284,7 @@ const flagColors = [
     <div class="flag-block">
       <figure class="flag-figure">
         <img src={asset('flag.png')} alt={`${site.fullName}国旗：红、白、蓝三色横条，左上角金色多角星`} width="1890" height="1417" loading="lazy" />
-        <figcaption class="mono">{site.fullNameEn || 'Riheria Soviete Commune Unien'}</figcaption>
+        <figcaption class="mono">{site.fullNameEn || 'Riherie Soviete Commune Unien'}</figcaption>
       </figure>
 
       <div class="flag-side">
@@ -336,7 +336,7 @@ const flagColors = [
           {
             site.recruiting
               ? '不设笔试，也不看装备。我们只想知道你愿意长期做哪一件事。'
-              : '当前暂停招新。等到重新开放时，这里会更新具体信息。'
+              : '当前暂停招新。等到重新开放时，重新开放时这里会更新具体信息。'
           }
         </p>
       </div>
