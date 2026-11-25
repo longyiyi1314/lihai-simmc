@@ -51,7 +51,14 @@ import { url } from '../lib/url';
             </span>
           </div>
 
-          {region.summary && <p class="lore-region-sum">{region.summary}</p>}
+          {region.summary && (
+            <div class="lore-region-sum">
+              {region.summary
+                .split('\n')
+                .filter((s) => s.trim())
+                .map((para) => <p>{para}</p>)}
+            </div>
+          )}
 
           {region.wonders.map((wonder) => (
             <article class="lore-wonder">

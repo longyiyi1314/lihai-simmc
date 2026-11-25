@@ -3506,6 +3506,12 @@ button {
   color: var(--text-2);
   line-height: 1.85;
 }
+.lore-region-sum p {
+  margin: 0 0 12px;
+}
+.lore-region-sum p:last-child {
+  margin-bottom: 0;
+}
 .lore-wonder {
   margin-top: 26px;
   padding: 30px 32px 34px;
