@@ -36,6 +36,10 @@
         "mil",
         "red-army-hq",
         "red-guard-corps"
+      ],
+      "regionIds": [
+        "region-linhai",
+        "commune-linhai-central"
       ]
     },
     {
@@ -67,6 +71,10 @@
         "defense-dept",
         "red-army-hq",
         "falcon-corps"
+      ],
+      "regionIds": [
+        "region-qichuan",
+        "commune-forever"
       ]
     },
     {
@@ -105,6 +113,10 @@
         "mil",
         "red-army-hq",
         "arcane-corps"
+      ],
+      "regionIds": [
+        "region-menghai",
+        "commune-mengde"
       ]
     },
     {
@@ -134,7 +146,8 @@
       "orgIds": [
         "foreign-recruit",
         "culture"
-      ]
+      ],
+      "regionIds": []
     },
     {
       "id": "akiyamatwt",
@@ -161,6 +174,10 @@
       "updatedAt": "2026-11-24",
       "orgIds": [
         "housing-dept"
+      ],
+      "regionIds": [
+        "region-linhai",
+        "commune-yanlin"
       ]
     },
     {
@@ -192,6 +209,10 @@
         "urban-facilities",
         "supervision",
         "capital-garrison"
+      ],
+      "regionIds": [
+        "region-linhai",
+        "commune-cliffsburg"
       ]
     },
     {
@@ -219,7 +240,8 @@
       "orgIds": [
         "supervision",
         "culture"
-      ]
+      ],
+      "regionIds": []
     },
     {
       "id": "haaamburger",
@@ -246,6 +268,10 @@
       "updatedAt": "2026-11-24",
       "orgIds": [
         "labor-dept"
+      ],
+      "regionIds": [
+        "region-qichuan",
+        "commune-qichuan"
       ]
     },
     {
@@ -271,6 +297,9 @@
       "updatedAt": "2026-11-24",
       "orgIds": [
         "liquor-bureau"
+      ],
+      "regionIds": [
+        "commune-snowfield"
       ]
     },
     {
@@ -290,7 +319,11 @@
       "featured": false,
       "order": 74,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": [
+        "region-yudao",
+        "commune-yudaobay"
+      ]
     },
     {
       "id": "darkwings-lok",
@@ -320,6 +353,10 @@
         "labor-dept",
         "labor-bureau",
         "capital-garrison"
+      ],
+      "regionIds": [
+        "region-qichuan",
+        "commune-eastwind"
       ]
     },
     {
@@ -341,7 +378,10 @@
       "featured": false,
       "order": 75,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": [
+        "commune-yudaolake"
+      ]
     },
     {
       "id": "yizz34",
@@ -368,6 +408,10 @@
       "orgIds": [
         "labor-bureau",
         "workers-committee"
+      ],
+      "regionIds": [
+        "commune-border",
+        "region-yudao"
       ]
     },
     {
@@ -398,6 +442,10 @@
         "commerce-dept",
         "finance-committee",
         "menghai-cmd"
+      ],
+      "regionIds": [
+        "region-menghai",
+        "commune-fengchun"
       ]
     },
     {
@@ -427,6 +475,9 @@
         "agri-bureau",
         "farm-products",
         "food-bureau"
+      ],
+      "regionIds": [
+        "region-menghai"
       ]
     },
     {
@@ -452,6 +503,10 @@
       "updatedAt": "2026-11-24",
       "orgIds": [
         "housing-dept"
+      ],
+      "regionIds": [
+        "region-yudao",
+        "commune-yushan"
       ]
     },
     {
@@ -473,7 +528,10 @@
       "featured": false,
       "order": 76,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": [
+        "commune-mengyu"
+      ]
     },
     {
       "id": "longyiyi1314",
@@ -501,6 +559,9 @@
       "orgIds": [
         "industry-bureau",
         "science-tech"
+      ],
+      "regionIds": [
+        "region-linhai"
       ]
     },
     {
@@ -525,7 +586,10 @@
       "featured": false,
       "order": 60,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": [
+        "region-linhai"
+      ]
     },
     {
       "id": "wondertion",
@@ -544,7 +608,8 @@
       "featured": false,
       "order": 70,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": []
     },
     {
       "id": "miao-tao",
@@ -563,7 +628,8 @@
       "featured": false,
       "order": 71,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": []
     },
     {
       "id": "mcfangkuaireng",
@@ -582,7 +648,10 @@
       "featured": false,
       "order": 72,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": [
+        "commune-north-yudao"
+      ]
     },
     {
       "id": "abanice",
@@ -601,7 +670,8 @@
       "featured": false,
       "order": 73,
       "updatedAt": "2026-11-24",
-      "orgIds": []
+      "orgIds": [],
+      "regionIds": []
     },
     {
       "id": "xmohe",
@@ -625,6 +695,9 @@
       "orgIds": [
         "food-bureau",
         "qichuan-cmd"
+      ],
+      "regionIds": [
+        "region-qichuan"
       ]
     },
     {
@@ -648,7 +721,8 @@
       "updatedAt": "2026-11-24",
       "orgIds": [
         "culture"
-      ]
+      ],
+      "regionIds": []
     },
     {
       "id": "xindexinde",
@@ -671,7 +745,121 @@
       "updatedAt": "2026-11-24",
       "orgIds": [
         "qichuan-cmd"
+      ],
+      "regionIds": [
+        "region-qichuan",
+        "commune-birchvalley"
       ]
+    },
+    {
+      "id": "llong",
+      "gameId": "Llong",
+      "displayName": "Llong",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "orgIds": [],
+      "regionIds": [
+        "commune-silverhill"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 82,
+      "updatedAt": ""
+    },
+    {
+      "id": "yumoyoo",
+      "gameId": "Yumoyoo",
+      "displayName": "Yumoyoo",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "orgIds": [],
+      "regionIds": [
+        "commune-nova"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 83,
+      "updatedAt": ""
+    },
+    {
+      "id": "zheng-fang",
+      "gameId": "Zheng_Fang",
+      "displayName": "Zheng_Fang",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "orgIds": [],
+      "regionIds": [
+        "commune-farmgod"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 84,
+      "updatedAt": ""
+    },
+    {
+      "id": "junia-kitty",
+      "gameId": "JuniaKitty",
+      "displayName": "JuniaKitty",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "orgIds": [],
+      "regionIds": [
+        "region-menghai"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 85,
+      "updatedAt": ""
+    },
+    {
+      "id": "ruanboww",
+      "gameId": "Ruanboww",
+      "displayName": "Ruanboww",
+      "title": "",
+      "rankId": "specialist",
+      "roleIds": [],
+      "orgIds": [],
+      "regionIds": [
+        "commune-menghai-new"
+      ],
+      "status": "active",
+      "joinedAt": "",
+      "leftAt": null,
+      "avatar": "",
+      "intro": "",
+      "tags": [],
+      "contacts": {},
+      "featured": false,
+      "order": 86,
+      "updatedAt": ""
     }
   ]
 }
