@@ -493,7 +493,7 @@
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "擅长建设哥特式风格建筑。",
+      "intro": "擅长建设中世纪风格建筑。",
       "tags": [
         "建筑师"
       ],
@@ -777,7 +777,7 @@
       "id": "yumoyoo",
       "gameId": "Yumoyoo",
       "displayName": "Yumoyoo",
-      "title": "",
+      "title": "蒙海第一建筑师",
       "rankId": "specialist",
       "roleIds": [],
       "orgIds": [],
@@ -788,8 +788,10 @@
       "joinedAt": "",
       "leftAt": null,
       "avatar": "",
-      "intro": "",
-      "tags": [],
+      "intro": "擅长建设哥特式风格建筑。",
+      "tags": [
+        "建筑师"
+      ],
       "contacts": {},
       "featured": false,
       "order": 83,
