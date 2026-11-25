@@ -4,9 +4,11 @@ import type { z } from 'zod';
 import {
   SiteSchema,
   RankFileSchema,
-  OrgFileSchema,
+  RolesFileSchema,
   MembersFileSchema,
   TerritoryFileSchema,
+  OrganizationFileSchema,
+  RegionFileSchema,
 } from './schema';
 
 const DATA_DIR = join(process.cwd(), 'data');
@@ -42,16 +44,18 @@ function readJson<T>(file: string, schema: z.ZodType<T>): T {
   return parsed.data;
 }
 
-/** 跨文件一致性校验：外键、唯一性、头像文件、名额、机构树 */
+/** 跨文件一致性校验：外键、唯一性、头像文件、名额 */
 function crossValidate(data: {
   site: z.infer<typeof SiteSchema>;
   ranks: z.infer<typeof RankFileSchema>;
-  org: z.infer<typeof OrgFileSchema>;
+  roles: z.infer<typeof RolesFileSchema>;
   members: z.infer<typeof MembersFileSchema>;
   territories: z.infer<typeof TerritoryFileSchema>;
+  organizations: z.infer<typeof OrganizationFileSchema>;
+  regions: z.infer<typeof RegionFileSchema>;
 }) {
   const errors: string[] = [];
-  const { ranks, org, members, territories, site } = data;
+  const { ranks, roles, members, territories, site, organizations, regions } = data;
 
   // 1. 职位 id 唯一
   const rankIds = new Set<string>();
@@ -71,11 +75,11 @@ function crossValidate(data: {
     levels.set(r.level, r.name);
   }
 
-  // 3. 机构 id 唯一
-  const orgIds = new Set<string>();
-  for (const n of org.nodes) {
-    if (orgIds.has(n.id)) errors.push(`org.json：「${n.id}」机构 id 重复`);
-    orgIds.add(n.id);
+  // 3. 职务 id 唯一
+  const roleIds = new Set<string>();
+  for (const r of roles.roles) {
+    if (roleIds.has(r.id)) errors.push(`roles.json：「${r.id}」职务 id 重复`);
+    roleIds.add(r.id);
   }
 
   // 4. 成员 id 唯一
@@ -87,13 +91,20 @@ function crossValidate(data: {
     memberIds.add(m.id);
   }
 
-  // 5. 成员的 rankId 外键必须存在
+  // 5. 成员的 rankId / roleIds 外键必须存在
   for (const m of members.members) {
     const who = `members.json 的「${m.displayName || m.id}」`;
     if (!rankIds.has(m.rankId)) {
       errors.push(
         `${who}：职位 rankId "${m.rankId}" 不存在，可用值：${[...rankIds].join(' / ')}`
       );
+    }
+    for (const rid of m.roleIds) {
+      if (!roleIds.has(rid)) {
+        errors.push(
+          `${who}：职务 roleId "${rid}" 不存在，可用值：${[...roleIds].join(' / ')}`
+        );
+      }
     }
   }
 
@@ -129,55 +140,160 @@ function crossValidate(data: {
     );
   }
 
-  // 9. 机构树的根必须存在，且 parentId 必须指回已存在的机构
-  if (!orgIds.has(org.rootId)) {
-    errors.push(`org.json：rootId "${org.rootId}" 不在 nodes 里`);
-  }
-  for (const n of org.nodes) {
-    if (n.parentId !== null && !orgIds.has(n.parentId)) {
-      errors.push(`org.json 的「${n.name}」：parentId "${n.parentId}" 不存在`);
+  // 9. 职务负责人 leadMemberId 必须存在
+  for (const r of roles.roles) {
+    if (r.leadMemberId && !memberIds.has(r.leadMemberId)) {
+      errors.push(
+        `roles.json 的「${r.name}」：负责人 leadMemberId "${r.leadMemberId}" 不存在`
+      );
     }
   }
 
-  // 10. 机构树的 holders 必须能解析成人（memberId 存在，或给出了 name）
-  for (const n of org.nodes) {
-    for (const h of n.holders) {
-      if (h.memberId && !memberIds.has(h.memberId)) {
+  // 9b. 机构 id 唯一
+  const orgIds = new Set<string>();
+  for (const o of organizations.organizations) {
+    if (orgIds.has(o.id)) {
+      errors.push(`organizations.json：机构 id「${o.id}」重复`);
+    }
+    orgIds.add(o.id);
+  }
+
+  // 9c. 机构 parentId 必须存在且不能指向自己
+  for (const o of organizations.organizations) {
+    if (o.parentId === null) continue;
+    if (o.parentId === o.id) {
+      errors.push(`organizations.json 的「${o.name}」：parentId 不能指向自己`);
+    } else if (!orgIds.has(o.parentId)) {
+      errors.push(
+        `organizations.json 的「${o.name}」：上级机构 parentId "${o.parentId}" 不存在`
+      );
+    }
+  }
+
+  // 9d. 机构负责人/成员必须是真实成员，且负责人应包含在成员内
+  for (const o of organizations.organizations) {
+    for (const mid of [...o.headMemberIds, ...o.memberIds]) {
+      if (!memberIds.has(mid)) {
         errors.push(
-          `org.json 的「${n.name}」：任职人 memberId "${h.memberId}" 不在 members.json 里`
+          `organizations.json 的「${o.name}」：成员 id "${mid}" 不存在于 members.json`
         );
       }
-      if (!h.memberId && !h.name) {
-        errors.push(`org.json 的「${n.name}」：有一条任职记录既没有 memberId 也没有 name`);
+    }
+    for (const h of o.headMemberIds) {
+      if (!o.memberIds.includes(h)) {
+        errors.push(
+          `organizations.json 的「${o.name}」：负责人「${h}」必须同时出现在 memberIds 中`
+        );
       }
     }
   }
 
-  // 11. 中央执行委员会名单里的人必须存在
-  for (const g of org.presidium.groups) {
-    for (const id of g.memberIds) {
-      if (!memberIds.has(id)) {
-        errors.push(`org.json 的中央执行委员会「${g.name}」：memberId "${id}" 不存在`);
+  // 9e. 成员 orgIds 外键必须存在
+  for (const m of members.members) {
+    for (const oid of m.orgIds) {
+      if (!orgIds.has(oid)) {
+        errors.push(
+          `members.json 的「${m.displayName || m.id}」：任职机构 orgId "${oid}" 不存在`
+        );
       }
     }
   }
 
-  // 12. 机构树不得成环
-  const parentOf = new Map(org.nodes.map((n) => [n.id, n.parentId]));
-  for (const n of org.nodes) {
-    const seen = new Set<string>([n.id]);
-    let cur = parentOf.get(n.id) ?? null;
-    while (cur) {
-      if (seen.has(cur)) {
-        errors.push(`org.json 的「${n.name}」：parentId 链成环`);
-        break;
+  // 9f. 成员 orgIds 与机构 memberIds 必须双向一致
+  for (const o of organizations.organizations) {
+    for (const mid of o.memberIds) {
+      const m = members.members.find((x) => x.id === mid);
+      if (m && !m.orgIds.includes(o.id)) {
+        errors.push(
+          `organizations.json 的「${o.name}」列有「${mid}」，但其成员 orgIds 未回填该机构`
+        );
       }
-      seen.add(cur);
-      cur = parentOf.get(cur) ?? null;
+    }
+  }
+  for (const m of members.members) {
+    for (const oid of m.orgIds) {
+      const o = organizations.organizations.find((x) => x.id === oid);
+      if (o && !o.memberIds.includes(m.id)) {
+        errors.push(
+          `members.json 的「${m.displayName}」orgIds 含「${o.name}」，但该机构 memberIds 未列入`
+        );
+      }
     }
   }
 
-  // 13. 领地 id 唯一
+  // 9g. 地区节点 id 唯一
+  const regionNodeIds = new Set<string>();
+  for (const r of regions.regions) {
+    if (regionNodeIds.has(r.id)) {
+      errors.push(`regions.json：节点 id「${r.id}」重复`);
+    }
+    regionNodeIds.add(r.id);
+  }
+
+  // 9h. 地区节点 parentId 必须存在且不能指向自己
+  for (const r of regions.regions) {
+    if (r.parentId === null) continue;
+    if (r.parentId === r.id) {
+      errors.push(`regions.json 的「${r.name}」：parentId 不能指向自己`);
+    } else if (!regionNodeIds.has(r.parentId)) {
+      errors.push(
+        `regions.json 的「${r.name}」：上级节点 parentId "${r.parentId}" 不存在`
+      );
+    }
+  }
+
+  // 9i. 地区节点负责人/成员必须是真实成员，且负责人应包含在成员内
+  for (const r of regions.regions) {
+    for (const mid of [...r.headMemberIds, ...r.memberIds]) {
+      if (!memberIds.has(mid)) {
+        errors.push(
+          `regions.json 的「${r.name}」：成员 id "${mid}" 不存在于 members.json`
+        );
+      }
+    }
+    for (const h of r.headMemberIds) {
+      if (!r.memberIds.includes(h)) {
+        errors.push(
+          `regions.json 的「${r.name}」：负责人「${h}」必须同时出现在 memberIds 中`
+        );
+      }
+    }
+  }
+
+  // 9j. 成员 regionIds 外键必须存在
+  for (const m of members.members) {
+    for (const rid of m.regionIds) {
+      if (!regionNodeIds.has(rid)) {
+        errors.push(
+          `members.json 的「${m.displayName || m.id}」：任职地区 regionId "${rid}" 不存在`
+        );
+      }
+    }
+  }
+
+  // 9k. 成员 regionIds 与节点 memberIds 必须双向一致
+  for (const r of regions.regions) {
+    for (const mid of r.memberIds) {
+      const m = members.members.find((x) => x.id === mid);
+      if (m && !m.regionIds.includes(r.id)) {
+        errors.push(
+          `regions.json 的「${r.name}」列有「${mid}」，但其成员 regionIds 未回填该节点`
+        );
+      }
+    }
+  }
+  for (const m of members.members) {
+    for (const rid of m.regionIds) {
+      const r = regions.regions.find((x) => x.id === rid);
+      if (r && !r.memberIds.includes(m.id)) {
+        errors.push(
+          `members.json 的「${m.displayName}」regionIds 含「${r.name}」，但该节点 memberIds 未列入`
+        );
+      }
+    }
+  }
+
+  // 10. 领地 id 唯一
   const territoryIds = new Set<string>();
   for (const t of territories.territories) {
     if (territoryIds.has(t.id)) {
@@ -186,7 +302,7 @@ function crossValidate(data: {
     territoryIds.add(t.id);
   }
 
-  // 14. 领地数量与 site.json 的总数口径一致
+  // 11. 领地数量与 site.json 的总数口径一致
   const granted = territories.territories.length;
   if (site.territoryGranted && site.territoryGranted !== granted) {
     errors.push(
@@ -203,7 +319,7 @@ function crossValidate(data: {
     );
   }
 
-  // 15. 全社人数不得小于名录里的人数
+  // 12. 全社人数不得小于名录里的人数
   if (site.memberTotal && site.memberTotal < members.members.length) {
     errors.push(
       `site.json：memberTotal（${site.memberTotal}）小于 members.json 收录的 ${members.members.length} 人`
@@ -213,21 +329,24 @@ function crossValidate(data: {
   if (errors.length) {
     throw new DataError(
       `数据一致性校验失败（共 ${errors.length} 处）：\n` +
-        errors.map((e) => `  ✗ ${e}`).join('\n')
+      errors.map((e) => `  ✗ ${e}`).join('\n')
     );
   }
 }
 
 const site = readJson('site.json', SiteSchema);
 const ranks = readJson('ranks.json', RankFileSchema);
-const org = readJson('org.json', OrgFileSchema);
+const roles = readJson('roles.json', RolesFileSchema);
 const members = readJson('members.json', MembersFileSchema);
 const territories = readJson('territories.json', TerritoryFileSchema);
+const organizations = readJson('organizations.json', OrganizationFileSchema);
+const regions = readJson('regions.json', RegionFileSchema);
 
-crossValidate({ site, ranks, org, members, territories });
+crossValidate({ site, ranks, roles, members, territories, organizations, regions });
 
 /** 职位按 level 从高到低 */
 export const rankList = [...ranks.ranks].sort((a, b) => b.level - a.level);
+export const roleList = roles.roles;
 export const memberList = [...members.members].sort((a, b) => {
   const ra = rankList.findIndex((r) => r.id === a.rankId);
   const rb = rankList.findIndex((r) => r.id === b.rankId);
@@ -236,124 +355,94 @@ export const memberList = [...members.members].sort((a, b) => {
 });
 
 export const rankMap = new Map(rankList.map((r) => [r.id, r]));
-export const memberMap = new Map(memberList.map((m) => [m.id, m]));
+export const roleMap = new Map(roleList.map((r) => [r.id, r]));
 
-export { site, ranks, org, members, territories };
+export { site, ranks, roles, members, territories, organizations, regions };
 
-/* ------------------------------------------------------------------ */
-/* 机构树                                                              */
-/* ------------------------------------------------------------------ */
+/** 机构等级：显示名与权重（权重越高层级越高） */
+export const orgTiers = [
+  { id: 'root', name: '凛海局', weight: 100 },
+  { id: 'committee', name: '委员会', weight: 90 },
+  { id: 'department', name: '部', weight: 80 },
+  { id: 'bureau', name: '局', weight: 70 },
+  { id: 'division', name: '处', weight: 60 },
+  { id: 'unit', name: '军队单位', weight: 70 },
+] as const;
 
-export const orgNodeList = [...org.nodes].sort((a, b) => a.order - b.order);
-export const orgNodeMap = new Map(orgNodeList.map((n) => [n.id, n]));
-export const orgRoot = orgNodeMap.get(org.rootId)!;
+export const orgTierMap = new Map(orgTiers.map((t) => [t.id, t]));
 
-/** 某机构的直接下级，按 order 排 */
-export function orgChildren(parentId: string) {
-  return orgNodeList.filter((n) => n.parentId === parentId);
+export const organizationList = organizations.organizations;
+export const organizationMap = new Map(organizationList.map((o) => [o.id, o]));
+
+/** 某机构的直接下级，按等级权重、再按数组顺序 */
+export function childrenOf(parentId: string | null) {
+  return organizationList
+    .filter((o) => o.parentId === parentId)
+    .sort(
+      (a, b) =>
+        (orgTierMap.get(b.tier)?.weight ?? 0) - (orgTierMap.get(a.tier)?.weight ?? 0)
+    );
 }
 
-/** 从根到该机构的路径（含自身） */
-export function orgPath(id: string) {
-  const chain = [];
-  let cur = orgNodeMap.get(id);
-  const guard = new Set<string>();
-  while (cur && !guard.has(cur.id)) {
-    guard.add(cur.id);
-    chain.unshift(cur);
-    cur = cur.parentId ? orgNodeMap.get(cur.parentId) : undefined;
-  }
-  return chain;
-}
+/** 根机构（parentId 为 null） */
+export const rootOrganizations = childrenOf(null);
 
-/** 该机构所属的一级分支（凛海局之下的大委员会） */
-export function orgBranchOf(id: string) {
-  const path = orgPath(id);
-  return path[1] ?? path[0];
-}
-
-/** 机构层级的中文标签 */
-export const orgKindLabel: Record<string, string> = {
-  root: '凛海局',
-  commission: '委员会',
-  bureau: '部',
-  corps: '兵团',
-  division: '局',
-  office: '处',
-  district: '军区',
-};
-
-/** 某机构的直属下级数量（用于卡片上的“下辖 N 个机构”） */
-export function orgChildCount(id: string) {
-  return orgNodeList.filter((n) => n.parentId === id).length;
-}
-
-/** 把 holders 解析成「人 + 备注」；名册里没有的人只给 name */
-export function orgHolders(nodeId: string) {
-  const node = orgNodeMap.get(nodeId);
-  if (!node) return [];
-  return node.holders.map((h) => ({
-    member: h.memberId ? memberMap.get(h.memberId) ?? null : null,
-    name: h.memberId ? memberMap.get(h.memberId)?.displayName ?? h.memberId : h.name ?? '',
-    label: h.label,
-  }));
-}
-
-/** 某人担任的全部机构（按机构顺序） */
-export function officesOf(memberId: string) {
-  return orgNodeList.filter((n) => n.holders.some((h) => h.memberId === memberId));
-}
-
-/** 某机构的直属任职成员（不含下级机构的人） */
-export function membersOfOrg(nodeId: string) {
-  return orgHolders(nodeId)
-    .map((h) => h.member)
+/** 某机构下的成员对象（负责人优先） */
+export function membersOfOrg(orgId: string) {
+  const o = organizationMap.get(orgId);
+  if (!o) return [];
+  return o.memberIds
+    .map((id) => memberList.find((m) => m.id === id))
     .filter((m): m is NonNullable<typeof m> => Boolean(m));
 }
 
-/** 整个机构子树（含自身）里的所有机构 */
-export function orgSubtree(id: string) {
-  const out = [];
-  const walk = (nodeId: string) => {
-    const node = orgNodeMap.get(nodeId);
-    if (!node) return;
-    out.push(node);
-    for (const child of orgChildren(nodeId)) walk(child.id);
-  };
-  walk(id);
-  return out;
+/** 某成员任职的机构对象 */
+export function orgsOfMember(memberId: string) {
+  const m = memberList.find((x) => x.id === memberId);
+  if (!m) return [];
+  return m.orgIds
+    .map((id) => organizationMap.get(id))
+    .filter((o): o is NonNullable<typeof o> => Boolean(o));
 }
 
-/** 机构子树里的任职人数（去重，仅统计在名册里的成员） */
-export function orgHeadcount(id: string) {
-  const ids = new Set<string>();
-  for (const node of orgSubtree(id)) {
-    for (const h of node.holders) if (h.memberId) ids.add(h.memberId);
-  }
-  return ids.size;
+/** 行政区划层级：显示名与权重（权重越高层级越高） */
+export const regionTiers = [
+  { id: 'union', name: '最高苏维埃', weight: 100 },
+  { id: 'bureau', name: '凛海局', weight: 90 },
+  { id: 'executive', name: '中央执行委员会', weight: 80 },
+  { id: 'region', name: '地区苏维埃', weight: 70 },
+  { id: 'commune', name: '公社', weight: 60 },
+] as const;
+
+export const regionTierMap = new Map(regionTiers.map((t) => [t.id, t]));
+
+export const regionList = regions.regions;
+export const regionMap = new Map(regionList.map((r) => [r.id, r]));
+
+/** 某节点的直接下级，按层级权重、再按数组顺序 */
+export function childrenOfRegion(parentId: string | null) {
+  return regionList
+    .filter((r) => r.parentId === parentId)
+    .sort(
+      (a, b) =>
+        (regionTierMap.get(b.tier)?.weight ?? 0) -
+        (regionTierMap.get(a.tier)?.weight ?? 0)
+    );
 }
 
-/** 机构树嵌套结构，供递归渲染 */
-export interface OrgTree {
-  node: (typeof orgNodeList)[number];
-  children: OrgTree[];
+/** 根节点（parentId 为 null） */
+export const rootRegions = childrenOfRegion(null);
+
+/** 某成员任职的地区/公社节点对象 */
+export function regionsOfMember(memberId: string) {
+  const m = memberList.find((x) => x.id === memberId);
+  if (!m) return [];
+  return m.regionIds
+    .map((id) => regionMap.get(id))
+    .filter((r): r is NonNullable<typeof r> => Boolean(r));
 }
-export function buildOrgTree(id: string): OrgTree {
-  const node = orgNodeMap.get(id)!;
-  return { node, children: orgChildren(id).map((c) => buildOrgTree(c.id)) };
-}
 
-/** 图中出现但名册里没有的人（按姓名列出，用于页脚说明） */
-export const orgUnlistedNames = [
-  ...new Set(
-    orgNodeList.flatMap((n) => n.holders.filter((h) => !h.memberId && h.name).map((h) => h.name!))
-  ),
-];
-
-/* ------------------------------------------------------------------ */
-/* 领地层级                                                            */
-/* ------------------------------------------------------------------ */
-
+/** 领地层级：显示名与权重（用于分组排序） */
 export const territoryTiers = [
   { id: 'capital', name: '首都', weight: 80 },
   { id: 'metro', name: '都市圈', weight: 70 },
@@ -378,10 +467,6 @@ export function territoriesOfTier(tier: string) {
   return territoryList.filter((t) => t.tier === tier);
 }
 
-/* ------------------------------------------------------------------ */
-/* 成员分组                                                            */
-/* ------------------------------------------------------------------ */
-
 /** 在任 + 休假 = 现役名单；荣誉/已离会单独分区 */
 export const activeMembers = memberList.filter(
   (m) => m.status === 'active' || m.status === 'reserve'
@@ -397,8 +482,13 @@ export function membersOfRank(rankId: string) {
   return activeMembers.filter((m) => m.rankId === rankId);
 }
 
+/** 某职务下的现役成员 */
+export function membersOfRole(rankId: string) {
+  return activeMembers.filter((m) => m.roleIds.includes(rankId));
+}
+
 export const isPlaceholder = Boolean(
-  members.isPlaceholder || ranks.isPlaceholder || org.isPlaceholder
+  members.isPlaceholder || ranks.isPlaceholder || roles.isPlaceholder
 );
 export const placeholderNotice = isPlaceholder
   ? '当前为示例数据 · 正式名单录入后自动替换'
@@ -420,7 +510,7 @@ export function hueOf(id: string) {
 export function formatMonth(m: string) {
   if (!m) return '';
   const [y, mo] = m.split('-');
-  return mo ? `${y} 年 ${Number(mo)} 月` : `${y} 年`;
+  return mo ? `${y} 年 ${Number(mo)} 月` : '';
 }
 
 /** 2025-12-27 + 09:26 → 2025 年 12 月 27 日 09:26 */
@@ -429,7 +519,7 @@ export function formatDateFull(d: string, t = '') {
   const [y, mo, day] = d.split('-');
   if (!day) return formatMonth(d);
   const base = `${y} 年 ${Number(mo)} 月 ${Number(day)} 日`;
-  return t ? `${base} ${t}` : base;
+  return t ? `${base} ${t}` : '';
 }
 
 export const statusLabel: Record<string, string> = {
