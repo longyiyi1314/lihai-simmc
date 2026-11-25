@@ -9,6 +9,7 @@ import {
   TerritoryFileSchema,
   OrganizationFileSchema,
   RegionFileSchema,
+  LoreFileSchema,
 } from './schema';
 
 const DATA_DIR = join(process.cwd(), 'data');
@@ -341,6 +342,7 @@ const members = readJson('members.json', MembersFileSchema);
 const territories = readJson('territories.json', TerritoryFileSchema);
 const organizations = readJson('organizations.json', OrganizationFileSchema);
 const regions = readJson('regions.json', RegionFileSchema);
+const lore = readJson('lore.json', LoreFileSchema);
 
 crossValidate({ site, ranks, roles, members, territories, organizations, regions });
 
@@ -418,6 +420,15 @@ export const regionTierMap = new Map(regionTiers.map((t) => [t.id, t]));
 
 export const regionList = regions.regions;
 export const regionMap = new Map(regionList.map((r) => [r.id, r]));
+
+/** 地区介绍 / 奇观（富文本） */
+export const loreNote = lore.note;
+export const loreRegions = lore.regions;
+export const loreRegionMap = new Map(loreRegions.map((r) => [r.id, r]));
+export const allLoreWonders = loreRegions.flatMap((r) => r.wonders);
+export function wondersOfRegion(regionId: string) {
+  return loreRegionMap.get(regionId)?.wonders ?? [];
+}
 
 /** 某节点的直接下级，按层级权重、再按数组顺序 */
 export function childrenOfRegion(parentId: string | null) {

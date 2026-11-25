@@ -3494,6 +3494,147 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   地区介绍 / 奇观（lore）
+   -------------------------------------------------------------------------- */
+
+.lore-region {
+  margin-top: 56px;
+}
+.lore-region-sum {
+  margin: 18px 2px 8px;
+  max-width: 72ch;
+  color: var(--text-2);
+  line-height: 1.85;
+}
+.lore-wonder {
+  margin-top: 26px;
+  padding: 30px 32px 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 16px);
+  background: var(--grad-panel, var(--surface));
+}
+.lore-wonder-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.lore-wonder-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--red);
+}
+.lore-wonder-name {
+  margin: 8px 0 0;
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.6vw, 34px);
+  letter-spacing: 0.02em;
+}
+.lore-src {
+  flex: none;
+  margin-top: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.lore-src:hover {
+  border-bottom-color: var(--gold);
+}
+.lore-wonder-sum {
+  margin: 16px 0 4px;
+  max-width: 74ch;
+  color: var(--text-2);
+  line-height: 1.85;
+}
+.lore-sections {
+  margin-top: 22px;
+}
+.lore-section {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.lore-sec-title {
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: 0.03em;
+  color: var(--text);
+}
+.lore-sec-title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  background: var(--red);
+  border-radius: 2px;
+  flex: none;
+}
+.lore-list {
+  margin: 4px 0;
+  padding-left: 0;
+  list-style: none;
+}
+.lore-list li {
+  position: relative;
+  margin: 10px 0;
+  padding-left: 22px;
+  line-height: 1.85;
+  color: var(--text-2);
+}
+.lore-list li::before {
+  content: '◈';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: var(--gold);
+  font-size: 12px;
+}
+.lore-quote {
+  margin: 18px 0;
+  padding: 18px 22px;
+  border-left: 3px solid var(--gold);
+  background: var(--gold-soft, rgba(230, 198, 124, 0.08));
+  border-radius: 0 12px 12px 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--text);
+}
+.lore-sub {
+  margin: 16px 0;
+}
+.lore-sub-title {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+}
+.lore-sub p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .lore-wonder {
+    padding: 22px 18px 26px;
+  }
+  .lore-wonder-head {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
    打印
    -------------------------------------------------------------------------- */
 

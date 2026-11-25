@@ -220,3 +220,43 @@ export const SiteSchema = z.object({
   isPlaceholder: z.boolean().default(false),
   announcements: z.array(AnnouncementSchema).default([]),
 });
+
+/** 地区介绍 / 奇观：富文本块 */
+export const LoreBlockSchema = z.object({
+  type: z.enum(['para', 'bullets', 'quote', 'sub']),
+  title: z.string().default(''),
+  body: z.string().default(''),
+  items: z.array(z.string()).default([]),
+});
+
+export const LoreSectionSchema = z.object({
+  title: z.string().min(1),
+  blocks: z.array(LoreBlockSchema).default([]),
+});
+
+export const LoreWonderSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/, 'id 只能是小写英文、数字和短横线'),
+  name: z.string().min(1),
+  kind: z.string().default(''),
+  location: z.string().default(''),
+  summary: z.string().default(''),
+  source: z.string().default(''),
+  sourceUrl: z.string().default(''),
+  sections: z.array(LoreSectionSchema).default([]),
+});
+
+export const LoreRegionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/, 'id 只能是小写英文、数字和短横线'),
+  name: z.string().min(1),
+  area: z.string().default(''),
+  summary: z.string().default(''),
+  source: z.string().default(''),
+  sourceUrl: z.string().default(''),
+  wonders: z.array(LoreWonderSchema).default([]),
+});
+
+export const LoreFileSchema = z.object({
+  isPlaceholder: z.boolean().default(false),
+  note: z.string().default(''),
+  regions: z.array(LoreRegionSchema).default([]),
+});

@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import {
+  site,
+  loreRegions,
+  loreNote,
+  allLoreWonders,
+} from '../lib/loadData';
+import { url } from '../lib/url';
+---
+
+<Base
+  title="地区介绍"
+  description={`${site.fullName}的地区介绍与奇观：蒙德的莫尔卡瑟堡等名胜。`}
+>
+  <PageHead
+    title="地区介绍"
+    crumb="地区介绍"
+    desc="山川、圣域与奇观。这片土地上不只有公社与领地，还有它们背后的故事。"
+  >
+    <div class="page-meta">
+      <span>收录地区 <b>{loreRegions.length}</b> 个</span>
+      <span>奇观 <b>{allLoreWonders.length}</b> 处</span>
+      <span>资料来源 <b>SimMC Wiki</b></span>
+    </div>
+
+    <nav class="roster-bar" aria-label="按地区跳转">
+      {
+        loreRegions.map((r) => (
+          <a class="chip" href={`#region-${r.id}`}>
+            {r.name}
+            <b>{r.wonders.length}</b>
+          </a>
+        ))
+      }
+    </nav>
+  </PageHead>
+
+  <div class="wrap">
+    {
+      loreRegions.map((region, ri) => (
+        <section class="lore-region" id={`region-${region.id}`}>
+          <div class="terr-head">
+            <span class="terr-badge mono">{String(ri + 1).padStart(2, '0')}</span>
+            <h2>{region.name}</h2>
+            <span class="terr-line" aria-hidden="true" />
+            <span class="terr-total mono">
+              {region.area || '地区'}
+              {region.wonders.length > 0 && ` · ${region.wonders.length} 处奇观`}
+            </span>
+          </div>
+
+          {region.summary && <p class="lore-region-sum">{region.summary}</p>}
+
+          {region.wonders.map((wonder) => (
+            <article class="lore-wonder">
+              <header class="lore-wonder-head">
+                <div>
+                  <div class="lore-wonder-kind mono">
+                    <span aria-hidden="true">◈</span>
+                    {wonder.kind || '奇观'}
+                    {wonder.location && ` · ${wonder.location}`}
+                  </div>
+                  <h3 class="lore-wonder-name">{wonder.name}</h3>
+                </div>
+                {wonder.sourceUrl && (
+                  <a class="lore-src" href={wonder.sourceUrl} target="_blank" rel="noopener">
+                    {wonder.source || '来源'} ↗
+                  </a>
+                )}
+              </header>
+
+              {wonder.summary && (
+                <p class="lore-wonder-sum">{wonder.summary}</p>
+              )}
+
+              <div class="lore-sections">
+                {wonder.sections.map((sec) => (
+                  <section class="lore-section">
+                    <h4 class="lore-sec-title">{sec.title}</h4>
+                    <div class="prose">
+                      {sec.blocks.map((b) => {
+                        if (b.type === 'bullets')
+                          return (
+                            <ul class="lore-list">
+                              {b.items.map((it) => (
+                                <li>{it}</li>
+                              ))}
+                            </ul>
+                          );
+                        if (b.type === 'quote')
+                          return <blockquote class="lore-quote">{b.body}</blockquote>;
+                        if (b.type === 'sub')
+                          return (
+                            <div class="lore-sub">
+                              <h5 class="lore-sub-title">{b.title}</h5>
+                              <p>{b.body}</p>
+                            </div>
+                          );
+                        return <p>{b.body}</p>;
+                      })}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            </article>
+          ))}
+        </section>
+      ))
+    }
+
+    {
+      loreNote && (
+        <p class="flag-note" style="margin-top:36px">
+          <span aria-hidden="true">◆</span>
+          {loreNote}
+        </p>
+      )
+    }
+
+    <div class="roster-foot">
+      <a class="btn btn--ghost" href={url('/territory/')}>
+        看看疆域与领地<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn--quiet" href={url('/about/')}>联盟是怎么来的</a>
+    </div>
+  </div>
+</Base>
