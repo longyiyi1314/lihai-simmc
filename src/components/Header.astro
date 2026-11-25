@@ -7,11 +7,9 @@ const path = (Astro.url.pathname || '').replace(/\/+$/, '') || '/';
 const nav = [
   { href: url('/'), label: '首页', match: '/' },
   { href: url('/members/'), label: '成员', match: '/members' },
-  { href: url('/ranks/'), label: '职级', match: '/ranks' },
-  { href: url('/organization/'), label: '机构', match: '/organization' },
-  { href: url('/regions/'), label: '地区', match: '/regions' },
+  { href: url('/system/'), label: '建制', match: '/system' },
   { href: url('/territory/'), label: '疆域', match: '/territory' },
-  { href: url('/lore/'), label: '地区介绍', match: '/lore' },
+  { href: url('/lore/'), label: '风物', match: '/lore' },
   { href: url('/about/'), label: '关于', match: '/about' },
 ];
 

@@ -6,9 +6,11 @@ interface Props {
   desc?: string;
   /** 面包屑末级，缺省用 title */
   crumb?: string;
+  /** 二级面包屑：上一级页面（如「建制」下的「机构编制」） */
+  parent?: { label: string; href: string };
 }
 
-const { title, desc = '', crumb = '' } = Astro.props;
+const { title, desc = '', crumb = '', parent } = Astro.props;
 ---
 
 <header class="page-head">
@@ -16,6 +18,12 @@ const { title, desc = '', crumb = '' } = Astro.props;
     <nav class="crumb" aria-label="面包屑">
       <a href={url('/')}>璃海</a>
       <span class="sep" aria-hidden="true">/</span>
+      {parent && (
+        <>
+          <a href={parent.href}>{parent.label}</a>
+          <span class="sep" aria-hidden="true">/</span>
+        </>
+      )}
       <span aria-current="page">{crumb || title}</span>
     </nav>
     <h1 class="page-title">{title}</h1>

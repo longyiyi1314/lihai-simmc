@@ -4,8 +4,9 @@ import { url } from '../lib/url';
 import {
   childrenOf,
   organizationMap,
-  memberList,
   orgTierMap,
+  membersOfOrg,
+  headsOfOrg,
 } from '../lib/loadData';
 
 interface Props {
@@ -17,27 +18,27 @@ const { orgId, depth } = Astro.props;
 const org = organizationMap.get(orgId);
 const kids = org ? childrenOf(orgId) : [];
 const tier = org ? orgTierMap.get(org.tier) : null;
-const resolve = (id: string) => memberList.find((m) => m.id === id);
+const people = org ? membersOfOrg(orgId) : [];
+const headIds = org ? headsOfOrg(orgId) : [];
 ---
 
 {
   org && (
-    <div class="org-node" style={`--od:${depth}`}>
+    <div class="org-node" id={`org-${org.id}`} style={`--od:${depth}`}>
       <article class={`org-card org-card--${org.tier}`}>
         <div class="org-card-head">
           <span class="org-tier-tag">{tier?.name ?? ''}</span>
           <h3 class="org-name">{org.name}</h3>
         </div>
         <div class="org-people">
-          {org.memberIds.length === 0 ? (
+          {people.length === 0 ? (
             <span class="org-vacant">岗位暂缺</span>
           ) : (
-            org.memberIds.map((id) => {
-              const m = resolve(id);
-              const isHead = org.headMemberIds.includes(id);
+            people.map((m) => {
+              const isHead = headIds.includes(m.id);
               return (
-                <a class="org-person" href={url(`/members/${id}`)}>
-                  <span class="org-person-name">{m?.displayName ?? id}</span>
+                <a class="org-person" href={url(`/members/${m.id}`)}>
+                  <span class="org-person-name">{m.displayName}</span>
                   {isHead && <span class="org-person-role">负责</span>}
                 </a>
               );

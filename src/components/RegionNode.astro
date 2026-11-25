@@ -2,10 +2,11 @@
 import RegionNode from './RegionNode.astro';
 import { url } from '../lib/url';
 import {
-  childrenOfRegion,
-  regionMap,
-  memberList,
-  regionTierMap,
+  childrenOfPlace,
+  placeMap,
+  placeTierMap,
+  membersOfPlace,
+  headsOfPlace,
   loreOfPlace,
 } from '../lib/loadData';
 
@@ -15,10 +16,11 @@ interface Props {
 }
 
 const { regionId, depth } = Astro.props;
-const rgn = regionMap.get(regionId);
-const kids = rgn ? childrenOfRegion(regionId) : [];
-const tier = rgn ? regionTierMap.get(rgn.tier) : null;
-const resolve = (id: string) => memberList.find((m) => m.id === id);
+const rgn = placeMap.get(regionId);
+const kids = rgn ? childrenOfPlace(regionId) : [];
+const tier = rgn ? placeTierMap.get(rgn.tier) : null;
+const people = rgn ? membersOfPlace(rgn.id) : [];
+const headIds = rgn ? headsOfPlace(rgn.id) : [];
 const intro = rgn ? loreOfPlace(rgn.id) : null;
 
 const headLabel = (t: string) =>
@@ -27,7 +29,7 @@ const headLabel = (t: string) =>
 
 {
   rgn && (
-    <div class="rgn-node" style={`--rd:${depth}`}>
+    <div class="rgn-node" id={`rgn-${rgn.id}`} style={`--rd:${depth}`}>
       <article class={`rgn-card rgn-card--${rgn.tier}`}>
         <div class="rgn-card-head">
           <span class="rgn-tier-tag">{tier?.name ?? ''}</span>
@@ -47,14 +49,13 @@ const headLabel = (t: string) =>
 
         {rgn.summary && <p class="rgn-summary">{rgn.summary}</p>}
 
-        {rgn.memberIds.length > 0 && (
+        {people.length > 0 && (
           <div class="rgn-people">
-            {rgn.memberIds.map((id) => {
-              const m = resolve(id);
-              const isHead = rgn.headMemberIds.includes(id);
+            {people.map((m) => {
+              const isHead = headIds.includes(m.id);
               return (
-                <a class="rgn-person" href={url(`/members/${id}`)}>
-                  <span class="rgn-person-name">{m?.displayName ?? id}</span>
+                <a class="rgn-person" href={url(`/members/${m.id}`)}>
+                  <span class="rgn-person-name">{m.displayName}</span>
                   {isHead && <span class="rgn-person-role">{headLabel(rgn.tier)}</span>}
                 </a>
               );

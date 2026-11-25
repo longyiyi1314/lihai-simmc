@@ -10,7 +10,7 @@ const id = z.string().regex(/^[a-z0-9-]+$/, 'id 只能是小写英文、数字�
 
 export const RankSchema = z.object({
   id,
-  name: z.string().min(1, '职位名称不能为空'),
+  name: z.string().min(1, '职级名称不能为空'),
   track: TrackSchema.default('party'),
   grade: z.string().default(''),
   level: z.number().int('层级必须是整数'),

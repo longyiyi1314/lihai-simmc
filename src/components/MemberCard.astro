@@ -1,6 +1,6 @@
 ---
 import type { Member } from '../lib/types';
-import { rankMap, roleMap, formatMonth, statusLabel, isPlaceholder } from '../lib/loadData';
+import { rankMap, portfolioMap, statusLabel, isPlaceholder } from '../lib/loadData';
 import { url } from '../lib/url';
 import { roleHueOf } from '../lib/theme';
 import Avatar from './Avatar.astro';
@@ -16,7 +16,7 @@ interface Props {
 const { member, showIntro = true } = Astro.props;
 
 const rank = rankMap.get(member.rankId);
-const roles = member.roleIds.map((id) => roleMap.get(id)).filter((r): r is NonNullable<typeof r> => Boolean(r));
+const roles = member.portfolioIds.map((id) => portfolioMap.get(id)).filter((r): r is NonNullable<typeof r> => Boolean(r));
 const hue = roles.length ? roleHueOf(roles[0].id) : 196;
 const isAlumni = member.status === 'honorary' || member.status === 'left';
 
@@ -25,7 +25,7 @@ const isAlumni = member.status === 'honorary' || member.status === 'left';
  * 称号若与职级名相同（多数成员如此），显示级别，避免与右侧徽章重复。
  */
 const subTitle = (() => {
-  if (member.title && member.title !== rank?.name) return member.title;
+  if (member.honorific && member.honorific !== rank?.name) return member.honorific;
   if (rank?.grade) return rank.grade;
   return member.gameId;
 })();
@@ -34,7 +34,7 @@ const subTitle = (() => {
 <article class="mcard" style={`--h:${hue}`}>
   <a class="mcard-link" href={url(`/members/${member.id}/`)} aria-label={`${member.displayName} 的成员资料`}>
     <div class="mcard-top">
-      <Avatar seed={member.id} name={member.displayName} src={member.avatar} size="md" />
+      <Avatar seed={member.id} name={member.displayName} size="md" />
       <div class="mcard-id">
         <span class="mcard-name">{member.displayName}</span>
         <span class={subTitle === member.gameId ? 'mcard-title mcard-gid' : 'mcard-title'}>{subTitle}</span>
@@ -51,7 +51,7 @@ const subTitle = (() => {
           : <span class="mcard-since mcard-none">未分配职务</span>}
       </div>
       <span class="mcard-since">
-        {isAlumni ? statusLabel[member.status] : member.joinedAt ? `加入 ${formatMonth(member.joinedAt)}` : member.gameId}
+        {isAlumni ? statusLabel[member.status] : member.gameId}
       </span>
     </div>
   </a>

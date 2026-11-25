@@ -5,7 +5,7 @@ import {
   site,
   memberList,
   rankList,
-  roleList,
+  portfolioList,
   territoryList,
   isPlaceholder,
   placeholderNotice,
@@ -127,7 +127,7 @@ const flagColors = [
           璃海要证明的是劳动者与智慧能做出什么：以璃海革命先锋主义与璃海模式为指导，让集体走向更先进的社会形态与人文精神。这不是一句口号——它落在劳动资质评定、月度计划、地区苏维埃与国营商店这些具体的东西上。
         </p>
         <p>
-          到今天，联盟有 {site.memberTotal} 人在册、{territoryList.length} 处已下发领地、{rankList.length} 级职级与 {roleList.length} 类职务。本站逐人收录了凛海城中央公社的前 {memberList.length} 位成员。
+          到今天，联盟有 {site.memberTotal} 人在册、{territoryList.length} 处已下发领地、{rankList.length} 级职级与 {portfolioList.length} 类职务。本站逐人收录了凛海城中央公社的前 {memberList.length} 位成员。
         </p>
       </div>
 
@@ -145,7 +145,7 @@ const flagColors = [
         <h2>四个地区，一片雪原</h2>
         <p>首都圈几乎完整覆盖了整个凛冬半岛。</p>
       </div>
-      <span class="sec-more"><a href={url('/territory/')}>完整疆域 →</a></span>
+      <span class="sec-more"><a href={url('/territory/') + '#admin'}>完整行政区划 →</a></span>
     </div>
 
     <div class="values">
@@ -184,7 +184,7 @@ const flagColors = [
         <h2>国家怎么运转</h2>
         <p>规矩可以改，这三条是底座。</p>
       </div>
-      <span />
+      <span class="sec-more"><a href={url('/system/')}>完整建制 →</a></span>
     </div>
 
     <div class="values values--3">
@@ -199,23 +199,17 @@ const flagColors = [
       }
     </div>
 
-    <div class="home-split" style="margin-top:26px">
-      <div class="panel panel--pad">
-        <div class="panel-title">权力机关</div>
-        <p class="prose-plain">
-          最高苏维埃代表大会为最高权力机关，闭会期间由凛海局中央执行委员会行使常设职权。
-          各地区苏维埃由地区行政公署与地区苏维埃代表两套班子共同管理，最终决定权在行政公署——
-          它代表凛海局中央执行委员会的执行权。此外还有海外属地和各界人士代表参与大会讨论。
-        </p>
-      </div>
-      <div class="panel panel--pad">
-        <div class="panel-title">职级序列</div>
-        <p class="prose-plain">
-          国家按架构分为委员会级、部级、司局级、处级、科级，对应
-          {rankList.slice(0, 6).map((r) => r.name).join('、')} 几个等级。
-          各部门的普通职员为专员，普通工人为专职工作者，除此之外是群众。
-        </p>
-      </div>
+    <p class="aside-note" style="margin-top:22px">
+      最高苏维埃代表大会为最高权力机关，闭会期间由凛海局中央执行委员会行使常设职权；
+      职级从委员会级到科级共
+      {rankList.length} 级，各部门专员、专职工作者与群众另列。
+      机构编制与职级序列的完整名录，见「建制」。
+    </p>
+    <div class="roster-foot" style="margin-top:18px">
+      <a class="btn btn--ghost" href={url('/system/')}>
+        机构编制与职级<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn--quiet" href={url('/territory/') + '#admin'}>行政区划</a>
     </div>
   </section>
 

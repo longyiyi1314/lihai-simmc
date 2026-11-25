@@ -8,12 +8,14 @@ import {
   site,
   memberList,
   rankMap,
-  roleMap,
-  membersOfRole,
+  portfolioMap,
+  membersOfPortfolio,
   orgsOfMember,
+  headsOfOrg,
   orgTierMap,
-  regionsOfMember,
-  regionTierMap,
+  placesOfMember,
+  headsOfPlace,
+  placeTierMap,
   formatMonth,
   statusLabel,
 } from '../../lib/loadData';
@@ -30,8 +32,8 @@ export function getStaticPaths() {
 const { member, index } = Astro.props;
 
 const rank = rankMap.get(member.rankId);
-const roles = member.roleIds
-  .map((id) => roleMap.get(id))
+const roles = member.portfolioIds
+  .map((id) => portfolioMap.get(id))
   .filter((r): r is NonNullable<typeof r> => Boolean(r));
 const hue = roles.length ? roleHueOf(roles[0].id) : 196;
 
@@ -40,28 +42,20 @@ const next = index < memberList.length - 1 ? memberList[index + 1] : null;
 
 const isAlumni = member.status === 'honorary' || member.status === 'left';
 
-const teammates = member.roleIds.length
+const teammates = member.portfolioIds.length
   ? memberList
-      .filter((m) => m.id !== member.id && m.roleIds.some((r) => member.roleIds.includes(r)))
+      .filter((m) => m.id !== member.id && m.portfolioIds.some((r) => member.portfolioIds.includes(r)))
       .slice(0, 3)
   : [];
 
 const memberOrgs = orgsOfMember(member.id);
-const memberRegions = regionsOfMember(member.id);
-
-const contacts = Object.entries(member.contacts || {}).filter(([, v]) => Boolean(v));
-const contactLabel: Record<string, string> = {
-  bilibili: '哔哩哔哩',
-  discord: 'Discord',
-  qq: 'QQ',
-};
+const memberRegions = placesOfMember(member.id);
 
 const metaRows: Array<{ k: string; v: string; mono?: boolean }> = [
   { k: '游戏 ID', v: member.gameId, mono: true },
   { k: '职级', v: rank?.name ?? member.rankId },
 ];
 if (rank?.grade) metaRows.push({ k: '级别', v: rank.grade });
-metaRows.push({ k: '加入时间', v: member.joinedAt ? formatMonth(member.joinedAt) : '未记录', mono: true });
 if (member.leftAt) metaRows.push({ k: '离会时间', v: formatMonth(member.leftAt), mono: true });
 if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mono: true });
 ---
@@ -82,7 +76,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
 
       <div class="profile-head">
         <div class="profile-main">
-          <Avatar seed={member.id} name={member.displayName} src={member.avatar} size="xl" />
+          <Avatar seed={member.id} name={member.displayName} size="xl" />
           <div class="profile-id">
             <div class="profile-badge-row">
               {rank && <RankBadge rank={rank} size="lg" />}
@@ -91,7 +85,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
             </div>
             <h1 class="profile-name">
               {member.displayName}
-              {member.title && member.title !== rank?.name && <span class="profile-title">{member.title}</span>}
+              {member.honorific && member.honorific !== rank?.name && <span class="profile-title">{member.honorific}</span>}
             </h1>
             <p class="profile-gid">{member.gameId}{rank?.grade ? ` · ${rank.grade}` : ''}</p>
             {
@@ -106,12 +100,12 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
 
         <div class="profile-side">
           <div class="pstat">
-            <div class="pstat-k">Joined</div>
-            <div class="pstat-v">{member.joinedAt ? member.joinedAt.replace('-', '.') : '—'}</div>
-          </div>
-          <div class="pstat">
             <div class="pstat-k">{isAlumni ? 'Status' : 'Rank'}</div>
             <div class="pstat-v">{isAlumni ? statusLabel[member.status] : (rank?.name ?? '—')}</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-k">Game ID</div>
+            <div class="pstat-v">{member.gameId}</div>
           </div>
         </div>
       </div>
@@ -155,7 +149,7 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
                         <span class="role-ico" aria-hidden="true">{r.icon || '◇'}</span>
                         <span class="role-detail-name">{r.name}</span>
                         <span class="role-detail-n">
-                          {membersOfRole(r.id).length} 人在此职务
+                          {membersOfPortfolio(r.id).length} 人在此职务
                         </span>
                       </div>
                       <p class="role-desc">{r.description}</p>
@@ -172,10 +166,10 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
                 <h2 class="panel-title">任职机构</h2>
                 <div class="org-link-list">
                   {memberOrgs.map((o) => (
-                    <a class="org-link" href={url('/organization/')}>
+                    <a class="org-link" href={url('/system/') + '#org-' + o.id}>
                       <span class="org-link-tier">{orgTierMap.get(o.tier)?.name ?? ''}</span>
                       <span class="org-link-name">{o.name}</span>
-                      {o.headMemberIds.includes(member.id) && (
+                      {headsOfOrg(o.id).includes(member.id) && (
                         <span class="org-link-role">负责人</span>
                       )}
                     </a>
@@ -191,10 +185,10 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
                 <h2 class="panel-title">任职地区</h2>
                 <div class="region-link-list">
                   {memberRegions.map((r) => (
-                    <a class="region-link" href={url('/regions/')}>
-                      <span class="region-link-tier">{regionTierMap.get(r.tier)?.name ?? ''}</span>
+                    <a class="region-link" href={url('/territory/') + '#rgn-' + r.id}>
+                      <span class="region-link-tier">{placeTierMap.get(r.tier)?.name ?? ''}</span>
                       <span class="region-link-name">{r.name}</span>
-                      {r.headMemberIds.includes(member.id) && (
+                      {headsOfPlace(r.id).includes(member.id) && (
                         <span class="region-link-role">
                           {r.tier === 'commune' ? '代表' : r.tier === 'region' ? '主任' : '负责'}
                         </span>
@@ -239,22 +233,6 @@ if (member.updatedAt) metaRows.push({ k: '资料更新', v: member.updatedAt, mo
                 </span>
               </div>
             </div>
-
-            {
-              contacts.length > 0 && (
-                <>
-                  <div class="panel-title" style="margin-top:22px">联系</div>
-                  <div class="meta-list">
-                    {contacts.map(([k, v]) => (
-                      <div class="meta-row">
-                        <span class="meta-k">{contactLabel[k] ?? k}</span>
-                        <span class="meta-v mono">{v}</span>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )
-            }
           </div>
 
           <p class="aside-note">

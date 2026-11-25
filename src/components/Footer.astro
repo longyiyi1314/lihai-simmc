@@ -31,24 +31,24 @@ const founded = site.foundedAt ? site.foundedAt.slice(0, 4) : '';
         <ul>
           <li><a href={url('/')}>首页</a></li>
           <li><a href={url('/members/')}>成员名录</a></li>
-          <li><a href={url('/territory/')}>疆域</a></li>
+          <li><a href={url('/system/')}>建制</a></li>
         </ul>
       </div>
 
       <div class="foot-col">
-        <h3>了解</h3>
+        <h3>土地</h3>
         <ul>
-          <li><a href={url('/ranks/')}>职级与职务</a></li>
-          <li><a href={url('/about/')}>关于璃海</a></li>
-          <li><a href={url('/about/#timeline')}>事件年表</a></li>
+          <li><a href={url('/territory/')}>疆域</a></li>
+          <li><a href={url('/territory/') + '#admin'}>行政区划</a></li>
+          <li><a href={url('/lore/')}>风物</a></li>
         </ul>
       </div>
 
       <div class="foot-col foot-col--wide">
         <h3>档案</h3>
         <ul>
+          <li><a href={url('/about/')}>关于璃海</a></li>
           <li><span>{site.government}</span></li>
-          <li><span>首府 {site.capital}</span></li>
           <li><span class="mono">EST. {founded}</span></li>
         </ul>
       </div>

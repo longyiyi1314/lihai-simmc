@@ -5,25 +5,14 @@ import SectionHead from '../components/SectionHead.astro';
 import {
   site,
   rankList,
-  roleList,
+  portfolioList,
   memberList,
-  activeMembers,
   featuredMembers,
-  membersOfRank,
   territoryList,
-  territoryTiers,
-  territoriesOfTier,
-  isPlaceholder,
-  placeholderNotice,
 } from '../lib/loadData';
 import { url } from '../lib/url';
-import { pct, roleHueOf } from '../lib/theme';
-import type { Role } from '../lib/types';
 
-const foundedYear = site.foundedAt ? site.foundedAt.slice(0, 4) : '—';
 const foundedFull = site.foundedAt ? site.foundedAt.replaceAll('-', '.') : '—';
-const announcements = site.announcements.slice(0, 3);
-const maxRankCount = Math.max(1, ...rankList.map((r) => membersOfRank(r.id).length));
 
 const stats = [
   { num: String(site.memberTotal || memberList.length), unit: '人', label: '全社在册' },
@@ -31,10 +20,6 @@ const stats = [
   { num: String(territoryList.length), unit: '处', label: '已下发领地' },
   { num: String(rankList.length), unit: '级', label: '职级序列' },
 ];
-
-function fmtDate(d: string) {
-  return d.replaceAll('-', '.');
-}
 ---
 
 <Base description={`${site.fullName || site.nationName} · ${site.server} 国家成员站：成员名单、职级体系、疆域与联盟沿革。`}>
@@ -122,165 +107,44 @@ function fmtDate(d: string) {
     </div>
   </section>
 
-  <section class="section" id="territory">
+  <section class="section" id="domains">
     <div class="wrap">
       <SectionHead
         no="02"
-        title="从凛冬半岛到云大陆"
-        desc={`已下发 ${territoryList.length} 处领地，另有 ${site.territoryTotal - site.territoryGranted} 处待下发，合计 ${site.territoryTotal} 处。`}
-        moreHref={url('/territory/')}
-        moreLabel="疆域全图"
+        title="四域速览"
+        desc="这个站讲四件事：建制怎么排、疆域有多大、风物从哪来、联盟怎么来的。"
       />
 
-      <div class="terr-band">
-        {
-          territoryTiers.map((tier) => {
-            const list = territoriesOfTier(tier.id);
-            if (list.length === 0) return null;
-            return (
-              <div class="terr-row">
-                <span class="terr-tier">
-                  <b>{tier.name}</b>
-                  <span class="terr-n mono">{list.length}</span>
-                </span>
-                <div class="terr-names">
-                  {list.map((t) => (
-                    <span class={`terr-chip terr-chip--${t.tier}`}>{t.name}</span>
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        }
-        <div class="terr-row terr-row--pending">
-          <span class="terr-tier">
-            <b>待下发</b>
-            <span class="terr-n mono">{site.territoryTotal - site.territoryGranted}</span>
-          </span>
-          <div class="terr-names">
-            <span class="terr-chip terr-chip--pending">已规划，尚未下发</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="ranks">
-    <div class="wrap">
-      <SectionHead
-        no="03"
-        title={`${rankList.length} 级职守`}
-        desc="党务行政、苏维埃代表与武装力量三条线并行，级别越高，能拍板的事越多。"
-        moreHref={url('/ranks/')}
-        moreLabel="职级体系"
-      />
-
-      <div class="home-split">
-        <div class="panel panel--pad">
-          <div class="rlist">
-            {
-              rankList.map((r) => {
-                const n = membersOfRank(r.id).length;
-                return (
-                  <div class="rlist-row" style={`--rc:${r.color}`}>
-                    <span class="rlist-gem" aria-hidden="true" />
-                    <div class="rlist-main">
-                      <div class="rlist-top">
-                        <span class="rlist-name">{r.name}</span>
-                        <span class="rlist-lv">{r.grade || `LV.${r.level}`}</span>
-                      </div>
-                      <div class="rlist-bar" aria-hidden="true">
-                        <span class="rlist-fill" style={`width:${Math.max(6, pct(n, maxRankCount))}%`} />
-                      </div>
-                    </div>
-                    <span class="rlist-n">
-                      <b>{n}</b> / {r.limit ?? '∞'}
-                    </span>
-                  </div>
-                );
-              })
-            }
-          </div>
-        </div>
-
-        <div class="home-side">
-          <div class="panel panel--pad">
-            <div class="panel-title">建国</div>
-            <div class="meta-list">
-              <div class="meta-row">
-                <span class="meta-k">全称</span>
-                <span class="meta-v">{site.fullName}</span>
-              </div>
-              <div class="meta-row">
-                <span class="meta-k">创建</span>
-                <span class="meta-v mono">{foundedFull}{site.foundedTime ? ` ${site.foundedTime}` : ''}</span>
-              </div>
-              <div class="meta-row">
-                <span class="meta-k">首府</span>
-                <span class="meta-v">{site.capital}</span>
-              </div>
-              <div class="meta-row">
-                <span class="meta-k">政体</span>
-                <span class="meta-v">{site.government}</span>
-              </div>
-            </div>
-          </div>
-
-          {
-            announcements.length > 0 && (
-              <div class="panel panel--pad">
-                <div class="panel-title">公告</div>
-                <div>
-                  {announcements.map((a) => (
-                    <div class="notice-item">
-                      <span class="notice-date">{fmtDate(a.date)}</span>
-                      <span class="notice-text">{a.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )
-          }
-
-          {
-            isPlaceholder && (
-              <p class="flag-note">
-                <span aria-hidden="true">◆</span>
-                {placeholderNotice}
-              </p>
-            )
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="roles">
-    <div class="wrap">
-      <SectionHead
-        no="04"
-        title={`${roleList.length} 类职务`}
-        desc="职级决定话语权，职务决定你每天在做什么。"
-        moreHref={url('/ranks/#roles')}
-        moreLabel="职务详情"
-      />
-
-      <div class="role-grid">
-        {
-          roleList.map((r: Role) => {
-            const n = activeMembers.filter((m) => m.roleIds.includes(r.id)).length;
-            return (
-              <a class="role-card" href={url(`/ranks/#role-${r.id}`)} style={`--rh:${roleHueOf(r.id)}`}>
-                <div class="role-card-head">
-                  <span class="role-ico" aria-hidden="true">{r.icon || '◇'}</span>
-                  <span class="role-name">{r.name}</span>
-                  <span class="role-count">{n} 人</span>
-                </div>
-                <p class="role-desc">{r.description}</p>
-              </a>
-            );
-          })
-        }
+      <div class="domain-grid">
+        <a class="domain-card" href={url('/system/')}>
+          <div class="domain-no mono">01</div>
+          <h3>建制</h3>
+          <p>
+            {rankList.length} 级职级序列、{portfolioList.length} 类职务分工、机构编制一棵树。级别越高，能拍板的事越多。
+          </p>
+          <span class="domain-go">进入建制<span class="btn-arrow" aria-hidden="true">→</span></span>
+        </a>
+        <a class="domain-card" href={url('/territory/')}>
+          <div class="domain-no mono">02</div>
+          <h3>疆域</h3>
+          <p>
+            从凛冬半岛到云大陆：行政区划一棵树，加领地台账 {site.territoryTotal} 处，已下发{' '}
+            {territoryList.length} 处。
+          </p>
+          <span class="domain-go">进入疆域<span class="btn-arrow" aria-hidden="true">→</span></span>
+        </a>
+        <a class="domain-card" href={url('/lore/')}>
+          <div class="domain-no mono">03</div>
+          <h3>风物</h3>
+          <p>地名索引与各地区介绍。莫尔卡瑟堡等奇观、边区与冻商的故事，都记在这里。</p>
+          <span class="domain-go">进入风物<span class="btn-arrow" aria-hidden="true">→</span></span>
+        </a>
+        <a class="domain-card" href={url('/about/')}>
+          <div class="domain-no mono">04</div>
+          <h3>关于</h3>
+          <p>联盟的来历、地理四区、经济制度、事件年表、旗帜与节日，以及加入方式。</p>
+          <span class="domain-go">进入关于<span class="btn-arrow" aria-hidden="true">→</span></span>
+        </a>
       </div>
     </div>
   </section>

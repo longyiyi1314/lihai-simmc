@@ -28,7 +28,7 @@ export function alpha(hex: string, a: number): string {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
-/** 向白色混合，用于把过暗的职位色提亮到可读 */
+/** 向白色混合，用于把过暗的职级色提亮到可读 */
 export function lighten(hex: string, amount: number): string {
   const { r, g, b } = hexToRgb(hex);
   const k = Math.max(0, Math.min(1, amount));

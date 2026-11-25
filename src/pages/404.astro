@@ -5,8 +5,10 @@ import { url } from '../lib/url';
 
 const links = [
   { href: url('/'), label: '首页', desc: '回到岸边' },
-  { href: url('/members/'), label: '成员名单', desc: `${memberList.length} 位在册成员` },
-  { href: url('/ranks/'), label: '职位与职务', desc: `${rankList.length} 级职位 · 6 类职务` },
+  { href: url('/members/'), label: '成员名录', desc: `${memberList.length} 位在册成员` },
+  { href: url('/system/'), label: '建制', desc: `${rankList.length} 级职级 · 机构编制` },
+  { href: url('/territory/'), label: '疆域', desc: '行政区划与领地台账' },
+  { href: url('/lore/'), label: '风物', desc: '地名索引与地区介绍' },
   { href: url('/about/'), label: '关于璃海', desc: '来历、信条与加入方式' },
 ];
 ---

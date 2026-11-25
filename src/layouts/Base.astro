@@ -24,7 +24,7 @@ const fullTitle = title
 
 const desc =
   description ||
-  `${site.nationName}（${site.nationNameEn}）${site.server} 国家成员站，收录成员名单、职位层级与成员简介。`;
+  `${site.nationName}（${site.nationNameEn}）${site.server} 国家成员站，收录成员名单、建制与成员简介。`;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com').href;
 ---
@@ -57,7 +57,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
         if (meta) meta.setAttribute('content', theme === 'light' ? '#f6efe9' : '#060c10');
       })();
     </script>
-    <link rel="canonical" href={canonical} />
+    <slot name="head">
+      <link rel="canonical" href={canonical} />
+    </slot>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={`${site.nationName} 成员站`} />

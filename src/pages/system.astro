@@ -1,0 +1,198 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import OrgNode from '../components/OrgNode.astro';
+import Avatar from '../components/Avatar.astro';
+import {
+  site,
+  organizationList,
+  rootOrganizations,
+  orgTiers,
+  rankList,
+  portfolioList,
+  membersOfRank,
+  membersOfPortfolio,
+  isPlaceholder,
+  placeholderNotice,
+} from '../lib/loadData';
+import { url } from '../lib/url';
+import { roleHueOf } from '../lib/theme';
+
+const orgTotal = organizationList.length;
+const countByOrgTier = (t: string) => organizationList.filter((o) => o.tier === t).length;
+const orgTierChips = orgTiers.map((t) => ({ ...t, n: countByOrgTier(t.id) })).filter((t) => t.n > 0);
+const rankTotal = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
+---
+
+<Base
+  title="建制"
+  description={`${site.fullName}建制：凛海局组织架构、${rankList.length} 级职级序列与 ${portfolioList.length} 类职务分工，从编制岗位到专项分工的完整脉络。`}
+>
+  <PageHead
+    title="建制"
+    crumb="建制"
+    desc="建制回答三件事：机构是编制岗位，职级是位阶高下，职务是专项分工。三者叠起来，才是一个能运转的璃海。"
+  >
+    <div class="page-meta">
+      <span>机构 <b>{orgTotal}</b> 个</span>
+      <span>职级 <b>{rankList.length}</b> 级</span>
+      <span>职务 <b>{portfolioList.length}</b> 类</span>
+      <span>名录收录 <b>{rankTotal}</b> 人</span>
+    </div>
+
+    <nav class="roster-bar" aria-label="页面章节">
+      <a class="chip" href="#org">机构编制</a>
+      <a class="chip" href="#ranks">职级序列</a>
+      <a class="chip" href="#roles">职务分工</a>
+      <a class="chip" href={url('/members/')}>成员名录</a>
+    </nav>
+  </PageHead>
+
+  <section class="wrap section" id="org">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <div class="sec-title">
+        <h2>机构编制</h2>
+        <p>凛海局下设计划经济、政务枢机、革命军事三大委员会，逐级统辖部、局、处；武装力量由璃海红军单列。机构是「岗位」，先把位子立起来，人再坐进去。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="org-tree">
+      {rootOrganizations.map((o) => (
+        <OrgNode orgId={o.id} depth={0} />
+      ))}
+    </div>
+
+    <p class="aside-note org-foot-note">
+      标注「岗位暂缺」者，为架构图中已设编制、尚未指定负责人的机构；人员补任后此处自动更新。
+    </p>
+  </section>
+
+  <section class="wrap section" id="ranks">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <div class="sec-title">
+        <h2>{rankList.length} 级职级序列</h2>
+        <p>级别越高，能拍板的事越多，需要让出去的东西也越多。职级是纵向的位阶，跟你在哪个机构无关。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="ladder">
+      {
+        rankList.map((rank) => {
+          const holders = membersOfRank(rank.id);
+          return (
+            <div class="rung" style={`--rc:${rank.color}`}>
+              <div class="rung-rail" aria-hidden="true">
+                <span class="rung-dot" />
+              </div>
+              <div class="rung-card">
+                <div class="rung-head">
+                  {rank.grade && <span class="rung-lv">{rank.grade}</span>}
+                  <h3 class="rung-name">{rank.name}</h3>
+                  <span class="rung-count">
+                    <b>{holders.length}</b> 人
+                    {rank.limit ? ` / 上限 ${rank.limit}` : ' / 不限'}
+                  </span>
+                </div>
+                <p class="rung-sum">{rank.summary}</p>
+
+                <div class="rung-cols">
+                  <div class="rung-col">
+                    <h4>职责</h4>
+                    <ul>
+                      {rank.duties.map((d) => <li>{d}</li>)}
+                    </ul>
+                  </div>
+                  <div class="rung-col">
+                    <h4>晋升</h4>
+                    <p>{rank.promotion}</p>
+                  </div>
+                  <div class="rung-col rung-col--members">
+                    <h4>在任</h4>
+                    {holders.length > 0 ? (
+                      <div class="rung-people">
+                        {holders.map((m) => (
+                          <a class="rung-person" href={url(`/members/${m.id}/`)} title={m.displayName}>
+                            <Avatar seed={m.id} name={m.displayName} size="sm" />
+                            <span>{m.displayName}</span>
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <p class="rung-empty">暂无人在此职级</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    {
+      isPlaceholder && (
+        <p class="flag-note" style="margin-top:34px">
+          <span aria-hidden="true">◆</span>
+          {placeholderNotice}
+        </p>
+      )
+    }
+  </section>
+
+  <section class="wrap section" id="roles">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <div class="sec-title">
+        <h2>{portfolioList.length} 类职务分工</h2>
+        <p>职务是横向的：一个人可以同时挂着两三个头衔，也可以一个都不挂，只安静地盖房子。</p>
+      </div>
+      <span class="sec-more">
+        <a href={url('/members/')}>按人看 →</a>
+      </span>
+    </div>
+
+    <div class="role-grid">
+      {
+        portfolioList.map((role) => {
+          const holders = membersOfPortfolio(role.id);
+          return (
+            <article class="role-card" id={`role-${role.id}`} style={`--rh:${roleHueOf(role.id)}`}>
+              <div class="role-card-head">
+                <span class="role-ico" aria-hidden="true">{role.icon || '◇'}</span>
+                <h3 class="role-name">{role.name}</h3>
+                <span class="role-count">{holders.length} 人</span>
+              </div>
+              <p class="role-desc">{role.description}</p>
+              {holders.length > 0 && (
+                <div class="role-holders">
+                  {holders.map((m) => (
+                    <a class="holder" href={url(`/members/${m.id}/`)}>
+                      <Avatar seed={m.id} name={m.displayName} size="sm" />
+                      <span>{m.displayName}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>想清楚要做哪一种人了？</h2>
+        <p>职级可以慢慢升，职务可以随时换。先进来，再谈想去哪个方向。</p>
+      </div>
+      <a class="btn btn--primary" href={url('/about/#join')}>
+        了解加入方式<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</Base>

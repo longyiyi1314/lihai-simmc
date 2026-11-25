@@ -185,35 +185,16 @@ for (const m of sortedMembers) {
   }
 }
 
-// ================= 成员（派生兼容视图：roleIds/title 等，Phase A 迁移组件后移除）=================
+// ================= 成员 =================
 type RawMember = (typeof members.members)[number];
-type CompatMember = RawMember & {
-  roleIds: string[];
-  title: string;
-  avatar: string;
-  joinedAt: string;
-  contacts: Record<string, string>;
-};
-const withMemberCompat = (m: RawMember): CompatMember => ({
-  ...m,
-  roleIds: m.portfolioIds,
-  title: m.honorific,
-  avatar: '',
-  joinedAt: '',
-  contacts: {},
-});
+export type Member = RawMember;
 
-export const memberList: CompatMember[] = sortedMembers.map(withMemberCompat);
+export const memberList: RawMember[] = sortedMembers;
 export const memberMap = new Map(memberList.map((m) => [m.id, m]));
 
-// ================= 机构（纯树 + 派生 memberIds/headMemberIds 兼容视图）=================
+// ================= 机构（纯树，成员经 membersOfOrg/headsOfOrg 派生）=================
 type RawOrg = (typeof organizations.organizations)[number];
-type CompatOrg = RawOrg & { memberIds: string[]; headMemberIds: string[] };
-export const organizationList: CompatOrg[] = organizations.organizations.map((o) => ({
-  ...o,
-  memberIds: orgMembersMap.get(o.id) ?? [],
-  headMemberIds: orgHeadsMap.get(o.id) ?? [],
-}));
+export const organizationList: RawOrg[] = organizations.organizations;
 export const organizationMap = new Map(organizationList.map((o) => [o.id, o]));
 
 export const orgTiers = [
@@ -240,7 +221,7 @@ export const rootOrganizations = childrenOf(null);
 export function membersOfOrg(orgId: string) {
   return (orgMembersMap.get(orgId) ?? [])
     .map((id) => memberMap.get(id))
-    .filter((m): m is CompatMember => Boolean(m));
+    .filter((m): m is RawMember => Boolean(m));
 }
 export function headsOfOrg(orgId: string) {
   return orgHeadsMap.get(orgId) ?? [];
@@ -251,20 +232,15 @@ export function orgsOfMember(memberId: string) {
   return (m.appointments as Appt[])
     .filter((a) => a.node === 'org')
     .map((a) => organizationMap.get(a.id))
-    .filter((o): o is CompatOrg => Boolean(o));
+    .filter((o): o is RawOrg => Boolean(o));
 }
 export function appointmentsOf(memberId: string): Appt[] {
   return (memberMap.get(memberId)?.appointments ?? []) as Appt[];
 }
 
-// ================= 地名（合并树 + 派生 memberIds/headMemberIds 兼容视图）=================
+// ================= 地名（合并树，成员经 membersOfPlace/headsOfPlace 派生）=================
 type RawPlace = (typeof places.places)[number];
-type CompatPlace = RawPlace & { memberIds: string[]; headMemberIds: string[] };
-export const placeList: CompatPlace[] = places.places.map((p) => ({
-  ...p,
-  memberIds: placeMembersMap.get(p.id) ?? [],
-  headMemberIds: placeHeadsMap.get(p.id) ?? [],
-}));
+export const placeList: RawPlace[] = places.places;
 export const placeMap = new Map(placeList.map((p) => [p.id, p]));
 
 /** 地名行政级别（含 locality） */
@@ -294,7 +270,7 @@ export const rootPlaces = childrenOfPlace(null);
 export function membersOfPlace(placeId: string) {
   return (placeMembersMap.get(placeId) ?? [])
     .map((id) => memberMap.get(id))
-    .filter((m): m is CompatMember => Boolean(m));
+    .filter((m): m is RawMember => Boolean(m));
 }
 export function headsOfPlace(placeId: string) {
   return placeHeadsMap.get(placeId) ?? [];
@@ -305,7 +281,7 @@ export function placesOfMember(memberId: string) {
   return (m.appointments as Appt[])
     .filter((a) => a.node === 'place')
     .map((a) => placeMap.get(a.id))
-    .filter((p): p is CompatPlace => Boolean(p));
+    .filter((p): p is RawPlace => Boolean(p));
 }
 
 // ================= 聚落规模（原领地）=================
@@ -380,19 +356,7 @@ export { siteView as site };
 export const capitalName_ = capitalName;
 
 // ================= 兼容别名（旧导出名，Phase A 迁移组件后删除）=================
-export const roleList = portfolioList;
-export const roleMap = portfolioMap;
-export const membersOfRole = membersOfPortfolio;
-export const regionList = adminPlaces;
-export const regionMap = placeMap;
-export const regionTiers = placeTiers.filter((t) => t.id !== 'locality');
-export const regionTierMap = new Map(regionTiers.map((t) => [t.id, t]));
-export const childrenOfRegion = childrenOfPlace;
-export const rootRegions = rootPlaces.filter((p) => p.tier !== 'locality');
-export const regionsOfMember = placesOfMember;
-export const territoryTiers = settlementTiers;
-export const territoryTierMap = settlementTierMap;
-export const loreIntroOf = loreOfPlace;
+
 
 export { ranks, portfolios, members, organizations, places, lore };
 

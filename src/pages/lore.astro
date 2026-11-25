@@ -6,26 +6,31 @@ import {
   loreRegions,
   loreNote,
   allLoreWonders,
+  placeList,
+  loreOfPlace,
 } from '../lib/loadData';
 import { url } from '../lib/url';
+
+const placeIndex = placeList.map((p) => ({ ...p, intro: loreOfPlace(p.id) }));
 ---
 
 <Base
-  title="地区介绍"
-  description={`${site.fullName}的地区介绍与奇观：蒙德的莫尔卡瑟堡等名胜。`}
+  title="风物"
+  description={`${site.fullName}的风物地志：地名索引与各地区介绍、莫尔卡瑟堡等奇观。`}
 >
   <PageHead
-    title="地区介绍"
-    crumb="地区介绍"
+    title="风物"
+    crumb="风物"
     desc="山川、圣域与奇观。这片土地上不只有公社与领地，还有它们背后的故事。"
   >
     <div class="page-meta">
       <span>收录地区 <b>{loreRegions.length}</b> 个</span>
       <span>奇观 <b>{allLoreWonders.length}</b> 处</span>
-      <span>资料来源 <b>SimMC Wiki</b></span>
+      <span>地名 <b>{placeIndex.length}</b> 处</span>
     </div>
 
     <nav class="roster-bar" aria-label="按地区跳转">
+      <a class="chip" href="#index">地名索引</a>
       {
         loreRegions.map((r) => (
           <a class="chip" href={`#region-${r.id}`}>
@@ -38,6 +43,35 @@ import { url } from '../lib/url';
   </PageHead>
 
   <div class="wrap">
+    <section class="place-index" id="index">
+      <div class="sec-head">
+        <span class="sec-no">00</span>
+        <div class="sec-title">
+          <h2>地名索引</h2>
+          <p>全盟地名一览。已录介绍的地名可点击跳转到对应风物条目，未收录的暂付阙如。</p>
+        </div>
+        <span />
+      </div>
+      <ul class="place-index-list">
+        {
+          placeIndex.map((p) => (
+            <li>
+              {p.intro ? (
+                <a class="place-link" href={`#region-${p.intro.id}`}>
+                  {p.name}
+                  <span class="place-link-mark" aria-hidden="true">介绍</span>
+                </a>
+              ) : (
+                <span class="place-index-none">
+                  {p.name}
+                  <span class="place-index-tag">暂无介绍</span>
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
     {
       loreRegions.map((region, ri) => (
         <section class="lore-region" id={`region-${region.id}`}>

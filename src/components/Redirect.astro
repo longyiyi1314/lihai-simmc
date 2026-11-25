@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  /** 目标路径（含 hash 锚点），如 '/system/#org' */
+  to: string;
+  /** 旧页面名，如 '组织架构' */
+  fromLabel: string;
+  /** 新位置说明，如 '机构编制' */
+  toLabel: string;
+}
+const { to, fromLabel, toLabel } = Astro.props;
+const dest = url(to);
+const full = Astro.site ? new URL(dest, Astro.site).toString() : dest;
+---
+
+<Base title={`${fromLabel} · 已迁移`}>
+  <Fragment slot="head">
+    <meta http-equiv="refresh" content={`0;url=${dest}`} />
+    <link rel="canonical" href={full} />
+  </Fragment>
+
+  <div class="wrap redirect-wrap">
+    <div class="redirect-note">
+      <p class="redirect-kicker" aria-hidden="true">MOVED</p>
+      <h1>「{fromLabel}」已并入「{toLabel}」</h1>
+      <p>这一节已调整到新的位置，正在为你跳转；若未自动跳转，请点击下面的按钮。</p>
+      <a class="btn btn--primary" href={dest}>
+        前往「{toLabel}」<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</Base>

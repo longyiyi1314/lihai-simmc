@@ -1,23 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import RegionNode from '../components/RegionNode.astro';
 import {
   site,
   territoryList,
-  territoryTiers,
+  settlementTiers,
   territoriesOfTier,
   isPlaceholder,
   placeholderNotice,
   formatDateFull,
   loreOfPlace,
+  adminPlaces,
+  rootPlaces,
 } from '../lib/loadData';
 import { url } from '../lib/url';
 
 const pending = Math.max(0, site.territoryTotal - territoryList.length);
-const tierWithItems = territoryTiers
+const tierWithItems = settlementTiers
   .map((t) => ({ ...t, list: territoriesOfTier(t.id) }))
   .filter((t) => t.list.length > 0)
   .map((t, i) => ({ ...t, no: String(i + 1).padStart(2, '0') }));
+const regionTotal = adminPlaces.length;
+const communeCount = adminPlaces.filter((r) => r.tier === 'commune').length;
+const rootRegions = rootPlaces.filter((p) => p.tier !== 'locality');
 ---
 
 <Base
@@ -37,6 +43,8 @@ const tierWithItems = territoryTiers
     </div>
 
     <nav class="roster-bar" aria-label="按层级跳转">
+      <a class="chip" href="#admin">行政区划<b>{regionTotal}</b></a>
+      <a class="chip" href="#fiefs">领地台账<b>{territoryList.length}</b></a>
       {
         tierWithItems.map((t) => (
           <a class="chip" href={`#tier-${t.id}`}>
@@ -49,7 +57,48 @@ const tierWithItems = territoryTiers
     </nav>
   </PageHead>
 
-  <div class="wrap">
+  <section class="wrap section" id="admin">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <div class="sec-title">
+        <h2>行政区划</h2>
+        <p>中央执行委员会在各地区设立行政公署，任命地区主任代表凛海局领导；地区苏维埃下辖公社，公社享委员级权限、可自治，须服从上级地区。</p>
+      </div>
+      <span />
+    </div>
+
+    <div class="reading-note">
+      <span class="reading-note-mark" aria-hidden="true">◈</span>
+      <div>
+        <strong>怎么读这棵树</strong>
+        <p>
+          树上三层是权力机关（璃海最高苏维埃 → 凛海局 → 凛海局中央执行委员会），下两层是行政区划（地区苏维埃 →
+          公社）。共 {regionTotal} 个节点、{communeCount} 个公社。
+        </p>
+      </div>
+    </div>
+
+    <div class="rgn-tree">
+      {rootRegions.map((r) => (
+        <RegionNode regionId={r.id} depth={0} />
+      ))}
+    </div>
+
+    <p class="aside-note rgn-foot-note">
+      地区级、公社级为该建制单位相当于凛海局的权限级别，不代表负责人的实际职级；负责人级别可高于地区级别。尚未指定代表的公社，人员补任后此处自动更新。
+    </p>
+  </section>
+
+  <section class="wrap section" id="fiefs">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <div class="sec-title">
+        <h2>领地台账</h2>
+        <p>按聚落规模分档的领地台账，与上面的行政区划互为经纬：一套看建制，一套看地盘。</p>
+      </div>
+      <span />
+    </div>
+
     {
       tierWithItems.map((tier) => (
         <section class="terr-section" id={`tier-${tier.id}`}>
@@ -85,7 +134,9 @@ const tierWithItems = territoryTiers
         </section>
       ))
     }
+  </section>
 
+  <div class="wrap">
     {
       pending > 0 && (
         <section class="terr-section" id="pending">
@@ -115,7 +166,7 @@ const tierWithItems = territoryTiers
       <a class="btn btn--ghost" href={url('/about/')}>
         联盟是怎么来的<span class="btn-arrow" aria-hidden="true">→</span>
       </a>
-      <a class="btn btn--quiet" href={url('/ranks/')}>职级与职务</a>
+      <a class="btn btn--quiet" href={url('/system/') + '#ranks'}>职级与职务</a>
     </div>
   </div>
 </Base>
