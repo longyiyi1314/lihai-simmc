@@ -1,0 +1,461 @@
+{
+  "isPlaceholder": false,
+  "organizations": [
+    {
+      "id": "root",
+      "name": "璃海苏维埃凛海局",
+      "tier": "root",
+      "parentId": null,
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "plan",
+      "name": "计划经济委员会",
+      "tier": "committee",
+      "parentId": "root",
+      "headMemberIds": [
+        "lnactifseven"
+      ],
+      "memberIds": [
+        "lnactifseven"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "labor-dept",
+      "name": "劳动生产部",
+      "tier": "department",
+      "parentId": "plan",
+      "headMemberIds": [
+        "haaamburger"
+      ],
+      "memberIds": [
+        "haaamburger",
+        "darkwings-lok",
+        "wd-zzt"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "agri-bureau",
+      "name": "农业局",
+      "tier": "bureau",
+      "parentId": "labor-dept",
+      "headMemberIds": [
+        "ssds-x"
+      ],
+      "memberIds": [
+        "ssds-x",
+        "wd-zzt"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "farm-products",
+      "name": "农产处",
+      "tier": "division",
+      "parentId": "agri-bureau",
+      "headMemberIds": [],
+      "memberIds": [
+        "wd-zzt"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "animal-husbandry",
+      "name": "牧产处",
+      "tier": "division",
+      "parentId": "agri-bureau",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": ""
+    },
+    {
+      "id": "labor-bureau",
+      "name": "劳动局",
+      "tier": "bureau",
+      "parentId": "labor-dept",
+      "headMemberIds": [
+        "darkwings-lok"
+      ],
+      "memberIds": [
+        "darkwings-lok",
+        "yizz34"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "warehouse",
+      "name": "仓储物流处",
+      "tier": "division",
+      "parentId": "labor-bureau",
+      "headMemberIds": [],
+      "memberIds": [
+        "heinrich4084"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "workers-committee",
+      "name": "璃海工人委员会",
+      "tier": "division",
+      "parentId": "labor-bureau",
+      "headMemberIds": [],
+      "memberIds": [
+        "yizz34"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "industry-bureau",
+      "name": "工业局",
+      "tier": "bureau",
+      "parentId": "labor-dept",
+      "headMemberIds": [
+        "longyiyi1314"
+      ],
+      "memberIds": [
+        "longyiyi1314"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "science-tech",
+      "name": "科学技术工业委员会",
+      "tier": "division",
+      "parentId": "industry-bureau",
+      "headMemberIds": [],
+      "memberIds": [
+        "longyiyi1314"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "building-materials",
+      "name": "建材生产处",
+      "tier": "division",
+      "parentId": "industry-bureau",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": ""
+    },
+    {
+      "id": "housing-dept",
+      "name": "住房建设部",
+      "tier": "department",
+      "parentId": "plan",
+      "headMemberIds": [
+        "akiyamatwt"
+      ],
+      "memberIds": [
+        "akiyamatwt",
+        "yue-smile"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "urban-facilities",
+      "name": "城市设施局",
+      "tier": "bureau",
+      "parentId": "housing-dept",
+      "headMemberIds": [],
+      "memberIds": [
+        "heinrich4084"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "commerce-dept",
+      "name": "工商贸易部",
+      "tier": "department",
+      "parentId": "plan",
+      "headMemberIds": [
+        "ssds-x"
+      ],
+      "memberIds": [
+        "ssds-x"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "liquor-bureau",
+      "name": "酒业局",
+      "tier": "bureau",
+      "parentId": "commerce-dept",
+      "headMemberIds": [
+        "lnactifseven"
+      ],
+      "memberIds": [
+        "lnactifseven",
+        "xiaofeiying"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "food-bureau",
+      "name": "食品局",
+      "tier": "bureau",
+      "parentId": "commerce-dept",
+      "headMemberIds": [
+        "wd-zzt"
+      ],
+      "memberIds": [
+        "wd-zzt",
+        "xmohe"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "trade-bureau",
+      "name": "商贸局",
+      "tier": "bureau",
+      "parentId": "commerce-dept",
+      "headMemberIds": [],
+      "memberIds": [
+        "lnactifseven"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "finance-committee",
+      "name": "财政委员会",
+      "tier": "department",
+      "parentId": "plan",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi",
+        "lnactifseven",
+        "ssds-x"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "gov",
+      "name": "政务枢机委员会",
+      "tier": "committee",
+      "parentId": "root",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "foreign-recruit",
+      "name": "外交招募部",
+      "tier": "department",
+      "parentId": "gov",
+      "headMemberIds": [],
+      "memberIds": [
+        "yangguagua"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "recruitment",
+      "name": "招新处",
+      "tier": "division",
+      "parentId": "foreign-recruit",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": ""
+    },
+    {
+      "id": "civil-affairs",
+      "name": "民政治安部",
+      "tier": "department",
+      "parentId": "gov",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": ""
+    },
+    {
+      "id": "resettlement",
+      "name": "安置处",
+      "tier": "division",
+      "parentId": "civil-affairs",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": ""
+    },
+    {
+      "id": "supervision",
+      "name": "政治监察委员会",
+      "tier": "department",
+      "parentId": "gov",
+      "headMemberIds": [
+        "heinrich4084"
+      ],
+      "memberIds": [
+        "heinrich4084",
+        "hh-xmh",
+        "lnactifseven"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "culture",
+      "name": "文化宣传与活动委员会",
+      "tier": "department",
+      "parentId": "gov",
+      "headMemberIds": [],
+      "memberIds": [
+        "lnactifseven",
+        "yangguagua",
+        "qiyushi",
+        "chu-mengg",
+        "hh-xmh"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "judiciary",
+      "name": "司法委员会",
+      "tier": "department",
+      "parentId": "gov",
+      "headMemberIds": [],
+      "memberIds": [
+        "qiyushi",
+        "foreverzzz",
+        "lnactifseven"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "mil",
+      "name": "革命军事委员会",
+      "tier": "committee",
+      "parentId": "root",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi",
+        "lnactifseven",
+        "foreverzzz"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "defense-dept",
+      "name": "国防军事部",
+      "tier": "department",
+      "parentId": "mil",
+      "headMemberIds": [],
+      "memberIds": [
+        "foreverzzz"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "general-logistics",
+      "name": "总后勤部",
+      "tier": "department",
+      "parentId": "mil",
+      "headMemberIds": [],
+      "memberIds": [],
+      "summary": ""
+    },
+    {
+      "id": "red-army-hq",
+      "name": "璃海红军",
+      "tier": "department",
+      "parentId": "mil",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi",
+        "lnactifseven",
+        "foreverzzz"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "arcane-corps",
+      "name": "奥术兵团",
+      "tier": "unit",
+      "parentId": "red-army-hq",
+      "headMemberIds": [
+        "lnactifseven"
+      ],
+      "memberIds": [
+        "lnactifseven"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "red-guard-corps",
+      "name": "红色近卫兵团",
+      "tier": "unit",
+      "parentId": "red-army-hq",
+      "headMemberIds": [
+        "qiyushi"
+      ],
+      "memberIds": [
+        "qiyushi"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "falcon-corps",
+      "name": "远征猎鹰兵团",
+      "tier": "unit",
+      "parentId": "red-army-hq",
+      "headMemberIds": [
+        "foreverzzz"
+      ],
+      "memberIds": [
+        "foreverzzz"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "menghai-cmd",
+      "name": "蒙海军区",
+      "tier": "unit",
+      "parentId": "red-army-hq",
+      "headMemberIds": [
+        "ssds-x"
+      ],
+      "memberIds": [
+        "ssds-x"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "capital-garrison",
+      "name": "首都卫戍区",
+      "tier": "unit",
+      "parentId": "red-army-hq",
+      "headMemberIds": [],
+      "memberIds": [
+        "heinrich4084",
+        "darkwings-lok"
+      ],
+      "summary": ""
+    },
+    {
+      "id": "qichuan-cmd",
+      "name": "岐川军区",
+      "tier": "unit",
+      "parentId": "red-army-hq",
+      "headMemberIds": [],
+      "memberIds": [
+        "xindexinde",
+        "xmohe"
+      ],
+      "summary": ""
+    }
+  ]
+}
