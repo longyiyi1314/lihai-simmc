@@ -5,12 +5,8 @@ import SectionHead from '../components/SectionHead.astro';
 import {
   site,
   rankList,
-  orgRoot,
-  orgChildren,
-  orgHeadcount,
-  orgChildCount,
+  roleList,
   memberList,
-  orgNodeList,
   activeMembers,
   featuredMembers,
   membersOfRank,
@@ -21,10 +17,8 @@ import {
   placeholderNotice,
 } from '../lib/loadData';
 import { url } from '../lib/url';
-import { pct, branchHue } from '../lib/theme';
-
-/** 凛海局之下的三条一级分支（政务枢机 / 革命军事 / 计划经济） */
-const branches = orgChildren(orgRoot.id);
+import { pct, roleHueOf } from '../lib/theme';
+import type { Role } from '../lib/types';
 
 const foundedYear = site.foundedAt ? site.foundedAt.slice(0, 4) : '—';
 const foundedFull = site.foundedAt ? site.foundedAt.replaceAll('-', '.') : '—';
@@ -54,18 +48,6 @@ function fmtDate(d: string) {
     </div>
 
     <div class="wrap">
-      <div class="hero-hud" aria-hidden="true">
-        <span class="hero-hud-row">
-          <span class="hero-hud-dot"></span>
-          <b>SIG</b>
-          <span>{site.nationNameEn || 'RIHERIA'} · {site.server}</span>
-        </span>
-        <span class="hero-hud-row">
-          <b>CHK</b>
-          <span>CREW {site.memberTotal || memberList.length} · CHUNK {site.chunkTotal}</span>
-        </span>
-      </div>
-
       <div class="hero-inner">
         <div class="hero-copy">
           <p class="hero-eyebrow">
@@ -78,7 +60,7 @@ function fmtDate(d: string) {
 
           <h1 class="hero-word" data-word={site.nationName}>
             <span class="hero-word-main">{site.nationName}</span>
-            <span class="hero-word-en">{site.nationNameEn || 'Riheria'}</span>
+            <span class="hero-word-en">{site.nationNameEn || 'Lihai'}</span>
           </h1>
 
           {site.fullName && <p class="hero-fullname">{site.fullName}</p>}
@@ -273,39 +255,28 @@ function fmtDate(d: string) {
     </div>
   </section>
 
-  <section class="section" id="org">
+  <section class="section" id="roles">
     <div class="wrap">
       <SectionHead
         no="04"
-        title="凛海局 · 三个委员会"
-        desc="凛海局由政务枢机、革命军事、计划经济三个大委员会组成，委员会下再设部、局、处、兵团与军区。"
-        moreHref={url('/org/')}
-        moreLabel="完整机构树"
+        title={`${roleList.length} 类职务`}
+        desc="职级决定话语权，职务决定你每天在做什么。"
+        moreHref={url('/ranks/#roles')}
+        moreLabel="职务详情"
       />
 
-      <div class="org-grid">
+      <div class="role-grid">
         {
-          branches.map((b, i) => {
-            const kids = orgChildren(b.id);
+          roleList.map((r: Role) => {
+            const n = activeMembers.filter((m) => m.roleIds.includes(r.id)).length;
             return (
-              <a class="org-card org-card--branch" href={url(`/org/#org-${b.id}`)} style={`--oh:${branchHue(i)}`}>
-                <div class="org-card-head">
-                  <span class="org-ico" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span class="org-name">{b.name}</span>
-                  <span class="org-count">{orgHeadcount(b.id)} 人</span>
+              <a class="role-card" href={url(`/ranks/#role-${r.id}`)} style={`--rh:${roleHueOf(r.id)}`}>
+                <div class="role-card-head">
+                  <span class="role-ico" aria-hidden="true">{r.icon || '◇'}</span>
+                  <span class="role-name">{r.name}</span>
+                  <span class="role-count">{n} 人</span>
                 </div>
-                <p class="org-desc">{b.summary}</p>
-                <div class="org-kids">
-                  {kids.map((k) => (
-                    <span class="org-kid">{k.name}</span>
-                  ))}
-                </div>
-                <div class="org-foot">
-                  <span class="mono">{kids.length} 个直属机构</span>
-                  <span class="org-arrow" aria-hidden="true">→</span>
-                </div>
+                <p class="role-desc">{r.description}</p>
               </a>
             );
           })
