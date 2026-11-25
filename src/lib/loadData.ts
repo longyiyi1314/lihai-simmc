@@ -430,6 +430,23 @@ export function wondersOfRegion(regionId: string) {
   return loreRegionMap.get(regionId)?.wonders ?? [];
 }
 
+/** 归一化地名后缀，用于把「蒙德」和「蒙德公社」这类写法对上 */
+function normPlace(s: string) {
+  return s
+    .trim()
+    .replace(/(地区苏维埃|苏维埃|自治区|自治州|自治县|开发区|工作区|特区|公社|县|市|区|镇|乡)$/, '');
+}
+
+/** 地名（含后缀变体）→ 地区介绍锚点 */
+const loreIntroByPlace = new Map<string, { id: string; name: string }>();
+for (const r of loreRegions) {
+  loreIntroByPlace.set(normPlace(r.name), { id: r.id, name: r.name });
+}
+/** 某个地名是否有对应「地区介绍」，返回 {id,name} 或 null */
+export function loreIntroOf(placeName: string) {
+  return loreIntroByPlace.get(normPlace(placeName)) ?? null;
+}
+
 /** 某节点的直接下级，按层级权重、再按数组顺序 */
 export function childrenOfRegion(parentId: string | null) {
   return regionList

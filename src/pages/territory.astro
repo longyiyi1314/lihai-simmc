@@ -9,6 +9,7 @@ import {
   isPlaceholder,
   placeholderNotice,
   formatDateFull,
+  loreIntroOf,
 } from '../lib/loadData';
 import { url } from '../lib/url';
 
@@ -59,15 +60,27 @@ const tierWithItems = territoryTiers
             <span class="terr-total mono">{tier.list.length} 处</span>
           </div>
           <div class="terr-cards">
-            {tier.list.map((t) => (
-              <article class="terr-card">
-                <div class="terr-card-top">
-                  <span class="terr-glyph" aria-hidden="true">◈</span>
-                  <h3>{t.name}</h3>
-                </div>
-                {t.note && <p class="terr-note">{t.note}</p>}
-              </article>
-            ))}
+            {tier.list.map((t) => {
+              const intro = loreIntroOf(t.name);
+              return (
+                <article class="terr-card">
+                  <div class="terr-card-top">
+                    <span class="terr-glyph" aria-hidden="true">◈</span>
+                    <h3>
+                      {intro ? (
+                        <a class="place-link" href={url('/lore/') + '#region-' + intro.id}>
+                          {t.name}
+                          <span class="place-link-mark" aria-hidden="true">介绍</span>
+                        </a>
+                      ) : (
+                        t.name
+                      )}
+                    </h3>
+                  </div>
+                  {t.note && <p class="terr-note">{t.note}</p>}
+                </article>
+              );
+            })}
           </div>
         </section>
       ))
