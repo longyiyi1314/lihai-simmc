@@ -1,0 +1,1052 @@
+/* ============================================================================
+   璃海苏维埃公社联盟 · 亮色主题「日光档案 / 玻璃海」
+   ----------------------------------------------------------------------------
+   · 仅覆盖「颜色与光影」，不改布局、字号、间距、动效节奏；
+   · 全部选择器带 :root[data-theme="light"] 前缀 —— 暗色主题零影响；
+   · 亮底上不再使用「发光」，改为：柔和投影 + 细描边 + 淡色块 + 纸面高光；
+   · 品牌四色（旗红 #d9544a / 星金 #e6c67c / 旗蓝 #94a3d4 / 旗白 #f6edea）
+     按浅底可读性压深，色相不变，识别度保留。
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. 设计令牌
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  /* 纸层：越靠前的面越亮，层级靠「亮面 + 细描边 + 柔和投影」建立 */
+  --abyss: #ece1da;
+  --bg: #f6efe9;
+  --bg-2: #f1e7e0;
+  --surface: #fffaf6;
+  --surface-2: #f8efe8;
+  --surface-3: #efe1d8;
+
+  --line: rgba(88, 42, 38, 0.12);
+  --line-2: rgba(88, 42, 38, 0.2);
+  --line-3: rgba(88, 42, 38, 0.32);
+
+  --text: #271619;
+  --text-2: #4a3234;
+  --muted: #6b4f50;
+  --muted-2: #715456;
+
+  /* 品牌色（浅底压深版） */
+  --red: #ad372e;
+  --red-2: #8d2a24;
+  --red-3: #d9b7b2;
+  --gold: #795718;
+  --gold-2: #6a4e14;
+  --blue: #3f5f8c;
+
+  --grad-red: linear-gradient(135deg, #b94a3f 0%, #a8322c 45%, #7d211c 100%);
+  --grad-star: linear-gradient(135deg, #9a7a2e 0%, #795718 48%, #5c4210 100%);
+  --grad-panel: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.26) 42%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --shadow-1: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 16px 34px -30px rgba(84, 34, 30, 0.55);
+  --shadow-2: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 30px 60px -40px rgba(84, 34, 30, 0.6);
+
+  /* v4 科技层：冷蓝改「档案钢蓝」，HUD 发光改描边与淡色块 */
+  --tech-blue: #3f5f8c;
+  --tech-line: rgba(63, 95, 140, 0.2);
+  --tech-line-2: rgba(63, 95, 140, 0.34);
+  --tech-glow: rgba(63, 95, 140, 0.2);
+  --hud-gold: rgba(121, 87, 24, 0.4);
+  --hud-red: rgba(173, 55, 46, 0.36);
+  --hud-line: rgba(88, 42, 38, 0.22);
+  --glass-bg: linear-gradient(180deg, rgba(255, 252, 249, 0.88), rgba(246, 236, 229, 0.74));
+}
+
+/* ---------------------------------------------------------------------------
+   2. 基础层：纸面、颗粒、选区、焦点、滚动条
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 640px at 50% -18%, #fffaf4 0%, transparent 62%),
+    radial-gradient(760px 520px at 96% 8%, rgba(214, 150, 120, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #f8f1eb 0%, #f5ece5 48%, #efe2d9 100%);
+}
+
+:root[data-theme='light'] body::before {
+  background:
+    radial-gradient(680px 420px at 12% 4%, rgba(173, 55, 46, 0.055), transparent 68%),
+    radial-gradient(620px 420px at 88% 2%, rgba(121, 87, 24, 0.05), transparent 70%);
+}
+
+/* 深色颗粒在纸面上会显脏，改成极淡的暖色纤维感 */
+:root[data-theme='light'] body::after {
+  opacity: 0.18;
+  background-image: radial-gradient(rgba(120, 80, 60, 0.3) 0.5px, transparent 0.5px);
+}
+
+:root[data-theme='light'] ::selection {
+  background: rgba(173, 55, 46, 0.18);
+  color: #271619;
+}
+
+:root[data-theme='light'] :focus-visible {
+  outline: 2px solid rgba(173, 55, 46, 0.85);
+}
+
+:root[data-theme='light'] * {
+  scrollbar-color: rgba(120, 80, 70, 0.38) transparent;
+}
+
+:root[data-theme='light'] *::-webkit-scrollbar-thumb {
+  background: rgba(120, 80, 70, 0.3);
+}
+
+/* ---------------------------------------------------------------------------
+   3. 通用排版件
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .sec-head::before {
+  box-shadow: 0 4px 12px rgba(173, 55, 46, 0.22);
+}
+
+/* ---------------------------------------------------------------------------
+   4. 按钮
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .btn--primary {
+  color: #fffaf6;
+  box-shadow:
+    0 10px 22px -14px rgba(125, 33, 28, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+:root[data-theme='light'] .btn--primary:hover {
+  box-shadow:
+    0 16px 30px -14px rgba(125, 33, 28, 0.62),
+    inset 0 1px 0 rgba(255, 255, 255, 0.36);
+}
+
+:root[data-theme='light'] .btn--primary::after {
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+}
+
+:root[data-theme='light'] .btn--ghost {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .btn--ghost:hover {
+  border-color: rgba(173, 55, 46, 0.45);
+  background: rgba(173, 55, 46, 0.07);
+}
+
+:root[data-theme='light'] .btn--quiet:hover {
+  background: rgba(173, 55, 46, 0.07);
+}
+
+/* ---------------------------------------------------------------------------
+   5. 顶栏
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .site-header {
+  background: rgba(250, 242, 236, 0.82);
+}
+
+:root[data-theme='light'] .site-header::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(173, 55, 46, 0.32) 28%,
+    rgba(121, 87, 24, 0.24) 62%,
+    transparent
+  );
+}
+
+:root[data-theme='light'] .brand-mark {
+  background: linear-gradient(150deg, #fdf6f1, #f0ddd5 70%);
+  box-shadow:
+    inset 0 0 0 1px rgba(173, 55, 46, 0.3),
+    0 6px 16px -12px rgba(125, 33, 28, 0.55);
+}
+
+:root[data-theme='light'] .brand-mark::before {
+  box-shadow: 0 3px 10px -4px rgba(125, 33, 28, 0.6);
+}
+
+:root[data-theme='light'] .brand-mark::after {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .brand:hover .brand-mark {
+  box-shadow:
+    inset 0 0 0 1px rgba(173, 55, 46, 0.5),
+    0 8px 20px -12px rgba(125, 33, 28, 0.62);
+}
+
+:root[data-theme='light'] .nav-link:hover {
+  background: rgba(173, 55, 46, 0.06);
+}
+
+:root[data-theme='light'] .nav-link[aria-current='page']::after {
+  box-shadow: 0 2px 8px rgba(173, 55, 46, 0.35);
+}
+:root[data-theme='light'] .header-cta {
+  border-color: rgba(121, 87, 24, 0.3);
+  background: rgba(121, 87, 24, 0.07);
+}
+
+/* 亮点：辉光 → 淡色光环 */
+:root[data-theme='light'] .header-cta .dot {
+  box-shadow: 0 0 0 3px rgba(121, 87, 24, 0.16);
+}
+
+/* ---------------------------------------------------------------------------
+   6. 页脚
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .site-footer {
+  background: linear-gradient(180deg, rgba(247, 236, 228, 0.35), #efe2d9);
+}
+
+:root[data-theme='light'] .site-footer::before {
+  background: linear-gradient(90deg, transparent, rgba(173, 55, 46, 0.24), rgba(121, 87, 24, 0.18), transparent);
+}
+
+:root[data-theme='light'] .site-footer::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(63, 95, 140, 0.24) 40%,
+    rgba(121, 87, 24, 0.18) 60%,
+    transparent
+  );
+}
+
+:root[data-theme='light'] .foot-motto {
+  color: var(--gold-2);
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   7. 首屏（日光海雾）
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .hero-orb--a {
+  background: radial-gradient(circle, rgba(214, 138, 110, 0.3) 0%, rgba(226, 180, 150, 0.14) 45%, transparent 70%);
+}
+
+:root[data-theme='light'] .hero-orb--b {
+  background: radial-gradient(circle, rgba(198, 168, 96, 0.22) 0%, transparent 68%);
+}
+
+:root[data-theme='light'] .hero-sea {
+  background-image: repeating-linear-gradient(180deg, rgba(120, 70, 60, 0.1) 0 1px, transparent 1px 46px);
+}
+
+/* 亮底不做「压暗」，改为向下融入纸面 */
+:root[data-theme='light'] .hero-sea::after {
+  background: linear-gradient(180deg, transparent 0%, rgba(246, 239, 233, 0.42) 45%, rgba(246, 239, 233, 0.94) 100%);
+}
+
+:root[data-theme='light'] .hero-grid {
+  background-image: repeating-linear-gradient(90deg, rgba(120, 70, 60, 0.075) 0 1px, transparent 1px 148px);
+}
+
+:root[data-theme='light'] .hero-sheen {
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 42%,
+    rgba(255, 255, 255, 0.52) 50%,
+    rgba(255, 255, 255, 0.28) 58%,
+    transparent 100%
+  );
+}
+
+/* 标题：深红系渐变，白底等价可读 */
+:root[data-theme='light'] .hero-word-main {
+  /* 用 background-image 而非 background 简写：简写会把 background-clip:text 重置成 border-box，
+     渐变就会铺成实心色块盖住字形。 */
+  background-image: linear-gradient(172deg, #5e1c18 0%, #7d211c 22%, #a2332b 52%, #8d2a24 78%, #4a1613 100%);
+  filter: drop-shadow(0 14px 26px rgba(125, 33, 28, 0.16));
+}
+
+:root[data-theme='light'] .hero-word::before {
+  -webkit-text-stroke: 1px rgba(173, 55, 46, 0.14);
+}
+
+/* ---------------------------------------------------------------------------
+   8. 徽记（国旗徽章 → 纸面压印）
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .crest-halo {
+  background: radial-gradient(circle, rgba(214, 138, 110, 0.24), rgba(198, 120, 90, 0.1) 42%, transparent 68%);
+}
+
+:root[data-theme='light'] .crest-ring--1 {
+  background: conic-gradient(
+    from 130deg,
+    transparent 0 12%,
+    rgba(173, 55, 46, 0.55) 24%,
+    rgba(203, 160, 74, 0.9) 30%,
+    transparent 44%,
+    transparent 58%,
+    rgba(121, 87, 24, 0.45) 70%,
+    transparent 84%
+  );
+}
+
+:root[data-theme='light'] .crest-ring--2 {
+  border-color: rgba(88, 42, 38, 0.16);
+}
+
+:root[data-theme='light'] .crest-ring--3 {
+  border-color: rgba(173, 55, 46, 0.22);
+  box-shadow: inset 0 0 30px rgba(173, 55, 46, 0.06);
+}
+
+:root[data-theme='light'] .crest-tick {
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(173, 55, 46, 0.45) 0deg 0.55deg,
+    transparent 0.55deg 15deg
+  );
+  opacity: 0.4;
+}
+
+:root[data-theme='light'] .crest-core {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(173, 55, 46, 0.14), transparent 62%),
+    radial-gradient(circle at 50% 100%, rgba(198, 160, 74, 0.16), transparent 55%),
+    linear-gradient(180deg, #fffaf5, #f3e4da);
+  box-shadow:
+    inset 0 0 0 1px rgba(173, 55, 46, 0.22),
+    inset 0 -14px 30px rgba(150, 90, 70, 0.1),
+    0 18px 40px -26px rgba(84, 34, 30, 0.45);
+}
+
+:root[data-theme='light'] .crest-core::before {
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+:root[data-theme='light'] .crest-core::after {
+  border-color: rgba(121, 87, 24, 0.34);
+}
+
+:root[data-theme='light'] .crest-glyph {
+  /* 徽记字是 56–78px 的大字，按 WCAG 大字标准 3:1 校验；压深后最浅一档仍有 5.0，正文字号亦可用 */
+  background-image: linear-gradient(180deg, #7d5b18 8%, #6b4c15 48%, #4a340e 100%);
+  text-shadow: 0 2px 10px rgba(121, 87, 24, 0.18);
+}
+
+/* ---------------------------------------------------------------------------
+   9. 内页页头
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .page-head::before {
+  background: radial-gradient(circle, rgba(214, 138, 110, 0.2), transparent 66%);
+}
+
+:root[data-theme='light'] .page-head::after {
+  background-image: repeating-linear-gradient(115deg, rgba(120, 70, 60, 0.09) 0 1px, transparent 1px 26px);
+}
+
+:root[data-theme='light'] .page-head .wrap::before {
+  background: linear-gradient(180deg, rgba(173, 55, 46, 0.45), rgba(173, 55, 46, 0.06) 55%, transparent);
+}
+
+:root[data-theme='light'] .page-head .wrap::after {
+  opacity: 0.85;
+}
+
+:root[data-theme='light'] .rgn-tree {
+  --rgn: #2f6e64;
+  --rgn-soft: rgba(47, 110, 100, 0.34);
+  --rgn-faint: rgba(47, 110, 100, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+   10. 徽章 / 标签 / 状态 / 头像
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .rank-badge {
+  color: color-mix(in srgb, var(--rc) 34%, #271619);
+  background: color-mix(in srgb, var(--rc) 16%, #fffaf6);
+  border-color: color-mix(in srgb, var(--rc) 42%, rgba(88, 42, 38, 0.14));
+}
+
+:root[data-theme='light'] .rank-gem {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rc) 20%, transparent);
+}
+
+:root[data-theme='light'] .rank-count {
+  border-left-color: color-mix(in srgb, var(--rc) 42%, transparent);
+}
+
+:root[data-theme='light'] .role-tag {
+  color: color-mix(in srgb, hsl(var(--rh) 60% 38%) 60%, #271619);
+  background: hsl(var(--rh) 46% 46% / 0.1);
+  border-color: hsl(var(--rh) 52% 45% / 0.26);
+}
+
+:root[data-theme='light'] .role-dot {
+  background: hsl(var(--rh) 62% 42%);
+  box-shadow: 0 0 0 2px hsl(var(--rh) 62% 42% / 0.16);
+}
+
+:root[data-theme='light'] .tag {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .status--active {
+  color: #2a6f4d;
+}
+
+:root[data-theme='light'] .status--reserve {
+  color: #7d5f18;
+}
+
+:root[data-theme='light'] .status--honorary {
+  color: #60438d;
+}
+
+:root[data-theme='light'] .status::before {
+  box-shadow: 0 0 0 3px rgba(39, 22, 25, 0.08);
+}
+
+/* 头像：深空宝石 → 浅色琉璃（亮面 + 深字） */
+:root[data-theme='light'] .avatar {
+  background:
+    radial-gradient(circle at 32% 24%, hsl(var(--h) 62% 89%), transparent 62%),
+    radial-gradient(circle at 62% 92%, hsl(var(--h) 46% 79%), transparent 72%),
+    hsl(var(--h) 50% 85%);
+  box-shadow:
+    inset 0 0 0 1px hsl(var(--h) 42% 40% / 0.28),
+    0 6px 16px -12px rgba(84, 34, 30, 0.5);
+}
+
+:root[data-theme='light'] .avatar::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), transparent 72%);
+}
+
+:root[data-theme='light'] .avatar::after {
+  box-shadow: inset 0 0 20px hsl(var(--h) 50% 45% / 0.18);
+}
+
+:root[data-theme='light'] .avatar-letter {
+  color: hsl(var(--h) 55% 24%);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+:root[data-theme='light'] .avatar-row .avatar {
+  box-shadow:
+    0 0 0 3px var(--surface),
+    inset 0 0 0 1px hsl(var(--h) 42% 40% / 0.3);
+}
+
+/* ---------------------------------------------------------------------------
+   11. 成员卡片 / 成员页
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .mcard {
+  background-image: var(--grad-panel), linear-gradient(180deg, #fffdfa, #fbf3ec);
+}
+
+:root[data-theme='light'] .mcard::before {
+  background:
+    radial-gradient(360px 160px at 104% -8%, hsl(var(--h) 62% 55% / 0.1), transparent 68%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), transparent 34%);
+}
+
+:root[data-theme='light'] .mcard::after {
+  background: linear-gradient(90deg, transparent, hsl(var(--h) 55% 48% / 0.45), transparent);
+}
+
+:root[data-theme='light'] .mcard:hover {
+  border-color: color-mix(in srgb, hsl(var(--h) 48% 42%) 32%, var(--line-2));
+  box-shadow:
+    var(--shadow-2),
+    0 0 0 1px hsl(var(--h) 50% 45% / 0.16);
+}
+
+:root[data-theme='light'] .mcard:hover::after {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--h) 55% 45% / 0.18) 24%,
+    hsl(var(--h) 62% 38% / 0.75) 50%,
+    hsl(var(--h) 55% 45% / 0.18) 76%,
+    transparent
+  );
+}
+
+:root[data-theme='light'] .mcard-link::before {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    hsl(var(--h) 55% 50% / 0.06) 55%,
+    hsl(var(--h) 55% 45% / 0.1) 100%
+  );
+}
+
+:root[data-theme='light'] .mcard-title {
+  opacity: 1;
+}
+
+:root[data-theme='light'] .mcard-gid {
+  opacity: 1;
+}
+
+:root[data-theme='light'] .mcard-flag {
+  color: var(--gold-2);
+  background: rgba(121, 87, 24, 0.1);
+  border-color: rgba(121, 87, 24, 0.24);
+}
+
+:root[data-theme='light'] .mcard-none {
+  color: var(--muted);
+  opacity: 1;
+}
+
+:root[data-theme='light'] .mrow:hover {
+  background: rgba(173, 55, 46, 0.05);
+}
+
+:root[data-theme='light'] .chip {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .chip:hover {
+  background: rgba(173, 55, 46, 0.06);
+}
+
+:root[data-theme='light'] .roster-head--quiet {
+  --rc: #6f4a86;
+}
+
+:root[data-theme='light'] .profile::before {
+  background: radial-gradient(circle, hsl(var(--h, 190) 55% 55% / 0.12), transparent 66%);
+}
+
+:root[data-theme='light'] .profile-no {
+  opacity: 1;
+}
+
+:root[data-theme='light'] .role-detail {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), transparent);
+}
+
+:root[data-theme='light'] .aside-note {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .pager-link {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .pager-link:hover {
+  border-color: rgba(173, 55, 46, 0.35);
+  background: rgba(173, 55, 46, 0.06);
+}
+
+/* ---------------------------------------------------------------------------
+   12. 职级阶梯 / 机构卡片
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .rung,
+:root[data-theme='light'] .rlist-row {
+  --rc: #8a6a63;
+}
+
+:root[data-theme='light'] .rung-dot {
+  box-shadow:
+    0 0 0 5px var(--bg-2),
+    0 0 0 6px color-mix(in srgb, var(--rc) 32%, transparent);
+}
+
+:root[data-theme='light'] .rung-card {
+  background-image: var(--grad-panel), linear-gradient(180deg, #fffdfa, #fbf3ec);
+}
+
+:root[data-theme='light'] .rung-lv {
+  color: color-mix(in srgb, var(--rc) 26%, #271619);
+  border-color: color-mix(in srgb, var(--rc) 40%, rgba(88, 42, 38, 0.16));
+  background: color-mix(in srgb, var(--rc) 18%, #fffaf6);
+}
+
+:root[data-theme='light'] .rung-count b,
+:root[data-theme='light'] .rlist-n b {
+  color: color-mix(in srgb, var(--rc) 30%, #271619);
+}
+
+:root[data-theme='light'] .rank-count {
+  opacity: 1;
+}
+
+/* 阶梯导轨与勾选线：职级色在浅底会发白，统一压深后再混色 */
+:root[data-theme='light'] .rung-rail::before {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--rc) 32%, rgba(88, 42, 38, 0.4)),
+    var(--line)
+  );
+}
+
+:root[data-theme='light'] .rung-card::before {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--rc) 40%, rgba(88, 42, 38, 0.55)),
+    transparent
+  );
+}
+
+:root[data-theme='light'] .rung-col li::before {
+  background: color-mix(in srgb, var(--rc) 35%, rgba(88, 42, 38, 0.5));
+}
+
+:root[data-theme='light'] .rung-person,
+:root[data-theme='light'] .holder {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+:root[data-theme='light'] .rung-person:hover,
+:root[data-theme='light'] .holder:hover {
+  background: rgba(173, 55, 46, 0.06);
+}
+
+:root[data-theme='light'] .role-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), transparent);
+}
+
+:root[data-theme='light'] .role-card::before {
+  background: radial-gradient(circle, hsl(var(--rh) 60% 45% / 0.1), transparent 68%);
+}
+
+:root[data-theme='light'] .role-card:hover {
+  border-color: hsl(var(--rh) 45% 42% / 0.34);
+}
+
+:root[data-theme='light'] .role-ico {
+  background: hsl(var(--rh) 50% 45% / 0.12);
+  border-color: hsl(var(--rh) 45% 40% / 0.26);
+}
+
+/* ---------------------------------------------------------------------------
+   13. 首页数据区
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .rlist-gem {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rc) 22%, transparent);
+}
+
+:root[data-theme='light'] .rlist-bar {
+  background: rgba(88, 42, 38, 0.1);
+}
+
+:root[data-theme='light'] .rlist-fill {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--rc) 55%, #fffaf6),
+    color-mix(in srgb, var(--rc) 72%, #271619)
+  );
+  box-shadow: none;
+}
+
+:root[data-theme='light'] .rlist-fill::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+}
+
+:root[data-theme='light'] .home-quote::after {
+  background: radial-gradient(circle, rgba(121, 87, 24, 0.12), transparent);
+}
+
+:root[data-theme='light'] .home-quote-text {
+  color: var(--gold-2);
+}
+
+:root[data-theme='light'] .home-quote-sub {
+  border-top-color: rgba(121, 87, 24, 0.22);
+}
+
+/* ---------------------------------------------------------------------------
+   14. CTA / 404
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .cta-band {
+  border-color: rgba(173, 55, 46, 0.22);
+  background:
+    radial-gradient(520px 260px at 90% 0%, rgba(214, 138, 110, 0.2), transparent 70%),
+    radial-gradient(420px 240px at 0% 100%, rgba(198, 168, 96, 0.16), transparent 70%),
+    linear-gradient(180deg, #fffaf5, #f8eae0);
+}
+
+:root[data-theme='light'] .cta-band::before {
+  background: repeating-linear-gradient(90deg, rgba(120, 70, 60, 0.07) 0 1px, transparent 1px 40px);
+}
+
+:root[data-theme='light'] .cta-band::after {
+  background: linear-gradient(90deg, transparent, rgba(121, 87, 24, 0.55), transparent);
+  opacity: 0.5;
+}
+
+:root[data-theme='light'] .flag-note {
+  background: rgba(121, 87, 24, 0.09);
+  border-color: rgba(121, 87, 24, 0.26);
+}
+
+:root[data-theme='light'] .notfound::before {
+  background: radial-gradient(circle, rgba(214, 120, 100, 0.16) 0%, rgba(198, 150, 120, 0.08) 42%, transparent 68%);
+}
+
+:root[data-theme='light'] .nf-code {
+  -webkit-text-stroke: 1px rgba(173, 55, 46, 0.35);
+  background-image: linear-gradient(180deg, rgba(173, 55, 46, 0.16), transparent 78%);
+}
+
+:root[data-theme='light'] .nf-link {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .nf-link:hover {
+  background: rgba(173, 55, 46, 0.06);
+}
+
+/* ---------------------------------------------------------------------------
+   15. 疆域
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .terr-n {
+  color: var(--gold-2);
+  background: rgba(121, 87, 24, 0.1);
+  border-color: rgba(121, 87, 24, 0.24);
+}
+
+:root[data-theme='light'] .terr-chip {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .terr-chip:hover {
+  background: rgba(173, 55, 46, 0.06);
+}
+
+:root[data-theme='light'] .terr-chip--capital {
+  color: var(--gold-2);
+  border-color: rgba(121, 87, 24, 0.34);
+  background: rgba(121, 87, 24, 0.09);
+}
+
+:root[data-theme='light'] .terr-chip--metro {
+  color: var(--red-2);
+  border-color: rgba(173, 55, 46, 0.32);
+  background: rgba(173, 55, 46, 0.08);
+}
+
+/* 序号徽章压在暖底上，字色取更深一档的红，实测 5.9:1 */
+:root[data-theme='light'] .terr-badge {
+  color: var(--red-2);
+  border-color: rgba(173, 55, 46, 0.3);
+  background: rgba(173, 55, 46, 0.07);
+}
+
+:root[data-theme='light'] .terr-glyph {
+  opacity: 1;
+}
+
+:root[data-theme='light'] .terr-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent);
+}
+
+:root[data-theme='light'] .terr-card:hover {
+  box-shadow:
+    0 14px 28px -26px rgba(84, 34, 30, 0.55),
+    inset 0 0 0 1px rgba(63, 95, 140, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+   16. 机构 / 机构树
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .org-card {
+  background: var(--grad-panel), rgba(255, 251, 247, 0.72);
+}
+
+:root[data-theme='light'] .org-card::before {
+  background: radial-gradient(circle, hsl(var(--oh) 62% 45% / 0.1), transparent 70%);
+}
+
+:root[data-theme='light'] .org-card:hover {
+  border-color: hsl(var(--oh) 45% 42% / 0.38);
+  box-shadow:
+    var(--shadow-2),
+    0 0 0 1px var(--tech-line-2),
+    0 22px 48px -36px rgba(63, 95, 140, 0.3);
+}
+
+/* 机构前景色统一走 color-mix：把机构色相压到深档再与墨色混合，
+   保证 360 色相任意取值在纸面/淡色块上都能稳过 AA（实测最差 5.13）。 */
+:root[data-theme='light'] .org-ico {
+  color: color-mix(in srgb, hsl(var(--oh) 62% 40%) 54%, #271619);
+  background: hsl(var(--oh) 52% 46% / 0.12);
+  border-color: hsl(var(--oh) 45% 40% / 0.26);
+}
+
+:root[data-theme='light'] .org-kid {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+:root[data-theme='light'] .org-arrow {
+  color: color-mix(in srgb, hsl(var(--oh) 62% 40%) 54%, #271619);
+}
+
+:root[data-theme='light'] .orgtree-root {
+  border-color: hsl(var(--oh) 40% 42% / 0.26);
+  background:
+    radial-gradient(600px 140px at 8% 50%, hsl(var(--oh) 55% 50% / 0.1), transparent 70%),
+    var(--grad-panel), rgba(255, 251, 247, 0.72);
+}
+
+:root[data-theme='light'] .orgtree-root::before {
+  background: linear-gradient(90deg, hsl(var(--oh) 45% 45% / 0.4), transparent 70%);
+}
+
+:root[data-theme='light'] .orgtree-rootmark {
+  color: color-mix(in srgb, hsl(var(--oh) 62% 40%) 54%, #271619);
+  background: hsl(var(--oh) 55% 45% / 0.12);
+  border-color: hsl(var(--oh) 45% 40% / 0.28);
+}
+
+:root[data-theme='light'] .orgbranch-bar {
+  background: linear-gradient(180deg, hsl(var(--oh) 50% 45%), hsl(var(--oh) 45% 32%));
+}
+
+:root[data-theme='light'] .orgbranch-kind {
+  color: color-mix(in srgb, hsl(var(--oh) 58% 42%) 56%, #271619);
+  border-color: hsl(var(--oh) 40% 40% / 0.28);
+  background: hsl(var(--oh) 45% 45% / 0.1);
+}
+
+:root[data-theme='light'] .orgnode-body {
+  border-bottom-color: rgba(88, 42, 38, 0.1);
+}
+
+:root[data-theme='light'] .orgnode-kind {
+  color: color-mix(in srgb, hsl(var(--oh) 58% 42%) 56%, #271619);
+  background: hsl(var(--oh) 45% 45% / 0.1);
+  border-color: hsl(var(--oh) 40% 40% / 0.2);
+  opacity: 1;
+}
+
+:root[data-theme='light'] .orgnode--root > .orgnode-body::before {
+  background: linear-gradient(180deg, hsl(var(--oh) 45% 45% / 0.35), transparent);
+}
+
+:root[data-theme='light'] .orgperson {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+:root[data-theme='light'] a.orgperson:hover {
+  border-color: hsl(var(--oh) 45% 42% / 0.34);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+:root[data-theme='light'] .post-tag {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+:root[data-theme='light'] .post-tag:hover {
+  background: rgba(173, 55, 46, 0.06);
+}
+
+:root[data-theme='light'] .post-dot {
+  background: hsl(12 65% 48%);
+}
+
+:root[data-theme='light'] .post-row:hover {
+  background: rgba(173, 55, 46, 0.05);
+}
+
+:root[data-theme='light'] .presidium-person {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+:root[data-theme='light'] .presidium-person:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ---------------------------------------------------------------------------
+   17. 关于页
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .story-quote {
+  background:
+    radial-gradient(420px 240px at 100% 0%, rgba(198, 168, 96, 0.14), transparent 70%),
+    linear-gradient(180deg, var(--surface), var(--bg-2));
+}
+
+:root[data-theme='light'] .story-quote::before {
+  color: rgba(121, 87, 24, 0.18);
+}
+
+:root[data-theme='light'] .story-quote figcaption {
+  border-top-color: rgba(121, 87, 24, 0.22);
+}
+
+:root[data-theme='light'] .value-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), transparent);
+}
+
+:root[data-theme='light'] .tl-item--now::before {
+  box-shadow: 0 0 0 4px rgba(121, 87, 24, 0.18);
+}
+
+:root[data-theme='light'] .flag-figure {
+  background:
+    radial-gradient(520px 300px at 50% 0%, rgba(214, 138, 110, 0.14), transparent 70%),
+    linear-gradient(180deg, var(--surface), var(--bg-2));
+}
+
+:root[data-theme='light'] .flag-figure img {
+  border-color: rgba(88, 42, 38, 0.16);
+  box-shadow: 0 16px 34px -24px rgba(84, 34, 30, 0.55);
+}
+
+:root[data-theme='light'] .swatch-chip {
+  border-color: rgba(88, 42, 38, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+:root[data-theme='light'] .ext-link {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme='light'] .ext-link:hover {
+  background: rgba(121, 87, 24, 0.07);
+}
+
+/* ---------------------------------------------------------------------------
+   18. v4 科技层：HUD / 网格 / 扫描带 / 角标 / 刻度
+   —— 亮底不再「发光」，改用淡色块、细描边与纸面阴影
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .fx-grid {
+  background-image:
+    linear-gradient(90deg, rgba(120, 70, 60, 0.055) 0 1px, transparent 1px 76px),
+    linear-gradient(180deg, rgba(120, 70, 60, 0.045) 0 1px, transparent 1px 76px),
+    radial-gradient(900px 520px at 50% 0%, rgba(214, 138, 110, 0.1), transparent 70%);
+}
+
+:root[data-theme='light'] .fx-scan {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(63, 95, 140, 0.05) 55%,
+    rgba(121, 87, 24, 0.06) 88%,
+    transparent 100%
+  );
+}
+
+:root[data-theme='light'] .hero-hud,
+:root[data-theme='light'] .page-hud {
+  box-shadow:
+    inset 0 0 0 1px var(--tech-line),
+    0 6px 16px -14px rgba(84, 34, 30, 0.5);
+}
+
+:root[data-theme='light'] .hero-hud::before,
+:root[data-theme='light'] .page-hud::before {
+  background: linear-gradient(180deg, var(--red), rgba(173, 55, 46, 0));
+}
+
+:root[data-theme='light'] .hero-hud-dot,
+:root[data-theme='light'] .page-hud-dot {
+  box-shadow: 0 0 0 3px rgba(121, 87, 24, 0.2);
+}
+
+:root[data-theme='light'] .hero::before {  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(120, 70, 60, 0.26) 0 1px,
+    transparent 1px 14px,
+    rgba(120, 70, 60, 0.46) 14px 15px,
+    transparent 15px 42px
+  );
+  opacity: 0.32;
+}
+
+:root[data-theme='light'] .hero::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(121, 87, 24, 0.35) 18%,
+    rgba(173, 120, 50, 0.55) 50%,
+    rgba(121, 87, 24, 0.35) 82%,
+    transparent
+  );
+  opacity: 0.3;
+}
+
+:root[data-theme='light'] .hero-stats::after {
+  background-image: repeating-linear-gradient(90deg, rgba(120, 70, 60, 0.35) 0 1px, transparent 1px 7px);
+  opacity: 0.32;
+}
+
+:root[data-theme='light'] .stat::after {
+  background-image: repeating-linear-gradient(90deg, rgba(121, 87, 24, 0.5) 0 1px, transparent 1px 5px);
+  opacity: 0.3;
+}
+
+/* 数字的暖金呼吸光改为纸面投影呼吸 */
+:root[data-theme='light'] .stat-num {
+  animation: num-lift-light 7.2s ease-in-out infinite;
+}
+
+@keyframes num-lift-light {
+  0%,
+  100% {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  48% {
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9),
+      0 6px 14px rgba(84, 34, 30, 0.1);
+  }
+}
+
+/* 卡片四角 L 标：投影改为柔和落影 */
+:root[data-theme='light'] .terr-card:hover::before,
+:root[data-theme='light'] .rung-card:hover::after,
+:root[data-theme='light'] .org-card:hover::after,
+:root[data-theme='light'] .orgtree-root:hover::after,
+:root[data-theme='light'] .flag-figure:hover::after {
+  filter: drop-shadow(0 1px 2px rgba(84, 34, 30, 0.18));
+}
+
+:root[data-theme='light'] .terr-card::after {
+  background: linear-gradient(90deg, transparent, var(--tech-blue), var(--gold), transparent);
+}
+
+/* ---------------------------------------------------------------------------
+   19. 主题切换按钮（亮色下的可点面）
+   --------------------------------------------------------------------------- */
+:root[data-theme='light'] .theme-toggle {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(88, 42, 38, 0.24);
+  color: var(--muted);
+}
+
+:root[data-theme='light'] .theme-toggle:hover {
+  color: var(--red-2);
+  border-color: rgba(173, 55, 46, 0.42);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+:root[data-theme='light'] .econ-list li::before {
+  background: color-mix(in srgb, var(--red) 45%, rgba(88, 42, 38, 0.5));
+}
+
+/* ---------------------------------------------------------------------------
+   20. 打印：亮色下恢复纯白纸面，避免渐变与投影耗墨
+   --------------------------------------------------------------------------- */
+@media print {
+  :root[data-theme='light'] body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #111 !important;
+  }
+
+  :root[data-theme='light'] .panel,
+  :root[data-theme='light'] .mcard,
+  :root[data-theme='light'] .rung-card,
+  :root[data-theme='light'] .terr-card,
+  :root[data-theme='light'] .org-card,
+  :root[data-theme='light'] .orgtree-root,
+  :root[data-theme='light'] .flag-figure,
+  :root[data-theme='light'] .cta-band {
+    background: #fff !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+}

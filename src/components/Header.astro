@@ -54,5 +54,51 @@ const isCurrent = (match: string) => {
         </a>
       )
     }
+
+    <button
+      class="theme-toggle"
+      type="button"
+      data-theme-toggle
+      aria-label="切换到亮色配色"
+      title="切换到亮色配色"
+    >
+      <span class="theme-toggle-ico" aria-hidden="true"></span>
+    </button>
   </div>
 </header>
+
+<script is:inline>
+  (function () {
+    var btn = document.querySelector('[data-theme-toggle]');
+    if (!btn) return;
+
+    var root = document.documentElement;
+    var meta = document.getElementById('theme-color');
+    var LIGHT = 'light';
+
+    function current() {
+      return root.getAttribute('data-theme') === LIGHT ? LIGHT : 'dark';
+    }
+
+    function paint(theme) {
+      var light = theme === LIGHT;
+      root.setAttribute('data-theme', theme);
+      if (meta) meta.setAttribute('content', light ? '#f6efe9' : '#060c10');
+      var label = light ? '切换到暗色配色' : '切换到亮色配色';
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
+
+    paint(current());
+
+    btn.addEventListener('click', function () {
+      var next = current() === LIGHT ? 'dark' : LIGHT;
+      try {
+        localStorage.setItem('lihai-theme', next);
+      } catch (e) {
+        /* 存储不可用时仍然切换当前页 */
+      }
+      paint(next);
+    });
+  })();
+</script>
