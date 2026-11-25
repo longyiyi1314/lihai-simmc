@@ -2524,6 +2524,25 @@ button {
   color: var(--muted);
 }
 
+.role-lead {
+  margin: 8px 0 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted-2);
+}
+
+.role-lead a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  transition: border-color 0.18s;
+}
+
+.role-lead a:hover {
+  border-bottom-color: var(--gold);
+}
+
 .rung-person,
 .holder {
   display: inline-flex;

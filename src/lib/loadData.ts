@@ -115,6 +115,10 @@ function crossValidate() {
   for (const p of portfolios.portfolios)
     for (const id of p.orgIds)
       if (!orgIds.has(id)) push(`portfolios.json：${p.name} 的牵头机构 ${id} 不存在`);
+  // 职务牵头人外键
+  for (const p of portfolios.portfolios)
+    if (p.leadMemberId && !memberIds.has(p.leadMemberId))
+      push(`portfolios.json：${p.name} 的牵头人 ${p.leadMemberId} 不存在`);
 
   // 首府地名外键
   if (site.capitalPlaceId && !placeIds.has(site.capitalPlaceId))

@@ -12,6 +12,7 @@ import {
   portfolioList,
   membersOfRank,
   membersOfPortfolio,
+  memberMap,
   isPlaceholder,
   placeholderNotice,
 } from '../lib/loadData';
@@ -159,6 +160,7 @@ const rankTotal = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
       {
         portfolioList.map((role) => {
           const holders = membersOfPortfolio(role.id);
+          const lead = role.leadMemberId ? memberMap.get(role.leadMemberId) : null;
           return (
             <article class="role-card" id={`role-${role.id}`} style={`--rh:${roleHueOf(role.id)}`}>
               <div class="role-card-head">
@@ -167,6 +169,7 @@ const rankTotal = rankList.reduce((n, r) => n + membersOfRank(r.id).length, 0);
                 <span class="role-count">{holders.length} 人</span>
               </div>
               <p class="role-desc">{role.description}</p>
+              {lead && <p class="role-lead">牵头人 <a href={url(`/members/${lead.id}/`)}>{lead.displayName}</a></p>}
               {holders.length > 0 && (
                 <div class="role-holders">
                   {holders.map((m) => (

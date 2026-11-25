@@ -26,7 +26,7 @@ export const RankFileSchema = z.object({
   ranks: z.array(RankSchema),
 });
 
-/** 职务（横向职能分工）：牵头机构用 orgIds 外键，负责人由 appointments 体现 */
+/** 职务（横向职能分工）：牵头机构用 orgIds 外键，牵头人用 leadMemberId，成员侧由 appointments 体现 */
 export const PortfolioSchema = z.object({
   id,
   name: z.string().min(1),
@@ -34,6 +34,8 @@ export const PortfolioSchema = z.object({
   description: z.string().default(''),
   /** 牵头机构外键（对照 organizations.json 真实 id） */
   orgIds: z.array(z.string()).default([]),
+  /** 牵头人（成员外键，null 为未指定） */
+  leadMemberId: z.string().nullable().default(null),
 });
 
 export const PortfoliosFileSchema = z.object({

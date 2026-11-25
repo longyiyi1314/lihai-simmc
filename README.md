@@ -102,7 +102,7 @@ public/
 职级 8 级，`track` 分三条线：`party`（党务行政，6 级）、`soviet`（苏维埃代表）、`army`（武装力量）。
 每级含 `grade`（行政级别，如「部级」）、`summary`、`duties[]`、`promotion`、`limit`（人数上限，`null` 为不限）。
 
-职务 7 类：财政 / 秘书处 / 文宣 / 外交 / 劳动 / 军事 / 地区行政，`orgIds` 指向牵头机构（`data/organizations.json` 的 `id`）。牵头人不再写在职务字段里，改由成员 `appointments` 体现。
+职务 7 类：财政 / 秘书处 / 文宣 / 外交 / 劳动 / 军事 / 地区行政，`orgIds` 指向牵头机构（`data/organizations.json` 的 `id`），`leadMemberId` 指向牵头人（`data/members.json` 的 `id`，可空）。成员侧的任职关系由 `appointments` 体现。
 
 ### 地名与疆域（`data/places.json`）
 
@@ -122,7 +122,7 @@ public/
 
 ### 构建期校验
 
-构建时会做 14 项跨文件校验：`rankId`/`portfolioIds`/`appointments`/`orgIds`/`capitalPlaceId` 外键、`id` 唯一、职级名额、`status` 与 `leftAt` 一致、地名父子关系合法、`territoryTotal = 已下发 + 待下发`、`memberTotal ≥ 名录人数` 等。**写错会直接构建失败并指出具体是哪个文件哪一条**，不会静默上线错误数据。
+构建时会做 15 项跨文件校验：`rankId`/`portfolioIds`/`appointments`/`orgIds`/`leadMemberId`/`capitalPlaceId` 外键、`id` 唯一、职级名额、`status` 与 `leftAt` 一致、地名父子关系合法、`territoryTotal = 已下发 + 待下发`、`memberTotal ≥ 名录人数` 等。**写错会直接构建失败并指出具体是哪个文件哪一条**，不会静默上线错误数据。
 
 ### Excel 收集
 
@@ -134,7 +134,7 @@ public/
 | `01-组织信息.md` | 全称、成立时间、政体、节日、联系方式 | — |
 | `02-成员名单.csv` | 成员主表（13 列，含「任职」，示例 2 行） | 2 |
 | `03-职位层级.csv` | 8 级职级（含 track / grade / 人数上限） | 8 |
-| `04-职务分工.csv` | 7 类职务（含牵头机构 orgIds） | 7 |
+| `04-职务分工.csv` | 7 类职务（含牵头机构 orgIds、牵头人 leadMemberId） | 7 |
 | `05-疆域.csv` | 24 处已下发领地（按聚落规模） | 24 |
 | `06-完整成员名录.csv` | 全部 31 名成员的完整表格 | 31 |
 
