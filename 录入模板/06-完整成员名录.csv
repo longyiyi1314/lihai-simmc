@@ -1,4 +1,4 @@
-﻿id,游戏ID,展示名,称号,职位ID,职务ID,状态,离开时间,简介,擅长标签,首页精选,排序,任职
+id,游戏ID,展示名,称号,职位ID,职务ID,状态,离开时间,简介,擅长标签,首页精选,排序,任职
 qiyushi,Qiyushi,祁钰师,书记,chief,foreign|secretariat|finance|military,在任,,璃海苏维埃公社联盟首席执行委员，璃海社团的创始人，见证了璃海的前世今生，如今持续的推动着璃海的变革。,统筹计划|治理|革命理论,是,10,org:root:head|org:finance-committee:head|org:gov:head|org:culture:member|org:judiciary:member|org:mil:head|org:red-army-hq:head|org:red-guard-corps:head|place:region-linhai:head|place:commune-linhai-central:head
 foreverzzz,ForeverZzz,ForeverZzz,总裁,deputy-chief,military,在任,,璃海的技术派和战争机器，富可敌国的同时充满顽强与个性。,经济派|军事|技术,是,20,org:judiciary:member|org:mil:member|org:defense-dept:member|org:red-army-hq:member|org:falcon-corps:head|place:region-qichuan:deputy|place:commune-forever:head
 lnactifseven,Lnactifseven,Lnactifseven,政委,deputy-chief,finance|labor|military,在任,,从基层晋升到最高层的魅力领袖，负责管理国家的经贸中枢。,经贸|演艺|行政管理,是,21,org:plan:head|org:liquor-bureau:head|org:trade-bureau:member|org:finance-committee:member|org:supervision:member|org:culture:member|org:judiciary:member|org:mil:member|org:red-army-hq:member|org:arcane-corps:head|place:region-menghai:head|place:commune-mengde:head
@@ -22,7 +22,7 @@ wondertion,Wondertion,Wondertion,,specialist,,在任,,,,,70,
 miao-tao,miao_tao,miao_tao,,specialist,,在任,,,,,71,
 mcfangkuaireng,mcfangkuaireng,mcfangkuaireng,,specialist,,在任,,,,,72,place:commune-north-yudao:head
 abanice,abanice,abanice,,specialist,,在任,,恩佩里安冰晶港的领导人。,,,73,
-xmohe,xmohe,xmohe,,red-army,military,在任,,璃海的新厨师，也是璃海的战斗人员。,,,80,org:food-bureau:member|org:qichuan-cmd:member|place:region-qichuan:member
+xmohe,xmohe,xmohe,璃海八十万禁军教头,red-army,military,在任,,璃海的新厨师，也是璃海的战斗人员。,,,80,org:food-bureau:member|org:menghai-cmd:member|place:region-qichuan:member
 chu-mengg,chu_mengg,chu_mengg,,specialist,propaganda,在任,,恩佩里安冰晶港的领导者之一，协助璃海共同举办RP活动。,,,77,org:culture:member
 xindexinde,xindexinde,xindexinde,,red-army,military,在任,,,,,81,org:qichuan-cmd:member|place:region-qichuan:member|place:commune-birchvalley:head
 llong,Llong,Llong,,specialist,,在任,,,,,82,place:commune-silverhill:head

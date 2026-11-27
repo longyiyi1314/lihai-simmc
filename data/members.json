@@ -888,7 +888,7 @@
       "id": "xmohe",
       "gameId": "xmohe",
       "displayName": "xmohe",
-      "honorific": "",
+      "honorific": "璃海八十万禁军教头",
       "rankId": "red-army",
       "portfolioIds": [
         "military"
@@ -899,7 +899,7 @@
       "tags": [],
       "featured": false,
       "order": 80,
-      "updatedAt": "2026-11-24",
+      "updatedAt": "2026-11-27",
       "appointments": [
         {
           "node": "org",
@@ -908,7 +908,7 @@
         },
         {
           "node": "org",
-          "id": "qichuan-cmd",
+          "id": "menghai-cmd",
           "post": "member"
         },
         {
